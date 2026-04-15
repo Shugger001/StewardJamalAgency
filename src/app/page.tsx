@@ -181,16 +181,41 @@ export default async function Home() {
           <p className="mt-1 text-sm text-zinc-600">
             Start with a client workspace in minutes and run every delivery workflow from one platform.
           </p>
-          <div className="mt-4">
+          <div className="mt-4 flex flex-wrap gap-3">
             <Link
               href="/signup"
               className="inline-flex h-10 items-center rounded-lg bg-[#0A66FF] px-5 text-sm font-medium text-white"
             >
               Start now
             </Link>
+            <Link
+              href="/signup"
+              className="inline-flex h-10 items-center rounded-lg border border-zinc-200 bg-white px-5 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+            >
+              Book discovery call
+            </Link>
           </div>
         </div>
       </section>
+
+      <div className="fixed bottom-4 left-1/2 z-20 w-[calc(100%-1.5rem)] max-w-lg -translate-x-1/2 rounded-xl border border-[#0A66FF]/35 bg-white/95 p-3 shadow-[0_10px_35px_rgba(0,0,0,0.15)] backdrop-blur md:bottom-6">
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <p className="truncate text-xs font-semibold uppercase tracking-wide text-[#0A66FF]">
+              Free strategy session
+            </p>
+            <p className="truncate text-sm text-zinc-700">
+              Book a discovery call and get your launch roadmap.
+            </p>
+          </div>
+          <Link
+            href="/signup"
+            className="inline-flex h-9 shrink-0 items-center rounded-lg bg-[#0A66FF] px-4 text-sm font-medium text-white"
+          >
+            Book now
+          </Link>
+        </div>
+      </div>
     </main>
   );
 }
