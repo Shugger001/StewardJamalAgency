@@ -108,13 +108,14 @@ export default async function WebsitesPage() {
                 <TableHead>Client</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Created</TableHead>
+                <TableHead className="text-right">Live site</TableHead>
                 <TableHead className="text-right">Editor</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {safeWebsites.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="py-10 text-center text-zinc-500">
+                  <TableCell colSpan={6} className="py-10 text-center text-zinc-500">
                     No websites yet. Create your first website above.
                   </TableCell>
                 </TableRow>
@@ -131,6 +132,8 @@ export default async function WebsitesPage() {
                     typeof createdAtValue === "string" ? createdAtValue : null;
                   const clientId = String(website.client_id ?? website.clientId ?? "");
                   const websiteClientName = clientsById.get(clientId) ?? "Unknown client";
+                  const websiteDomain = firstString(website, ["domain"]);
+                  const liveTarget = websiteDomain || websiteId;
 
                   return (
                   <TableRow key={websiteId}>
@@ -147,6 +150,18 @@ export default async function WebsitesPage() {
                       {createdAt
                         ? new Date(createdAt).toLocaleDateString()
                         : "—"}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {liveTarget ? (
+                        <Link
+                          href={`/sites/${liveTarget}`}
+                          className="inline-flex h-8 items-center rounded-md border border-zinc-200 px-3 text-xs font-medium text-zinc-700 transition-colors hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700"
+                        >
+                          Open live site
+                        </Link>
+                      ) : (
+                        <span className="text-xs text-zinc-400">Unavailable</span>
+                      )}
                     </TableCell>
                     <TableCell className="text-right">
                       <Link

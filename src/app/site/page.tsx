@@ -30,6 +30,8 @@ function pickWebsiteTarget(rows: DbRow[]): string | null {
 }
 
 export default async function SitePage() {
+  let previewCandidates: DbRow[] = [];
+
   if (hasSupabaseServerEnv()) {
     try {
       const supabase = createSupabaseServerClient();
@@ -40,7 +42,8 @@ export default async function SitePage() {
         .limit(25);
 
       if (!websites.error) {
-        const target = pickWebsiteTarget((websites.data ?? []) as DbRow[]);
+        previewCandidates = (websites.data ?? []) as DbRow[];
+        const target = pickWebsiteTarget(previewCandidates);
         if (target) {
           redirect(`/sites/${target}`);
         }
@@ -76,6 +79,9 @@ export default async function SitePage() {
           Your public website preview is not available yet. Publish a website from dashboard, and this
           page will route directly to your live preview automatically.
         </p>
+        <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+          Open a client site directly with: <code className="font-mono">/sites/&lt;website-id-or-domain&gt;</code>
+        </div>
 
         <div className="mt-7 flex flex-wrap gap-3">
           <Link
@@ -91,6 +97,31 @@ export default async function SitePage() {
             Back to dashboard
           </Link>
         </div>
+
+        {previewCandidates.length > 0 && (
+          <div className="mt-6 rounded-xl border border-zinc-200/70 bg-white/95 p-4">
+            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              Available preview links
+            </p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {previewCandidates.slice(0, 4).map((row) => {
+                const id = firstString(row, ["id"]);
+                const domain = firstString(row, ["domain"]);
+                const target = domain || id;
+                if (!target) return null;
+                return (
+                  <Link
+                    key={target}
+                    href={`/sites/${target}`}
+                    className="inline-flex h-8 items-center rounded-md border border-zinc-200 bg-white px-3 text-xs font-medium text-zinc-700 transition-colors hover:border-[#0A66FF]/35 hover:bg-[#0A66FF]/5 hover:text-[#0A66FF]"
+                  >
+                    /sites/{target}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
