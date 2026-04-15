@@ -88,6 +88,12 @@ export async function POST(request: Request) {
     if (!profile.error) {
       role = normalizeRole(profile.data?.role) ?? role;
     }
+
+    const bootstrapRole: AppRole = role ?? "client";
+    // Bootstrap missing profile rows so first login is never blocked by role lookup.
+    await serverClient
+      .from("profiles")
+      .upsert({ id: userId, role: bootstrapRole }, { onConflict: "id" });
   }
 
   // Default least-privileged dashboard when role cannot be resolved.

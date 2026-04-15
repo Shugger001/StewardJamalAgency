@@ -56,22 +56,28 @@ function extractTokenFromRequest(request: NextRequest): string | null {
 }
 
 async function resolveRole(request: NextRequest): Promise<AppRole | null> {
+  const cookieRole = normalizeRole(
+    request.cookies.get("steward_role")?.value ?? request.cookies.get("role")?.value,
+  );
   const token = extractTokenFromRequest(request);
   if (!token) {
-    const cookieRole = normalizeRole(
-      request.cookies.get("steward_role")?.value ?? request.cookies.get("role")?.value,
-    );
     return cookieRole;
   }
   const payload = decodeJwtPayload(token);
   if (isExpired(payload)) {
     return null;
   }
+  const tokenRole = normalizeRole(
+    String(
+      (payload?.app_metadata as { role?: unknown } | undefined)?.role ??
+        (payload?.user_metadata as { role?: unknown } | undefined)?.role ??
+        payload?.role ??
+        "",
+    ),
+  );
   const userId = typeof payload?.sub === "string" ? payload.sub : null;
   if (!userId) {
-    return normalizeRole(
-      request.cookies.get("steward_role")?.value ?? request.cookies.get("role")?.value,
-    );
+    return tokenRole ?? cookieRole;
   }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -86,10 +92,10 @@ async function resolveRole(request: NextRequest): Promise<AppRole | null> {
   });
 
   const profile = await supabase.from("profiles").select("role").eq("id", userId).maybeSingle();
-  if (profile.error || !profile.data) return null;
+  if (profile.error || !profile.data) return tokenRole ?? cookieRole;
 
   const role = profile.data.role;
-  return role === "admin" || role === "staff" || role === "client" ? role : null;
+  return (role === "admin" || role === "staff" || role === "client" ? role : null) ?? tokenRole ?? cookieRole;
 }
 
 export async function middleware(request: NextRequest) {
