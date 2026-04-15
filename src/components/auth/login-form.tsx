@@ -98,6 +98,12 @@ export function LoginForm() {
           Forgot password?
         </Link>
       </div>
+      <p className="text-right text-xs text-zinc-500">
+        New here?{" "}
+        <Link href="/signup" className="font-medium text-[#0A66FF] hover:underline">
+          Sign up
+        </Link>
+      </p>
     </form>
   );
 }
