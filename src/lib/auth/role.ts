@@ -97,6 +97,9 @@ function extractSupabaseTokenFromCookieValue(value: string): string | null {
 }
 
 function extractSupabaseTokenFromCookies(cookieStore: ReadonlyRequestCookies): string | null {
+  const customToken = cookieStore.get("steward_access_token")?.value;
+  if (customToken) return customToken;
+
   const all = cookieStore.getAll();
   const candidate = all.find(
     (cookie) =>

@@ -4,6 +4,13 @@ import { createClient } from "@supabase/supabase-js";
 
 type AppRole = "admin" | "staff" | "client";
 
+function normalizeRole(value: string | null | undefined): AppRole | null {
+  if (!value) return null;
+  const lowered = value.toLowerCase();
+  if (lowered === "admin" || lowered === "staff" || lowered === "client") return lowered;
+  return null;
+}
+
 function decodeJwtPayload(token: string): Record<string, unknown> | null {
   const parts = token.split(".");
   if (parts.length < 2) return null;
@@ -19,9 +26,18 @@ function decodeJwtPayload(token: string): Record<string, unknown> | null {
   }
 }
 
+function isExpired(payload: Record<string, unknown> | null): boolean {
+  const exp = payload?.exp;
+  if (typeof exp !== "number") return false;
+  return exp <= Math.floor(Date.now() / 1000);
+}
+
 function extractTokenFromRequest(request: NextRequest): string | null {
   const auth = request.headers.get("authorization");
   if (auth?.startsWith("Bearer ")) return auth.slice(7);
+
+  const customToken = request.cookies.get("steward_access_token")?.value;
+  if (customToken) return customToken;
 
   const supabaseCookie = request.cookies
     .getAll()
@@ -41,10 +57,22 @@ function extractTokenFromRequest(request: NextRequest): string | null {
 
 async function resolveRole(request: NextRequest): Promise<AppRole | null> {
   const token = extractTokenFromRequest(request);
-  if (!token) return null;
+  if (!token) {
+    const cookieRole = normalizeRole(
+      request.cookies.get("steward_role")?.value ?? request.cookies.get("role")?.value,
+    );
+    return cookieRole;
+  }
   const payload = decodeJwtPayload(token);
+  if (isExpired(payload)) {
+    return null;
+  }
   const userId = typeof payload?.sub === "string" ? payload.sub : null;
-  if (!userId) return null;
+  if (!userId) {
+    return normalizeRole(
+      request.cookies.get("steward_role")?.value ?? request.cookies.get("role")?.value,
+    );
+  }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;

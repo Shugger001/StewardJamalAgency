@@ -25,6 +25,9 @@ function extractBearerToken(headerStore: Headers): string | null {
 }
 
 function extractSupabaseTokenFromCookies(cookieStore: ReadonlyRequestCookies): string | null {
+  const customToken = cookieStore.get("steward_access_token")?.value;
+  if (customToken) return customToken;
+
   const cookie = cookieStore
     .getAll()
     .find((entry) => entry.name.includes("sb-") && entry.name.includes("auth-token"));

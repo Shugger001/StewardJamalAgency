@@ -3,7 +3,9 @@
 import { ChevronDown, Menu, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { NotificationBell } from "@/components/notifications/notification-bell";
+import { AuthStatusChip } from "@/components/auth/auth-status-chip";
 import { cn } from "@/lib/utils";
 
 export type TopbarProps = {
@@ -12,6 +14,7 @@ export type TopbarProps = {
 };
 
 export function Topbar({ title, onMenuClick }: TopbarProps) {
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -24,6 +27,16 @@ export function Topbar({ title, onMenuClick }: TopbarProps) {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  async function handleSignOut() {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      setMenuOpen(false);
+      router.push("/login");
+      router.refresh();
+    }
+  }
 
   return (
     <header className="sticky top-0 z-30 flex h-14 shrink-0 items-center gap-3 border-b border-zinc-200/80 bg-white/90 px-4 backdrop-blur-md lg:px-6">
@@ -57,6 +70,7 @@ export function Topbar({ title, onMenuClick }: TopbarProps) {
       </div>
 
       <div className="flex shrink-0 items-center gap-1">
+        <AuthStatusChip />
         <NotificationBell />
 
         <div className="relative pl-1" ref={menuRef}>
@@ -110,7 +124,7 @@ export function Topbar({ title, onMenuClick }: TopbarProps) {
                 type="button"
                 role="menuitem"
                 className="block w-full px-3 py-2 text-left text-sm text-red-600 transition-colors hover:bg-red-50"
-                onClick={() => setMenuOpen(false)}
+                onClick={handleSignOut}
               >
                 Sign out
               </button>

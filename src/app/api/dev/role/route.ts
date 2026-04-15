@@ -9,21 +9,41 @@ function isAllowedRole(value: string): value is AppRole {
 
 function disabledResponse() {
   return NextResponse.json(
-    { error: "Dev role switcher is only available in development." },
+    { error: "Role switcher is disabled." },
     { status: 403 },
   );
 }
 
-export async function GET() {
-  if (process.env.NODE_ENV !== "development") {
+function roleFeatureEnabled() {
+  return process.env.NODE_ENV === "development" || process.env.ALLOW_DEMO_LOGIN === "true";
+}
+
+export async function GET(request: Request) {
+  if (!roleFeatureEnabled()) {
     return disabledResponse();
+  }
+
+  const url = new URL(request.url);
+  const role = url.searchParams.get("role");
+  const next = url.searchParams.get("next");
+  if (role && isAllowedRole(role)) {
+    const response = NextResponse.redirect(new URL(next || (role === "client" ? "/client-dashboard" : "/dashboard"), request.url));
+    response.cookies.set({
+      name: COOKIE_NAME,
+      value: role,
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 14,
+    });
+    return response;
   }
 
   return NextResponse.json({ ok: true }, { status: 200 });
 }
 
 export async function POST(request: Request) {
-  if (process.env.NODE_ENV !== "development") {
+  if (!roleFeatureEnabled()) {
     return disabledResponse();
   }
 
