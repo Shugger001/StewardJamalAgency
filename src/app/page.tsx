@@ -1,6 +1,17 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const cookieStore = await cookies();
+  const role = cookieStore.get("steward_role")?.value;
+  if (role === "admin" || role === "staff") {
+    redirect("/dashboard");
+  }
+  if (role === "client") {
+    redirect("/client-dashboard");
+  }
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-zinc-50 p-4">
       <section className="w-full max-w-3xl rounded-2xl border border-zinc-200 bg-white p-8">
