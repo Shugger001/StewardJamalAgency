@@ -2,6 +2,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase/server";
+import { PublicLeadForm } from "@/components/leads/public-lead-form";
 
 type DbRow = Record<string, unknown>;
 type PortfolioItem = {
@@ -273,6 +274,21 @@ export default async function Home() {
                 — Ruth Mensah, Program Manager, Northwind Collective
               </footer>
             </blockquote>
+          </div>
+        </div>
+
+        <div className="mt-10 rounded-xl border border-zinc-200/70 bg-white/92 p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
+            Get Proposal
+          </p>
+          <h3 className="mt-1 text-lg font-semibold tracking-tight text-zinc-900">
+            Tell us about your project
+          </h3>
+          <p className="mt-1 text-sm text-zinc-600">
+            Share your goals, budget, and timeline. We will send a tailored proposal.
+          </p>
+          <div className="mt-4">
+            <PublicLeadForm />
           </div>
         </div>
 
