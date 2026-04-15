@@ -37,7 +37,7 @@ const stats = [
   },
   {
     title: "Revenue (YTD)",
-    value: "$189,400",
+    value: "GH₵189,400",
     trend: "+12.4%",
     trendUp: true,
   },

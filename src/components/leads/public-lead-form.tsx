@@ -96,10 +96,10 @@ export function PublicLeadForm() {
           className="h-10 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
         >
           <option value="">Budget range</option>
-          <option value="$1k - $3k">$1k - $3k</option>
-          <option value="$3k - $7k">$3k - $7k</option>
-          <option value="$7k - $15k">$7k - $15k</option>
-          <option value="$15k+">$15k+</option>
+          <option value="GH₵5k - GH₵20k">GH₵5k - GH₵20k</option>
+          <option value="GH₵20k - GH₵60k">GH₵20k - GH₵60k</option>
+          <option value="GH₵60k - GH₵120k">GH₵60k - GH₵120k</option>
+          <option value="GH₵120k+">GH₵120k+</option>
         </select>
         <select
           name="timeline"
