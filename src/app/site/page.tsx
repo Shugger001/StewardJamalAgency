@@ -70,11 +70,11 @@ export default async function SitePage() {
           The Steward Jamal Agency
         </p>
         <h1 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl lg:text-5xl">
-          Agency operations, websites, projects, and billing in one place.
+          We design and build websites that help service brands grow.
         </h1>
         <p className="mt-4 max-w-3xl text-sm text-zinc-600 sm:text-base">
-          No public website is available yet. Create or publish a website from your dashboard,
-          then this route will open your live site preview automatically.
+          Your public website preview is not available yet. Publish a website from dashboard, and this
+          page will route directly to your live preview automatically.
         </p>
 
         <div className="mt-7 flex flex-wrap gap-3">
@@ -94,19 +94,19 @@ export default async function SitePage() {
 
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Websites managed</p>
-            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">60+</p>
-            <p className="mt-1 text-xs text-zinc-500">From brochure sites to full CMS builds.</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Projects delivered</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">120+</p>
+            <p className="mt-1 text-xs text-zinc-500">Business websites, e-commerce, and digital portals.</p>
           </div>
           <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Project visibility</p>
-            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">100%</p>
-            <p className="mt-1 text-xs text-zinc-500">Track status, updates, and next actions in one dashboard.</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Average launch time</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">3-6 weeks</p>
+            <p className="mt-1 text-xs text-zinc-500">Fast timelines with quality-focused execution.</p>
           </div>
           <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Billing confidence</p>
-            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">Real-time</p>
-            <p className="mt-1 text-xs text-zinc-500">Payments and transaction history synced instantly.</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Client satisfaction</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">95%</p>
+            <p className="mt-1 text-xs text-zinc-500">Built on transparent collaboration and outcomes.</p>
           </div>
         </div>
       </section>
@@ -115,10 +115,10 @@ export default async function SitePage() {
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <p className="truncate text-xs font-semibold uppercase tracking-wide text-[#0A66FF]">
-              Publish a website
+              Launch your website
             </p>
             <p className="truncate text-sm text-zinc-700">
-              Create or publish a site, then this page will auto-open preview.
+              Publish a site to unlock public preview automatically.
             </p>
           </div>
           <Link

@@ -32,73 +32,73 @@ export default async function Home() {
           The Steward Jamal Agency
         </p>
         <h1 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl lg:text-5xl">
-          Agency operations, websites, projects, and billing in one place.
+          We build modern websites and digital experiences that grow your business.
         </h1>
         <p className="mt-4 max-w-3xl text-sm text-zinc-600 sm:text-base">
-          Manage clients, launch websites, track payments, and keep teams aligned with a
-          production-ready dashboard built for modern agency workflows.
+          From strategy and design to development and launch, we help brands create
+          high-performing websites that look premium and convert consistently.
         </p>
 
         <div className="mt-7 flex flex-wrap gap-3">
           <Link
-            href="/login"
+            href="/signup"
             className="inline-flex h-10 items-center rounded-lg bg-[#0A66FF] px-5 text-sm font-medium text-white"
           >
-            Sign in
-          </Link>
-          <Link
-            href="/signup"
-            className="inline-flex h-10 items-center rounded-lg border border-zinc-200 bg-white px-5 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
-          >
-            Create account
+            Book consultation
           </Link>
           <Link
             href="/site"
             className="inline-flex h-10 items-center rounded-lg border border-zinc-200 bg-white px-5 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
           >
-            View public site
+            View our work
+          </Link>
+          <Link
+            href="/login"
+            className="inline-flex h-10 items-center rounded-lg border border-zinc-200 bg-white px-5 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+          >
+            Client login
           </Link>
         </div>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Websites managed</p>
-            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">60+</p>
-            <p className="mt-1 text-xs text-zinc-500">From brochure sites to full CMS builds.</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Projects delivered</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">120+</p>
+            <p className="mt-1 text-xs text-zinc-500">Marketing sites, e-commerce, and custom portals.</p>
           </div>
           <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Project visibility</p>
-            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">100%</p>
-            <p className="mt-1 text-xs text-zinc-500">Track status, updates, and next actions in one dashboard.</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Average launch time</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">3-6 weeks</p>
+            <p className="mt-1 text-xs text-zinc-500">Fast process without sacrificing quality or performance.</p>
           </div>
           <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Billing confidence</p>
-            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">Real-time</p>
-            <p className="mt-1 text-xs text-zinc-500">Payments and transaction history synced instantly.</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Client satisfaction</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">95%</p>
+            <p className="mt-1 text-xs text-zinc-500">Built on transparent communication and measurable outcomes.</p>
           </div>
         </div>
 
         <div className="mt-10 grid gap-4 lg:grid-cols-2">
           <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-5">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-700">
-              Core capabilities
+              Services
             </h2>
             <ul className="mt-3 space-y-2 text-sm text-zinc-600">
-              <li>- Client and project lifecycle management</li>
-              <li>- Website provisioning with editable CMS sections</li>
-              <li>- Secure payments, verification, and reporting</li>
-              <li>- Role-based portals for admin and clients</li>
+              <li>- Website design and front-end development</li>
+              <li>- Branding, content structure, and UX optimization</li>
+              <li>- E-commerce and booking workflow implementation</li>
+              <li>- Ongoing maintenance, updates, and support</li>
             </ul>
           </div>
           <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-5">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-700">
-              How it works
+              Our process
             </h2>
             <ol className="mt-3 space-y-2 text-sm text-zinc-600">
-              <li>1. Create clients, websites, and project scopes.</li>
-              <li>2. Collaborate through booking, updates, and messaging.</li>
-              <li>3. Launch public sites and monitor performance.</li>
-              <li>4. Close billing with transparent payment tracking.</li>
+              <li>1. Discovery call to define goals, audience, and offer.</li>
+              <li>2. Strategy + design direction tailored to your brand.</li>
+              <li>3. Development, QA, and performance optimization.</li>
+              <li>4. Launch, support, and continuous improvement.</li>
             </ol>
           </div>
         </div>
@@ -124,7 +124,7 @@ export default async function Home() {
               </p>
               <h3 className="mt-2 text-sm font-semibold text-zinc-900">Harborline Realty</h3>
               <p className="mt-2 text-xs text-zinc-600">
-                Redesigned listing workflow and lead capture to improve qualified inquiries by 38%.
+                Redesigned listing workflow and lead capture to increase qualified inquiries by 38%.
               </p>
             </article>
             <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4">
@@ -133,7 +133,7 @@ export default async function Home() {
               </p>
               <h3 className="mt-2 text-sm font-semibold text-zinc-900">Cedar & Co.</h3>
               <p className="mt-2 text-xs text-zinc-600">
-                Launched conversion-focused storefront with checkout optimization and analytics layer.
+                Launched conversion-focused storefront with checkout optimization and analytics.
               </p>
             </article>
             <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4 sm:col-span-2 lg:col-span-1">
@@ -142,7 +142,7 @@ export default async function Home() {
               </p>
               <h3 className="mt-2 text-sm font-semibold text-zinc-900">Northwind Collective</h3>
               <p className="mt-2 text-xs text-zinc-600">
-                Unified brand voice, website structure, and reporting cadence across all teams.
+                Unified brand voice and website messaging to improve positioning across channels.
               </p>
             </article>
           </div>
@@ -154,45 +154,43 @@ export default async function Home() {
           </p>
           <div className="mt-4 grid gap-4 lg:grid-cols-3">
             <blockquote className="rounded-xl border border-zinc-200/70 bg-white/95 p-4 text-sm text-zinc-600">
-              "The portal gives us a clean view of progress, billing, and deliverables without
-              chasing updates."
+              "They translated our ideas into a polished website that feels premium and performs."
               <footer className="mt-3 text-xs font-medium text-zinc-800">
-                — Amina Yusuf, Operations Lead
+                — Amina Yusuf, Operations Lead, Harborline
               </footer>
             </blockquote>
             <blockquote className="rounded-xl border border-zinc-200/70 bg-white/95 p-4 text-sm text-zinc-600">
-              "Booking support sessions and tracking website updates now takes minutes instead of
-              days."
+              "From kickoff to launch, communication was sharp and every deliverable arrived on time."
               <footer className="mt-3 text-xs font-medium text-zinc-800">
-                — Daniel Okafor, Founder
+                — Daniel Okafor, Founder, Cedar & Co.
               </footer>
             </blockquote>
             <blockquote className="rounded-xl border border-zinc-200/70 bg-white/95 p-4 text-sm text-zinc-600">
-              "Our team finally has one source of truth for clients, projects, and payment status."
+              "The quality of design and development gave our brand a serious credibility boost."
               <footer className="mt-3 text-xs font-medium text-zinc-800">
-                — Ruth Mensah, Program Manager
+                — Ruth Mensah, Program Manager, Northwind Collective
               </footer>
             </blockquote>
           </div>
         </div>
 
         <div className="mt-10 rounded-xl border border-[#0A66FF]/25 bg-[#0A66FF]/8 p-5">
-          <p className="text-sm font-semibold text-zinc-900">Ready to scale your agency operations?</p>
+          <p className="text-sm font-semibold text-zinc-900">Ready to build a website that drives results?</p>
           <p className="mt-1 text-sm text-zinc-600">
-            Start with a client workspace in minutes and run every delivery workflow from one platform.
+            Let’s map out your project goals and timeline in a focused discovery session.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <Link
               href="/signup"
               className="inline-flex h-10 items-center rounded-lg bg-[#0A66FF] px-5 text-sm font-medium text-white"
             >
-              Start now
+              Book now
             </Link>
             <Link
-              href="/signup"
+              href="/site"
               className="inline-flex h-10 items-center rounded-lg border border-zinc-200 bg-white px-5 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
             >
-              Book discovery call
+              View sample work
             </Link>
           </div>
         </div>
@@ -202,17 +200,17 @@ export default async function Home() {
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <p className="truncate text-xs font-semibold uppercase tracking-wide text-[#0A66FF]">
-              Free strategy session
+              Free discovery session
             </p>
             <p className="truncate text-sm text-zinc-700">
-              Book a discovery call and get your launch roadmap.
+              Discuss your website goals and get a launch roadmap.
             </p>
           </div>
           <Link
             href="/signup"
             className="inline-flex h-9 shrink-0 items-center rounded-lg bg-[#0A66FF] px-4 text-sm font-medium text-white"
           >
-            Book now
+            Let’s talk
           </Link>
         </div>
       </div>
