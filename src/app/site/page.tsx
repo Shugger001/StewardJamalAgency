@@ -51,8 +51,21 @@ export default async function SitePage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-zinc-50 p-4">
-      <section className="w-full max-w-3xl rounded-2xl border border-zinc-200 bg-white p-8">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-zinc-950 p-4">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=2200&q=80')",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom_right,rgba(7,16,33,0.72),rgba(8,11,18,0.58),rgba(8,102,255,0.25))]"
+      />
+
+      <section className="relative z-10 w-full max-w-3xl rounded-2xl border border-white/25 bg-white/88 p-8 shadow-[0_20px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0A66FF]">
           The Steward Jamal Agency
         </p>
