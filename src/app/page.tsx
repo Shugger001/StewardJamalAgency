@@ -1,6 +1,68 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase/server";
+
+type DbRow = Record<string, unknown>;
+type PortfolioItem = {
+  id: string;
+  name: string;
+  status: string;
+  domain: string | null;
+  clientId: string | null;
+  createdAt: string | null;
+};
+
+function firstString(row: DbRow, keys: string[]) {
+  for (const key of keys) {
+    const value = row[key];
+    if (typeof value === "string" && value.trim()) return value.trim();
+  }
+  return "";
+}
+
+async function loadPortfolioItems(): Promise<Array<PortfolioItem & { clientName: string }>> {
+  if (!hasSupabaseServerEnv()) return [];
+  try {
+    const supabase = createSupabaseServerClient();
+    const [{ data: websites }, { data: clients }] = await Promise.all([
+      supabase.from("websites").select("*").order("created_at", { ascending: false }).limit(24),
+      supabase.from("clients").select("*"),
+    ]);
+
+    const clientMap = new Map(
+      ((clients ?? []) as DbRow[]).map((row) => [
+        String(row.id ?? ""),
+        firstString(row, ["business_name", "name", "client_name", "company_name"]) || "Client",
+      ]),
+    );
+
+    const normalized = ((websites ?? []) as DbRow[]).map((row): PortfolioItem => ({
+      id: String(row.id ?? ""),
+      name: firstString(row, ["name", "website_name", "title"]) || "Website Project",
+      status: firstString(row, ["status", "state"]).toLowerCase() || "draft",
+      domain: firstString(row, ["domain"]) || null,
+      clientId: firstString(row, ["client_id", "clientId"]) || null,
+      createdAt: firstString(row, ["created_at"]) || null,
+    }));
+
+    const preferred = normalized
+      .sort((a, b) => {
+        if (a.status === "published" && b.status !== "published") return -1;
+        if (a.status !== "published" && b.status === "published") return 1;
+        return 0;
+      })
+      .slice(0, 3)
+      .map((item) => ({
+        ...item,
+        clientName: item.clientId ? clientMap.get(item.clientId) ?? "Client" : "Client",
+      }));
+
+    return preferred;
+  } catch {
+    return [];
+  }
+}
 
 export default async function Home() {
   const cookieStore = await cookies();
@@ -11,6 +73,7 @@ export default async function Home() {
   if (role === "client") {
     redirect("/client-dashboard");
   }
+  const portfolioItems = await loadPortfolioItems();
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-zinc-950 p-4 py-10 sm:py-14">
@@ -118,33 +181,72 @@ export default async function Home() {
             </Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
-                Real Estate Platform
-              </p>
-              <h3 className="mt-2 text-sm font-semibold text-zinc-900">Harborline Realty</h3>
-              <p className="mt-2 text-xs text-zinc-600">
-                Redesigned listing workflow and lead capture to increase qualified inquiries by 38%.
-              </p>
-            </article>
-            <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
-                E-commerce Build
-              </p>
-              <h3 className="mt-2 text-sm font-semibold text-zinc-900">Cedar & Co.</h3>
-              <p className="mt-2 text-xs text-zinc-600">
-                Launched conversion-focused storefront with checkout optimization and analytics.
-              </p>
-            </article>
-            <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4 sm:col-span-2 lg:col-span-1">
-              <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
-                Brand & Web Refresh
-              </p>
-              <h3 className="mt-2 text-sm font-semibold text-zinc-900">Northwind Collective</h3>
-              <p className="mt-2 text-xs text-zinc-600">
-                Unified brand voice and website messaging to improve positioning across channels.
-              </p>
-            </article>
+            {portfolioItems.length > 0 ? (
+              portfolioItems.map((item, idx) => {
+                const liveTarget = item.domain || item.id;
+                const label =
+                  idx === 0
+                    ? "Featured Project"
+                    : idx === 1
+                      ? "Recent Launch"
+                      : "Case Study";
+                return (
+                  <article
+                    key={item.id}
+                    className="rounded-xl border border-zinc-200/70 bg-white/95 p-4"
+                  >
+                    <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                      {label}
+                    </p>
+                    <h3 className="mt-2 text-sm font-semibold text-zinc-900">{item.name}</h3>
+                    <p className="mt-1 text-xs text-zinc-500">{item.clientName}</p>
+                    <p className="mt-2 text-xs text-zinc-600">
+                      {item.status === "published"
+                        ? "Live and published. Explore the public website experience."
+                        : "In progress and currently in active production workflow."}
+                    </p>
+                    <div className="mt-3">
+                      <Link
+                        href={`/sites/${liveTarget}`}
+                        className="text-xs font-medium text-[#0A66FF] hover:underline"
+                      >
+                        Open project preview
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })
+            ) : (
+              <>
+                <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4">
+                  <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                    Real Estate Platform
+                  </p>
+                  <h3 className="mt-2 text-sm font-semibold text-zinc-900">Harborline Realty</h3>
+                  <p className="mt-2 text-xs text-zinc-600">
+                    Redesigned listing workflow and lead capture to increase qualified inquiries by 38%.
+                  </p>
+                </article>
+                <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4">
+                  <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                    E-commerce Build
+                  </p>
+                  <h3 className="mt-2 text-sm font-semibold text-zinc-900">Cedar & Co.</h3>
+                  <p className="mt-2 text-xs text-zinc-600">
+                    Launched conversion-focused storefront with checkout optimization and analytics.
+                  </p>
+                </article>
+                <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4 sm:col-span-2 lg:col-span-1">
+                  <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                    Brand & Web Refresh
+                  </p>
+                  <h3 className="mt-2 text-sm font-semibold text-zinc-900">Northwind Collective</h3>
+                  <p className="mt-2 text-xs text-zinc-600">
+                    Unified brand voice and website messaging to improve positioning across channels.
+                  </p>
+                </article>
+              </>
+            )}
           </div>
         </div>
 
