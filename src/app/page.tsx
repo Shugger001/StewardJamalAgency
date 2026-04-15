@@ -13,7 +13,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-zinc-950 p-4">
+    <main className="relative min-h-screen overflow-hidden bg-zinc-950 p-4 py-10 sm:py-14">
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-cover bg-center"
@@ -27,19 +27,19 @@ export default async function Home() {
         className="absolute inset-0 bg-[linear-gradient(to_bottom_right,rgba(7,16,33,0.72),rgba(8,11,18,0.58),rgba(8,102,255,0.25))]"
       />
 
-      <section className="relative z-10 w-full max-w-3xl rounded-2xl border border-white/25 bg-white/88 p-8 shadow-[0_20px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm">
+      <section className="relative z-10 mx-auto w-full max-w-5xl rounded-2xl border border-white/25 bg-white/88 p-8 shadow-[0_20px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:p-10">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0A66FF]">
           The Steward Jamal Agency
         </p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl">
+        <h1 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl lg:text-5xl">
           Agency operations, websites, projects, and billing in one place.
         </h1>
-        <p className="mt-3 max-w-2xl text-sm text-zinc-600 sm:text-base">
+        <p className="mt-4 max-w-3xl text-sm text-zinc-600 sm:text-base">
           Manage clients, launch websites, track payments, and keep teams aligned with a
-          production-ready dashboard.
+          production-ready dashboard built for modern agency workflows.
         </p>
 
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-7 flex flex-wrap gap-3">
           <Link
             href="/login"
             className="inline-flex h-10 items-center rounded-lg bg-[#0A66FF] px-5 text-sm font-medium text-white"
@@ -52,6 +52,70 @@ export default async function Home() {
           >
             Create account
           </Link>
+          <Link
+            href="/site"
+            className="inline-flex h-10 items-center rounded-lg border border-zinc-200 bg-white px-5 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+          >
+            View public site
+          </Link>
+        </div>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Websites managed</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">60+</p>
+            <p className="mt-1 text-xs text-zinc-500">From brochure sites to full CMS builds.</p>
+          </div>
+          <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Project visibility</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">100%</p>
+            <p className="mt-1 text-xs text-zinc-500">Track status, updates, and next actions in one dashboard.</p>
+          </div>
+          <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Billing confidence</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">Real-time</p>
+            <p className="mt-1 text-xs text-zinc-500">Payments and transaction history synced instantly.</p>
+          </div>
+        </div>
+
+        <div className="mt-10 grid gap-4 lg:grid-cols-2">
+          <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-5">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-700">
+              Core capabilities
+            </h2>
+            <ul className="mt-3 space-y-2 text-sm text-zinc-600">
+              <li>- Client and project lifecycle management</li>
+              <li>- Website provisioning with editable CMS sections</li>
+              <li>- Secure payments, verification, and reporting</li>
+              <li>- Role-based portals for admin and clients</li>
+            </ul>
+          </div>
+          <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-5">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-700">
+              How it works
+            </h2>
+            <ol className="mt-3 space-y-2 text-sm text-zinc-600">
+              <li>1. Create clients, websites, and project scopes.</li>
+              <li>2. Collaborate through booking, updates, and messaging.</li>
+              <li>3. Launch public sites and monitor performance.</li>
+              <li>4. Close billing with transparent payment tracking.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div className="mt-10 rounded-xl border border-[#0A66FF]/25 bg-[#0A66FF]/8 p-5">
+          <p className="text-sm font-semibold text-zinc-900">Ready to scale your agency operations?</p>
+          <p className="mt-1 text-sm text-zinc-600">
+            Start with a client workspace in minutes and run every delivery workflow from one platform.
+          </p>
+          <div className="mt-4">
+            <Link
+              href="/signup"
+              className="inline-flex h-10 items-center rounded-lg bg-[#0A66FF] px-5 text-sm font-medium text-white"
+            >
+              Start now
+            </Link>
+          </div>
         </div>
       </section>
     </main>
