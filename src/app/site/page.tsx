@@ -174,7 +174,7 @@ export default async function SitePage() {
           <div className="mt-4 grid gap-4 lg:grid-cols-3">
             <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-5">
               <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Starter Website</p>
-              <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">GH₵15,000+</p>
+              <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">GH₵4,500</p>
               <ul className="mt-3 space-y-2 text-sm text-zinc-600">
                 <li>- Up to 5 pages</li>
                 <li>- Responsive design</li>
@@ -186,7 +186,7 @@ export default async function SitePage() {
               <p className="text-xs font-medium uppercase tracking-wide text-[#0A66FF]">
                 Growth Package
               </p>
-              <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">GH₵40,000+</p>
+              <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">GH₵6,500</p>
               <ul className="mt-3 space-y-2 text-sm text-zinc-700">
                 <li>- Custom UI/UX design system</li>
                 <li>- CMS-ready architecture</li>
@@ -196,7 +196,7 @@ export default async function SitePage() {
             </article>
             <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-5">
               <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Premium Build</p>
-              <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">GH₵90,000+</p>
+              <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">GH₵9,000</p>
               <ul className="mt-3 space-y-2 text-sm text-zinc-600">
                 <li>- Complex integrations / workflows</li>
                 <li>- Advanced performance optimization</li>
