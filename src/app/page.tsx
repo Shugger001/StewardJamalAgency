@@ -103,6 +103,79 @@ export default async function Home() {
           </div>
         </div>
 
+        <div className="mt-10">
+          <div className="mb-4 flex items-end justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
+                Portfolio Highlights
+              </p>
+              <h2 className="mt-1 text-xl font-semibold tracking-tight text-zinc-900">
+                Recent delivery wins
+              </h2>
+            </div>
+            <Link href="/site" className="text-xs font-medium text-[#0A66FF] hover:underline">
+              View all
+            </Link>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                Real Estate Platform
+              </p>
+              <h3 className="mt-2 text-sm font-semibold text-zinc-900">Harborline Realty</h3>
+              <p className="mt-2 text-xs text-zinc-600">
+                Redesigned listing workflow and lead capture to improve qualified inquiries by 38%.
+              </p>
+            </article>
+            <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                E-commerce Build
+              </p>
+              <h3 className="mt-2 text-sm font-semibold text-zinc-900">Cedar & Co.</h3>
+              <p className="mt-2 text-xs text-zinc-600">
+                Launched conversion-focused storefront with checkout optimization and analytics layer.
+              </p>
+            </article>
+            <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4 sm:col-span-2 lg:col-span-1">
+              <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                Brand & Web Refresh
+              </p>
+              <h3 className="mt-2 text-sm font-semibold text-zinc-900">Northwind Collective</h3>
+              <p className="mt-2 text-xs text-zinc-600">
+                Unified brand voice, website structure, and reporting cadence across all teams.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div className="mt-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
+            Client Testimonials
+          </p>
+          <div className="mt-4 grid gap-4 lg:grid-cols-3">
+            <blockquote className="rounded-xl border border-zinc-200/70 bg-white/95 p-4 text-sm text-zinc-600">
+              "The portal gives us a clean view of progress, billing, and deliverables without
+              chasing updates."
+              <footer className="mt-3 text-xs font-medium text-zinc-800">
+                — Amina Yusuf, Operations Lead
+              </footer>
+            </blockquote>
+            <blockquote className="rounded-xl border border-zinc-200/70 bg-white/95 p-4 text-sm text-zinc-600">
+              "Booking support sessions and tracking website updates now takes minutes instead of
+              days."
+              <footer className="mt-3 text-xs font-medium text-zinc-800">
+                — Daniel Okafor, Founder
+              </footer>
+            </blockquote>
+            <blockquote className="rounded-xl border border-zinc-200/70 bg-white/95 p-4 text-sm text-zinc-600">
+              "Our team finally has one source of truth for clients, projects, and payment status."
+              <footer className="mt-3 text-xs font-medium text-zinc-800">
+                — Ruth Mensah, Program Manager
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+
         <div className="mt-10 rounded-xl border border-[#0A66FF]/25 bg-[#0A66FF]/8 p-5">
           <p className="text-sm font-semibold text-zinc-900">Ready to scale your agency operations?</p>
           <p className="mt-1 text-sm text-zinc-600">
