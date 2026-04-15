@@ -51,7 +51,7 @@ export default async function SitePage() {
   }
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-zinc-950 p-4">
+    <main className="relative min-h-screen overflow-hidden bg-zinc-950 p-4 py-10 sm:py-14">
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-cover bg-center"
@@ -65,19 +65,19 @@ export default async function SitePage() {
         className="absolute inset-0 bg-[linear-gradient(to_bottom_right,rgba(7,16,33,0.72),rgba(8,11,18,0.58),rgba(8,102,255,0.25))]"
       />
 
-      <section className="relative z-10 w-full max-w-3xl rounded-2xl border border-white/25 bg-white/88 p-8 shadow-[0_20px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm">
+      <section className="relative z-10 mx-auto w-full max-w-5xl rounded-2xl border border-white/25 bg-white/88 p-8 shadow-[0_20px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:p-10">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0A66FF]">
           The Steward Jamal Agency
         </p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl">
+        <h1 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl lg:text-5xl">
           Agency operations, websites, projects, and billing in one place.
         </h1>
-        <p className="mt-3 max-w-2xl text-sm text-zinc-600 sm:text-base">
+        <p className="mt-4 max-w-3xl text-sm text-zinc-600 sm:text-base">
           No public website is available yet. Create or publish a website from your dashboard,
           then this route will open your live site preview automatically.
         </p>
 
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-7 flex flex-wrap gap-3">
           <Link
             href="/dashboard/websites"
             className="inline-flex h-10 items-center rounded-lg bg-[#0A66FF] px-5 text-sm font-medium text-white"
@@ -91,7 +91,44 @@ export default async function SitePage() {
             Back to dashboard
           </Link>
         </div>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Websites managed</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">60+</p>
+            <p className="mt-1 text-xs text-zinc-500">From brochure sites to full CMS builds.</p>
+          </div>
+          <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Project visibility</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">100%</p>
+            <p className="mt-1 text-xs text-zinc-500">Track status, updates, and next actions in one dashboard.</p>
+          </div>
+          <div className="rounded-xl border border-zinc-200/70 bg-white/90 p-4">
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">Billing confidence</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">Real-time</p>
+            <p className="mt-1 text-xs text-zinc-500">Payments and transaction history synced instantly.</p>
+          </div>
+        </div>
       </section>
+
+      <div className="fixed bottom-4 left-1/2 z-20 w-[calc(100%-1.5rem)] max-w-lg -translate-x-1/2 rounded-xl border border-[#0A66FF]/35 bg-white/95 p-3 shadow-[0_10px_35px_rgba(0,0,0,0.15)] backdrop-blur md:bottom-6">
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <p className="truncate text-xs font-semibold uppercase tracking-wide text-[#0A66FF]">
+              Publish a website
+            </p>
+            <p className="truncate text-sm text-zinc-700">
+              Create or publish a site, then this page will auto-open preview.
+            </p>
+          </div>
+          <Link
+            href="/dashboard/websites"
+            className="inline-flex h-9 shrink-0 items-center rounded-lg bg-[#0A66FF] px-4 text-sm font-medium text-white"
+          >
+            Open
+          </Link>
+        </div>
+      </div>
     </main>
   );
 }
