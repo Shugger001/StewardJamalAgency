@@ -3,8 +3,9 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { LoginForm } from "@/components/auth/login-form";
 
-export default function LoginPage() {
-  const role = cookies().get("steward_role")?.value;
+export default async function LoginPage() {
+  const cookieStore = await cookies();
+  const role = cookieStore.get("steward_role")?.value;
   if (role === "admin" || role === "staff") {
     redirect("/dashboard");
   }

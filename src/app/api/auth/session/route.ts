@@ -28,7 +28,7 @@ function decodeJwtExp(token: string | undefined): number | null {
 }
 
 export async function GET() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const accessToken = cookieStore.get("steward_access_token")?.value;
   const role = normalizeRole(cookieStore.get("steward_role")?.value);
   const userId = cookieStore.get("steward_user_id")?.value ?? null;
