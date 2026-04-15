@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { resolveBootstrapRole } from "@/lib/auth/admin-allowlist";
 
 type AppRole = "admin" | "staff" | "client";
 
@@ -89,7 +90,7 @@ export async function POST(request: Request) {
       role = normalizeRole(profile.data?.role) ?? role;
     }
 
-    const bootstrapRole: AppRole = role ?? "client";
+    const bootstrapRole: AppRole = resolveBootstrapRole(data.user.email, role ?? "client");
     // Bootstrap missing profile rows so first login is never blocked by role lookup.
     try {
       await serverClient
@@ -98,6 +99,7 @@ export async function POST(request: Request) {
     } catch {
       // Keep login resilient when profile schema differs from expected role model.
     }
+    role = bootstrapRole;
   }
 
   // Default least-privileged dashboard when role cannot be resolved.

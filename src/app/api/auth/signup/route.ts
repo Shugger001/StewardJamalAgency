@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { resolveBootstrapRole } from "@/lib/auth/admin-allowlist";
 
 type AppRole = "admin" | "staff" | "client";
 
@@ -99,7 +100,7 @@ export async function POST(request: Request) {
     const serverClient = createClient(supabaseUrl, serviceRoleKey, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
-    const bootstrapRole: AppRole = role ?? "client";
+    const bootstrapRole: AppRole = resolveBootstrapRole(signUp.data.user.email, role ?? "client");
     try {
       await serverClient
         .from("profiles")

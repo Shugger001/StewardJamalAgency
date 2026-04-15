@@ -7,6 +7,7 @@ Set these in Vercel project settings:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
+- `ADMIN_EMAIL_ALLOWLIST` (optional comma-separated trusted emails promoted to admin on signup/login)
 - `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY`
 - `PAYSTACK_SECRET_KEY`
 - `RESEND_API_KEY`
