@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ChevronDown, Menu, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
@@ -70,6 +71,12 @@ export function Topbar({ title, onMenuClick }: TopbarProps) {
       </div>
 
       <div className="flex shrink-0 items-center gap-1">
+        <Link
+          href="/site"
+          className="hidden h-8 items-center rounded-md border border-zinc-200 bg-white px-2.5 text-xs font-medium text-zinc-700 transition-colors hover:bg-zinc-50 sm:inline-flex"
+        >
+          View site
+        </Link>
         <AuthStatusChip />
         <NotificationBell />
 
