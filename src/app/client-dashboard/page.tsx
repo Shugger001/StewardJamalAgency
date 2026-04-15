@@ -158,9 +158,9 @@ export default async function ClientDashboardPage() {
                   className="flex items-center justify-between rounded-lg border border-zinc-100 px-3 py-2"
                 >
                   <p className="text-sm text-zinc-700">
-                    {Number(payment.amount ?? 0).toLocaleString("en-NG", {
+                    {Number(payment.amount ?? 0).toLocaleString("en-GH", {
                       style: "currency",
-                      currency: "NGN",
+                      currency: "GHS",
                     })}
                   </p>
                   <Badge variant={String(payment.status) === "success" ? "success" : "neutral"}>

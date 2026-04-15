@@ -57,7 +57,7 @@ export function PaymentsDashboard({ clients }: PaymentsDashboardProps) {
         </label>
 
         <label className="space-y-1.5">
-          <span className="text-xs font-medium text-zinc-600">Amount (NGN)</span>
+          <span className="text-xs font-medium text-zinc-600">Amount (GHS)</span>
           <input
             type="number"
             min="0"

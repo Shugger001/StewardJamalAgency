@@ -41,7 +41,7 @@ export function RevenueChart() {
             tickLine={false}
             tick={{ fill: "#71717a", fontSize: 12 }}
             tickFormatter={(v) =>
-              v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : `$${v}`
+              v >= 1000 ? `GH${(v / 1000).toFixed(0)}k` : `GH${v}`
             }
             width={48}
           />
@@ -56,9 +56,9 @@ export function RevenueChart() {
             formatter={(value) => {
               const v = typeof value === "number" ? value : Number(value);
               const formatted = Number.isFinite(v)
-                ? v.toLocaleString("en-US", {
+                ? v.toLocaleString("en-GH", {
                     style: "currency",
-                    currency: "USD",
+                    currency: "GHS",
                     maximumFractionDigits: 0,
                   })
                 : "—";

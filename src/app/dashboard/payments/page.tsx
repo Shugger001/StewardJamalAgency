@@ -121,9 +121,9 @@ export default async function PaymentsPage() {
                         {clientById.get(String(payment.client_id ?? "")) ?? "Unknown client"}
                       </TableCell>
                       <TableCell>
-                        {amount.toLocaleString("en-NG", {
+                        {amount.toLocaleString("en-GH", {
                           style: "currency",
-                          currency: "NGN",
+                          currency: "GHS",
                           maximumFractionDigits: 2,
                         })}
                       </TableCell>
