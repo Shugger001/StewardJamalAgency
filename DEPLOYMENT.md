@@ -19,12 +19,14 @@ Run migration:
 
 - `supabase/migrations/20260415_final_phase_notifications_domains.sql`
 - `supabase/migrations/20260415_auth_signup_trigger_fix.sql` (required for reliable email/password signup)
+- `supabase/migrations/20260415_client_bookings.sql` (client booking features)
 
 This creates:
 
 - `notifications` table
 - `websites.domain` column + unique index
 - resilient `auth.users -> public.profiles` new-user trigger that does not block signup
+- `bookings` table + RLS policies for client self-service booking
 
 ## Security Notes
 
