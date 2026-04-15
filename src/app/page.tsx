@@ -277,6 +277,85 @@ export default async function Home() {
           </div>
         </div>
 
+        <div className="mt-10">
+          <div className="mb-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
+              Service Packages
+            </p>
+            <h2 className="mt-1 text-xl font-semibold tracking-tight text-zinc-900">
+              Flexible options for different growth stages
+            </h2>
+          </div>
+          <div className="grid gap-4 lg:grid-cols-3">
+            <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-5">
+              <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                Starter Website
+              </p>
+              <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">$1,500+</p>
+              <ul className="mt-3 space-y-2 text-sm text-zinc-600">
+                <li>- Up to 5 pages</li>
+                <li>- Responsive design</li>
+                <li>- Basic SEO setup</li>
+                <li>- Launch support</li>
+              </ul>
+            </article>
+            <article className="rounded-xl border border-[#0A66FF]/35 bg-[#0A66FF]/8 p-5">
+              <p className="text-xs font-medium uppercase tracking-wide text-[#0A66FF]">
+                Growth Package
+              </p>
+              <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">$4,000+</p>
+              <ul className="mt-3 space-y-2 text-sm text-zinc-700">
+                <li>- Custom UI/UX design system</li>
+                <li>- CMS-ready architecture</li>
+                <li>- Conversion and analytics setup</li>
+                <li>- 30-day post-launch optimization</li>
+              </ul>
+            </article>
+            <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-5">
+              <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                Premium Build
+              </p>
+              <p className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900">$9,000+</p>
+              <ul className="mt-3 space-y-2 text-sm text-zinc-600">
+                <li>- Complex integrations / workflows</li>
+                <li>- Advanced performance optimization</li>
+                <li>- Team training and documentation</li>
+                <li>- Priority long-term support</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <div className="mt-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">FAQ</p>
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4">
+              <h3 className="text-sm font-semibold text-zinc-900">How long does a typical project take?</h3>
+              <p className="mt-2 text-sm text-zinc-600">
+                Most websites launch in 3-6 weeks depending on scope, content readiness, and integrations.
+              </p>
+            </article>
+            <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4">
+              <h3 className="text-sm font-semibold text-zinc-900">Do you provide content and copy support?</h3>
+              <p className="mt-2 text-sm text-zinc-600">
+                Yes. We help structure messaging, page hierarchy, and conversion-focused copy blocks.
+              </p>
+            </article>
+            <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4">
+              <h3 className="text-sm font-semibold text-zinc-900">Can you redesign an existing website?</h3>
+              <p className="mt-2 text-sm text-zinc-600">
+                Absolutely. We audit your current site, keep what works, and modernize what limits growth.
+              </p>
+            </article>
+            <article className="rounded-xl border border-zinc-200/70 bg-white/95 p-4">
+              <h3 className="text-sm font-semibold text-zinc-900">Do you offer maintenance after launch?</h3>
+              <p className="mt-2 text-sm text-zinc-600">
+                Yes. We offer monthly support packages for updates, enhancements, and technical monitoring.
+              </p>
+            </article>
+          </div>
+        </div>
+
         <div className="mt-10 rounded-xl border border-zinc-200/70 bg-white/92 p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
             Get Proposal
@@ -289,6 +368,32 @@ export default async function Home() {
           </p>
           <div className="mt-4">
             <PublicLeadForm />
+          </div>
+        </div>
+
+        <div className="mt-10 rounded-xl border border-zinc-200/70 bg-zinc-900 p-6 text-white">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-300">
+            Let’s build
+          </p>
+          <h3 className="mt-2 text-2xl font-semibold tracking-tight">
+            Ready to launch your next website?
+          </h3>
+          <p className="mt-2 max-w-2xl text-sm text-zinc-300">
+            Share your goals and we will send a practical roadmap with timelines, scope, and budget.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <Link
+              href="/signup"
+              className="inline-flex h-10 items-center rounded-lg bg-white px-5 text-sm font-medium text-zinc-900"
+            >
+              Start project
+            </Link>
+            <Link
+              href="/site"
+              className="inline-flex h-10 items-center rounded-lg border border-zinc-500 px-5 text-sm font-medium text-zinc-200 hover:bg-zinc-800"
+            >
+              See live previews
+            </Link>
           </div>
         </div>
 
