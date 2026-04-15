@@ -1,11 +1,16 @@
 import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
-export type AppRole = "admin" | "client" | "viewer";
+export type AppRole = "admin" | "staff" | "client" | "viewer";
 
 function normalizeRole(input: string | null | undefined): AppRole | null {
   if (!input) return null;
   const lowered = input.toLowerCase();
-  if (lowered === "admin" || lowered === "client" || lowered === "viewer") {
+  if (
+    lowered === "admin" ||
+    lowered === "staff" ||
+    lowered === "client" ||
+    lowered === "viewer"
+  ) {
     return lowered;
   }
   if (lowered === "readonly" || lowered === "read_only" || lowered === "read-only") {

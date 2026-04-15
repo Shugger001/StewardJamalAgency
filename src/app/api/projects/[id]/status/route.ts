@@ -1,4 +1,6 @@
+import { cookies, headers } from "next/headers";
 import { NextResponse } from "next/server";
+import { getRequestAuthContext } from "@/lib/auth/request-user";
 import { notifyUser } from "@/lib/notifications/service";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -13,6 +15,14 @@ type UpdateStatusBody = {
 const allowedStatus = new Set(["pending", "in_progress", "review", "completed"]);
 
 export async function PATCH(request: Request, { params }: Params) {
+  const { userId, role } = getRequestAuthContext(await cookies(), await headers());
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  }
+  if (!(role === "admin" || role === "staff")) {
+    return NextResponse.json({ error: "Forbidden." }, { status: 403 });
+  }
+
   const { id } = await params;
   const body = (await request.json().catch(() => null)) as UpdateStatusBody | null;
   const status = body?.status?.trim();

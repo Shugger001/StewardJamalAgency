@@ -42,7 +42,7 @@ export function WebsiteEditor({
   sections,
   blocks,
 }: WebsiteEditorProps) {
-  const canEditContent = role === "admin" || role === "client";
+  const canEditContent = role === "admin" || role === "staff" || role === "client";
   const [localBlocks, setLocalBlocks] = useState<EditableBlock[]>(blocks);
   const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [toast, setToast] = useState<ToastState>(null);
@@ -192,6 +192,8 @@ export function WebsiteEditor({
             <span className="font-medium text-zinc-700">
               {role === "admin"
                 ? "Admin (full access)"
+                : role === "staff"
+                  ? "Staff (editor access)"
                 : role === "client"
                   ? "Client (content only)"
                   : "Viewer (read-only)"}

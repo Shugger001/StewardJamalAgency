@@ -1,4 +1,6 @@
+import { cookies, headers } from "next/headers";
 import { NextResponse } from "next/server";
+import { getRequestAuthContext } from "@/lib/auth/request-user";
 import { notifyUser } from "@/lib/notifications/service";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -9,6 +11,14 @@ type VerifyBody = {
 };
 
 export async function POST(request: Request) {
+  const { userId, role } = getRequestAuthContext(await cookies(), await headers());
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  }
+  if (role === "viewer") {
+    return NextResponse.json({ error: "Forbidden." }, { status: 403 });
+  }
+
   const body = (await request.json().catch(() => null)) as VerifyBody | null;
   const reference = body?.reference?.trim();
   const clientId = body?.client_id?.trim();
@@ -16,6 +26,11 @@ export async function POST(request: Request) {
 
   if (!reference || !clientId || typeof amount !== "number" || amount <= 0) {
     return NextResponse.json({ error: "Invalid payload." }, { status: 400 });
+  }
+
+  // Client can only verify against their own billing identity.
+  if (role === "client" && clientId !== userId) {
+    return NextResponse.json({ error: "Forbidden client scope." }, { status: 403 });
   }
 
   const secretKey = process.env.PAYSTACK_SECRET_KEY;
