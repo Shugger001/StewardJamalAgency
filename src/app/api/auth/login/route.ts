@@ -91,9 +91,13 @@ export async function POST(request: Request) {
 
     const bootstrapRole: AppRole = role ?? "client";
     // Bootstrap missing profile rows so first login is never blocked by role lookup.
-    await serverClient
-      .from("profiles")
-      .upsert({ id: userId, role: bootstrapRole }, { onConflict: "id" });
+    try {
+      await serverClient
+        .from("profiles")
+        .upsert({ id: userId, role: bootstrapRole }, { onConflict: "id" });
+    } catch {
+      // Keep login resilient when profile schema differs from expected role model.
+    }
   }
 
   // Default least-privileged dashboard when role cannot be resolved.

@@ -76,12 +76,16 @@ export async function POST(request: Request) {
   const signUp = await authClient.auth.signUp({
     email,
     password,
-    options: { data: { role: "client" } },
   });
 
   if (signUp.error || !signUp.data.user) {
     return NextResponse.json(
-      { error: signUp.error?.message || "Unable to create account." },
+      {
+        error:
+          signUp.error?.message === "Database error saving new user"
+            ? "Unable to create account due to current database auth trigger configuration. Please contact support/admin to verify the Supabase new-user trigger."
+            : (signUp.error?.message ?? "Unable to create account."),
+      },
       { status: 400 },
     );
   }
@@ -96,9 +100,13 @@ export async function POST(request: Request) {
       auth: { persistSession: false, autoRefreshToken: false },
     });
     const bootstrapRole: AppRole = role ?? "client";
-    await serverClient
-      .from("profiles")
-      .upsert({ id: userId, role: bootstrapRole }, { onConflict: "id" });
+    try {
+      await serverClient
+        .from("profiles")
+        .upsert({ id: userId, role: bootstrapRole }, { onConflict: "id" });
+    } catch {
+      // Some projects use different profiles schemas; auth cookies still allow access.
+    }
     role = bootstrapRole;
   }
 
