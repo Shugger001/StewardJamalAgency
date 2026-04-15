@@ -1,15 +1,34 @@
 import type { Metadata } from "next";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase/server";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: "Client Dashboard",
 };
+export const dynamic = "force-dynamic";
 
 type DbRow = Record<string, unknown>;
 
 export default async function ClientDashboardPage() {
+  if (!hasSupabaseServerEnv()) {
+    return (
+      <div className="mx-auto max-w-7xl space-y-6">
+        <div>
+          <h1 className="text-lg font-semibold tracking-tight text-zinc-900">
+            Client Dashboard
+          </h1>
+          <p className="mt-1 text-sm text-zinc-500">
+            Track your latest projects, status updates, and payments.
+          </p>
+        </div>
+        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          Supabase environment variables are not configured for this deployment.
+        </div>
+      </div>
+    );
+  }
+
   const supabase = createSupabaseServerClient();
 
   // In production this should scope by authenticated client id.
