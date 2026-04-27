@@ -1,15 +1,32 @@
 import type { Metadata } from "next";
 import { AdminMessageForm } from "@/components/messages/admin-message-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Settings",
 };
 
+export const dynamic = "force-dynamic";
+
 type DbRow = Record<string, unknown>;
 
 export default async function SettingsPage() {
+  if (!hasSupabaseServerEnv()) {
+    return (
+      <div className="mx-auto max-w-7xl space-y-4">
+        <h1 className="text-lg font-semibold tracking-tight text-zinc-900">Settings</h1>
+        <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+          Supabase is not configured. Add{" "}
+          <code className="rounded bg-amber-100 px-1 py-0.5">NEXT_PUBLIC_SUPABASE_URL</code> and{" "}
+          <code className="rounded bg-amber-100 px-1 py-0.5">SUPABASE_SERVICE_ROLE_KEY</code>{" "}
+          (or <code className="rounded bg-amber-100 px-1 py-0.5">NEXT_PUBLIC_SUPABASE_ANON_KEY</code>)
+          to continue.
+        </p>
+      </div>
+    );
+  }
+
   const supabase = createSupabaseServerClient();
   const [clientsQuery, leadsQuery] = await Promise.all([
     supabase.from("clients").select("*").order("created_at", { ascending: false }),
