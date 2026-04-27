@@ -86,6 +86,29 @@ export default async function PaymentsPage() {
         </div>
       )}
 
+      {!(process.env.MOOLRE_API_USER && process.env.MOOLRE_API_KEY && process.env.MOOLRE_ACCOUNT_NUMBER) && (
+        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          Moolre name validation is not fully configured. Add{" "}
+          <code className="rounded bg-amber-100 px-1 py-0.5">MOOLRE_API_USER</code>,{" "}
+          <code className="rounded bg-amber-100 px-1 py-0.5">MOOLRE_API_KEY</code>, and{" "}
+          <code className="rounded bg-amber-100 px-1 py-0.5">MOOLRE_ACCOUNT_NUMBER</code>{" "}
+          to environment variables.
+        </div>
+      )}
+      {process.env.MOOLRE_API_USER &&
+        process.env.MOOLRE_API_KEY &&
+        process.env.MOOLRE_ACCOUNT_NUMBER &&
+        !process.env.MOOLRE_TRANSFER_ENDPOINT && (
+          <div className="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800">
+            Using default transfer endpoint{" "}
+            <code className="rounded bg-blue-100 px-1 py-0.5">
+              https://api.moolre.com/open/transact/initiate
+            </code>
+            . If your account uses a different transfer path, set{" "}
+            <code className="rounded bg-blue-100 px-1 py-0.5">MOOLRE_TRANSFER_ENDPOINT</code>.
+          </div>
+        )}
+
       <PaymentsDashboard clients={safeClients} />
 
       <section className="space-y-3">
