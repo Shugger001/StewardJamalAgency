@@ -97,8 +97,8 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
             Trusted by growth-focused teams
           </p>
-          <div className="marquee-wrap mt-3 overflow-hidden">
-            <div className="marquee-track flex w-max gap-2 text-sm text-zinc-300">
+          <div className="agency-marquee-wrap mt-3 overflow-hidden">
+            <div className="agency-marquee-track flex w-max gap-2 text-sm text-zinc-300">
               {[...brandLogos, ...brandLogos].map((name, idx) => (
                 <div
                   key={`${name}-${idx}`}
@@ -252,22 +252,6 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </div>
       </section>
 
-      <style jsx>{`
-        .marquee-wrap {
-          mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
-        }
-        .marquee-track {
-          animation: marquee 26s linear infinite;
-        }
-        @keyframes marquee {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
     </main>
   );
 }
