@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { SignUpForm } from "@/components/auth/signup-form";
-import { AuthHealthBanner } from "@/components/auth/auth-health-banner";
 
 export const metadata: Metadata = {
   title: "Sign Up",
@@ -24,10 +23,11 @@ export default async function SignUpPage() {
       <div className="w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6">
         <h1 className="text-xl font-semibold tracking-tight text-zinc-900">Create your account</h1>
         <p className="mt-2 text-sm text-zinc-500">
-          Sign up to access your role-based dashboard and manage agency operations.
+          Create an account to access your dashboard.
         </p>
-        <AuthHealthBanner />
-        <SignUpForm />
+        <div className="mt-6">
+          <SignUpForm />
+        </div>
         <div className="mt-5">
           <Link
             href="/"

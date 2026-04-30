@@ -81,7 +81,7 @@ export function SignUpForm() {
   }
 
   return (
-    <form className="mt-4 space-y-3" onSubmit={onSubmit}>
+    <form className="space-y-3" onSubmit={onSubmit}>
       <div>
         <label
           htmlFor="email"
