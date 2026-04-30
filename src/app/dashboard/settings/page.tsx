@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AdminMessageForm } from "@/components/messages/admin-message-form";
+import { TestLeadAlertButton } from "@/components/settings/test-lead-alert-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase/server";
 
@@ -60,8 +61,19 @@ export default async function SettingsPage() {
             Send an in-app notification and email to a selected client.
           </p>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
           <AdminMessageForm clients={clients} />
+          <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3">
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-600">
+              Lead Alert Test
+            </p>
+            <p className="mt-1 text-xs text-zinc-500">
+              Send a test project-request email to confirm inbox delivery.
+            </p>
+            <div className="mt-3">
+              <TestLeadAlertButton />
+            </div>
+          </div>
         </CardContent>
       </Card>
 
