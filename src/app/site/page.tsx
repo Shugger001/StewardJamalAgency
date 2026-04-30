@@ -57,5 +57,13 @@ export default async function SitePage() {
     .map((row) => firstString(row, ["domain"]) || firstString(row, ["id"]))
     .filter(Boolean);
 
-  return <AgencyLanding mode="site" portfolioItems={[]} previewTargets={previewTargets} />;
+  const portfolioItems = previewCandidates.map((row) => ({
+    id: firstString(row, ["id"]),
+    name: firstString(row, ["name", "website_name", "title"]) || "Website Project",
+    status: (firstString(row, ["status", "state"]) || "draft").toLowerCase(),
+    domain: firstString(row, ["domain"]) || null,
+    clientName: "Client",
+  }));
+
+  return <AgencyLanding mode="site" portfolioItems={portfolioItems} previewTargets={previewTargets} />;
 }

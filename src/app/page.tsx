@@ -52,7 +52,6 @@ async function loadPortfolioItems(): Promise<Array<PortfolioItem & { clientName:
         if (a.status !== "published" && b.status === "published") return 1;
         return 0;
       })
-      .slice(0, 3)
       .map((item) => ({
         ...item,
         clientName: item.clientId ? clientMap.get(item.clientId) ?? "Client" : "Client",

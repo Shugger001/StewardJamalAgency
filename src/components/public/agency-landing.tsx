@@ -341,8 +341,8 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       </section>
 
       <section id="portfolio" className="mx-auto max-w-6xl scroll-mt-20 px-4 pb-10 sm:px-6 lg:px-8">
-        <div className="grid gap-4 lg:grid-cols-3">
-          {(portfolioItems.length ? portfolioItems : []).slice(0, 3).map((item) => {
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {(portfolioItems.length ? portfolioItems : []).map((item) => {
             const target = item.domain || item.id;
             return (
               <article key={item.id} className="agency-reveal-up rounded-xl border border-white/10 bg-white/[0.04] p-5">
