@@ -59,10 +59,7 @@ export async function POST(request: Request) {
     message,
     status: "new",
   });
-
-  if (result.error) {
-    return NextResponse.json({ error: result.error.message }, { status: 400 });
-  }
+  const dbError = result.error?.message ?? null;
 
   const adminLeadEmail = process.env.LEADS_ALERT_EMAIL ?? "stewardjamalagency@gmail.com";
   const safe = (value: string) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
@@ -90,6 +87,25 @@ export async function POST(request: Request) {
   }).catch(() => {
     // Keep lead capture successful even if email provider is unavailable.
   });
+
+  if (dbError) {
+    const missingLeadsTable =
+      dbError.includes("Could not find the table 'public.leads'") ||
+      dbError.includes('relation "leads" does not exist');
+
+    if (missingLeadsTable) {
+      return NextResponse.json(
+        {
+          ok: true,
+          warning:
+            "Lead email sent, but database table is missing. Run the leads migration to enable inbox storage.",
+        },
+        { status: 201 },
+      );
+    }
+
+    return NextResponse.json({ error: dbError }, { status: 400 });
+  }
 
   return NextResponse.json({ ok: true }, { status: 201 });
 }
