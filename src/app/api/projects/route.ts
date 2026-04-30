@@ -1,4 +1,5 @@
 import { cookies, headers } from "next/headers";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { getRequestAuthContext } from "@/lib/auth/request-user";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -43,6 +44,9 @@ export async function POST(request: Request) {
   if (insert.error) {
     return NextResponse.json({ error: insert.error.message }, { status: 500 });
   }
+
+  revalidatePath("/dashboard/projects");
+  revalidatePath("/client-dashboard");
 
   return NextResponse.json({ ok: true }, { status: 201 });
 }
