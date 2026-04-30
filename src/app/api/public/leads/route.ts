@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendEmail } from "@/lib/email";
 import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase/server";
 
 type LeadPayload = {
@@ -62,6 +63,33 @@ export async function POST(request: Request) {
   if (result.error) {
     return NextResponse.json({ error: result.error.message }, { status: 400 });
   }
+
+  const adminLeadEmail = process.env.LEADS_ALERT_EMAIL ?? "stewardjamalagency@gmail.com";
+  const safe = (value: string) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+  const submittedAt = new Date().toLocaleString("en-GH", { timeZone: "Africa/Accra" });
+  const html = `
+    <h2>New Project Request</h2>
+    <p>A new lead was submitted from the public website.</p>
+    <ul>
+      <li><strong>Name:</strong> ${safe(name)}</li>
+      <li><strong>Email:</strong> ${safe(email)}</li>
+      <li><strong>Company:</strong> ${safe(company || "—")}</li>
+      <li><strong>Service:</strong> ${safe(service)}</li>
+      <li><strong>Budget:</strong> ${safe(budget || "Not specified")}</li>
+      <li><strong>Timeline:</strong> ${safe(timeline || "Not specified")}</li>
+      <li><strong>Submitted:</strong> ${safe(submittedAt)}</li>
+    </ul>
+    <p><strong>Message:</strong></p>
+    <p>${safe(message)}</p>
+  `;
+
+  await sendEmail({
+    to: adminLeadEmail,
+    subject: `New project request from ${name}`,
+    html,
+  }).catch(() => {
+    // Keep lead capture successful even if email provider is unavailable.
+  });
 
   return NextResponse.json({ ok: true }, { status: 201 });
 }
