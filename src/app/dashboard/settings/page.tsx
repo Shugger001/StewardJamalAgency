@@ -12,6 +12,19 @@ export const dynamic = "force-dynamic";
 
 type DbRow = Record<string, unknown>;
 
+function resolveLeadsLoadError(message: string | null) {
+  if (!message) return null;
+  const isMissingLeadsTable =
+    message.includes("Could not find the table 'public.leads'") ||
+    message.includes('relation "leads" does not exist');
+
+  if (isMissingLeadsTable) {
+    return "Leads inbox is not initialized yet. Run the leads table migration to enable dashboard storage. Lead emails can still be delivered.";
+  }
+
+  return message;
+}
+
 export default async function SettingsPage() {
   if (!hasSupabaseServerEnv()) {
     return (
@@ -43,7 +56,7 @@ export default async function SettingsPage() {
     name: String(client.business_name ?? "Unnamed client"),
   }));
   const leads = (leadsQuery.data ?? []) as DbRow[];
-  const leadsLoadError = leadsQuery.error?.message ?? null;
+  const leadsLoadError = resolveLeadsLoadError(leadsQuery.error?.message ?? null);
 
   return (
     <div className="mx-auto max-w-7xl space-y-6">

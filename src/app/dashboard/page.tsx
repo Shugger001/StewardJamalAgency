@@ -10,6 +10,19 @@ export const dynamic = "force-dynamic";
 
 type DbRow = Record<string, unknown>;
 
+function resolveLeadsLoadError(message: string | null) {
+  if (!message) return null;
+  const isMissingLeadsTable =
+    message.includes("Could not find the table 'public.leads'") ||
+    message.includes('relation "leads" does not exist');
+
+  if (isMissingLeadsTable) {
+    return "Leads inbox is not initialized yet. Run the leads table migration to enable dashboard storage. Lead emails can still be delivered.";
+  }
+
+  return message;
+}
+
 export default async function DashboardPage() {
   if (!hasSupabaseServerEnv()) {
     return <DashboardHome leads={[]} leadsLoadError="Supabase is not configured." />;
@@ -34,5 +47,10 @@ export default async function DashboardPage() {
     message: String(lead.message ?? ""),
   }));
 
-  return <DashboardHome leads={normalizedLeads} leadsLoadError={leadsQuery.error?.message ?? null} />;
+  return (
+    <DashboardHome
+      leads={normalizedLeads}
+      leadsLoadError={resolveLeadsLoadError(leadsQuery.error?.message ?? null)}
+    />
+  );
 }
