@@ -1,9 +1,12 @@
 import Link from "next/link";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { LoginForm } from "@/components/auth/login-form";
 
+export const dynamic = "force-dynamic";
+
 export default async function LoginPage() {
+  await headers();
   const cookieStore = await cookies();
   const role = cookieStore.get("steward_role")?.value;
   if (role === "admin" || role === "staff") {
@@ -13,54 +16,18 @@ export default async function LoginPage() {
     redirect("/client-dashboard");
   }
 
-  const demoLoginEnabled =
-    process.env.NODE_ENV === "development" || process.env.ALLOW_DEMO_LOGIN === "true";
-
   return (
     <main className="flex min-h-screen items-center justify-center bg-zinc-50 p-4">
       <div className="w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6">
         <h1 className="text-xl font-semibold tracking-tight text-zinc-900">Sign in</h1>
-        <p className="mt-2 text-sm text-zinc-500">
-          Enter your email and password to access your dashboard.
-        </p>
         <div className="mt-6">
           <LoginForm />
         </div>
-        {demoLoginEnabled && (
-          <div className="mt-4 rounded-lg border border-zinc-200 bg-zinc-50 p-3">
-            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
-              Quick Access
-            </p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              <Link
-                href="/api/dev/role?role=admin&next=/dashboard"
-                className="inline-flex h-8 items-center rounded-md border border-zinc-200 bg-white px-3 text-xs font-medium text-zinc-700"
-              >
-                Continue as Admin
-              </Link>
-              <Link
-                href="/api/dev/role?role=staff&next=/dashboard"
-                className="inline-flex h-8 items-center rounded-md border border-zinc-200 bg-white px-3 text-xs font-medium text-zinc-700"
-              >
-                Continue as Staff
-              </Link>
-              <Link
-                href="/api/dev/role?role=client&next=/client-dashboard"
-                className="inline-flex h-8 items-center rounded-md border border-zinc-200 bg-white px-3 text-xs font-medium text-zinc-700"
-              >
-                Continue as Client
-              </Link>
-            </div>
-          </div>
-        )}
-        <div className="mt-5">
-          <Link
-            href="/"
-            className="inline-flex h-9 items-center rounded-lg bg-[#0A66FF] px-4 text-sm font-medium text-white"
-          >
-            Back to home
+        <p className="mt-6 text-center text-xs text-zinc-500">
+          <Link href="/" className="font-medium text-zinc-600 underline-offset-2 hover:underline">
+            ← Back to home
           </Link>
-        </div>
+        </p>
       </div>
     </main>
   );
