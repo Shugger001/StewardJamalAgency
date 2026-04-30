@@ -1,11 +1,8 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
-import {
-  createWebsiteAction,
-  initialCreateWebsiteState,
-  type CreateWebsiteActionState,
-} from "@/app/dashboard/websites/actions";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -20,17 +17,69 @@ type CreateWebsiteFormProps = {
 };
 
 export function CreateWebsiteForm({ clients }: CreateWebsiteFormProps) {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
-  const [state, action, isPending] = useActionState<
-    CreateWebsiteActionState,
-    FormData
-  >(createWebsiteAction, initialCreateWebsiteState);
+  const [isPending, setIsPending] = useState(false);
+  const [message, setMessage] = useState<{ kind: "success" | "error"; text: string } | null>(
+    null,
+  );
 
-  useEffect(() => {
-    if (state.status === "success") {
-      formRef.current?.reset();
+  const noClients = clients.length === 0;
+
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setMessage(null);
+
+    const formEl = event.currentTarget;
+    const form = new FormData(formEl);
+    const name = String(form.get("name") ?? "").trim();
+    const client_id = String(form.get("clientId") ?? "").trim();
+    const status = String(form.get("status") ?? "").trim();
+
+    if (!name || !client_id || !status) {
+      setMessage({
+        kind: "error",
+        text: "Website name, client, and status are required.",
+      });
+      return;
     }
-  }, [state.status]);
+
+    setIsPending(true);
+    try {
+      const response = await fetch("/api/dashboard/websites", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, client_id, status }),
+      });
+
+      const data = (await response.json().catch(() => ({}))) as { error?: string };
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error("Your session expired. Sign in again.");
+        }
+        if (response.status === 403) {
+          throw new Error("You do not have permission to create websites.");
+        }
+        throw new Error(data.error || `Could not create website (${response.status}).`);
+      }
+
+      formEl.reset();
+      setMessage({
+        kind: "success",
+        text: "Website created with homepage and starter content.",
+      });
+      router.refresh();
+    } catch (error) {
+      setMessage({
+        kind: "error",
+        text: error instanceof Error ? error.message : "Failed to create website.",
+      });
+    } finally {
+      setIsPending(false);
+    }
+  }
 
   return (
     <Card>
@@ -41,7 +90,7 @@ export function CreateWebsiteForm({ clients }: CreateWebsiteFormProps) {
         </p>
       </CardHeader>
       <CardContent>
-        <form ref={formRef} action={action} className="space-y-4">
+        <form ref={formRef} onSubmit={onSubmit} className="space-y-4">
           <div className="grid gap-4 md:grid-cols-3">
             <label className="space-y-1.5">
               <span className="text-xs font-medium text-zinc-600">Website Name</span>
@@ -59,6 +108,7 @@ export function CreateWebsiteForm({ clients }: CreateWebsiteFormProps) {
                 name="clientId"
                 required
                 defaultValue=""
+                disabled={noClients}
                 className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
               >
                 <option value="" disabled>
@@ -87,26 +137,29 @@ export function CreateWebsiteForm({ clients }: CreateWebsiteFormProps) {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <Button type="submit" disabled={isPending || clients.length === 0}>
+            <Button type="submit" disabled={isPending || noClients}>
               {isPending ? "Creating website..." : "Create website"}
             </Button>
-            {clients.length === 0 && (
-              <p className="text-xs text-amber-700">
-                Add at least one client before creating websites.
-              </p>
+            {noClients && (
+              <Link
+                href="/dashboard/clients"
+                className="inline-flex h-9 items-center rounded-lg border border-zinc-200 bg-white px-3 text-xs font-medium text-zinc-700 transition-colors hover:bg-zinc-50"
+              >
+                Add client first
+              </Link>
             )}
           </div>
 
-          {state.status !== "idle" && (
+          {message && (
             <p
               className={cn(
                 "rounded-lg border px-3 py-2 text-sm",
-                state.status === "success"
+                message.kind === "success"
                   ? "border-emerald-200 bg-emerald-50 text-emerald-800"
                   : "border-red-200 bg-red-50 text-red-700",
               )}
             >
-              {state.message}
+              {message.text}
             </p>
           )}
         </form>
