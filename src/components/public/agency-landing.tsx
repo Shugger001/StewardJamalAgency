@@ -103,10 +103,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             ))}
           </nav>
           <Link
-            href={isSite ? "/dashboard/websites" : "/signup"}
+            href={isSite ? "/dashboard" : "/signup"}
             className="inline-flex h-9 items-center rounded-lg bg-[#0A66FF] px-3 text-xs font-semibold text-white"
           >
-            {isSite ? "Open Dashboard" : "Start Project"}
+            {isSite ? "Open dashboard" : "Start Project"}
           </Link>
         </div>
       </header>
@@ -127,10 +127,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
 
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
-                href={isSite ? "/dashboard/websites" : "/signup"}
+                href={isSite ? "/dashboard" : "/signup"}
                 className="inline-flex h-11 items-center rounded-lg bg-[#0A66FF] px-6 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(10,102,255,0.35)]"
               >
-                {isSite ? "Open websites dashboard" : "Start your project"}
+                {isSite ? "Open agency dashboard" : "Start your project"}
               </Link>
               <Link
                 href={isSite ? "/dashboard" : "/site"}
