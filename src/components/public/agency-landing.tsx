@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { PublicLeadForm } from "@/components/leads/public-lead-form";
 
 export type LandingPortfolioItem = {
@@ -26,6 +29,7 @@ const brandLogos = [
 
 export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: AgencyLandingProps) {
   const isSite = mode === "site";
+  const [pricingTier, setPricingTier] = useState<"standard" | "priority">("standard");
   const basePath = isSite ? "/site" : "/";
   const navItems = [
     { href: `${basePath}#services`, label: "Services" },
@@ -244,25 +248,63 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="text-xs font-semibold uppercase tracking-wider text-blue-200">Service Packages</p>
             <div className="inline-flex rounded-full border border-white/15 bg-white/5 p-1 text-xs">
-              <span className="rounded-full bg-white px-3 py-1 font-semibold text-zinc-900">Standard</span>
-              <span className="px-3 py-1 text-zinc-300">Priority</span>
+              <button
+                type="button"
+                onClick={() => setPricingTier("standard")}
+                className={`rounded-full px-3 py-1 font-semibold transition ${
+                  pricingTier === "standard"
+                    ? "bg-white text-zinc-900"
+                    : "text-zinc-300 hover:bg-white/10"
+                }`}
+              >
+                Standard
+              </button>
+              <button
+                type="button"
+                onClick={() => setPricingTier("priority")}
+                className={`rounded-full px-3 py-1 font-semibold transition ${
+                  pricingTier === "priority"
+                    ? "bg-white text-zinc-900"
+                    : "text-zinc-300 hover:bg-white/10"
+                }`}
+              >
+                Priority
+              </button>
             </div>
           </div>
           <div className="mt-4 grid gap-4 lg:grid-cols-3">
             <article className="rounded-xl border border-white/10 bg-[#081327] p-5">
               <p className="text-xs uppercase tracking-wide text-zinc-400">Starter Website</p>
-              <p className="mt-2 text-3xl font-semibold text-white">GH₵4,500</p>
-              <p className="mt-2 text-xs text-zinc-400">Ideal for lean brands that need premium fundamentals.</p>
+              <p className="mt-2 text-3xl font-semibold text-white">
+                {pricingTier === "priority" ? "GH₵5,500" : "GH₵4,500"}
+              </p>
+              <p className="mt-2 text-xs text-zinc-400">
+                {pricingTier === "priority"
+                  ? "Includes priority slot + faster first draft turnaround."
+                  : "Ideal for lean brands that need premium fundamentals."}
+              </p>
             </article>
             <article className="rounded-xl border border-[#0A66FF]/40 bg-[#0A66FF]/20 p-5">
               <p className="text-xs uppercase tracking-wide text-blue-100">Growth Package</p>
-              <p className="mt-2 text-3xl font-semibold text-white">GH₵6,500</p>
-              <p className="mt-2 text-xs text-blue-100">Most selected for scaling service teams.</p>
+              <p className="mt-2 text-3xl font-semibold text-white">
+                {pricingTier === "priority" ? "GH₵7,500" : "GH₵6,500"}
+              </p>
+              <p className="mt-2 text-xs text-blue-100">
+                {pricingTier === "priority"
+                  ? "Priority support, weekly review calls, and faster launch queue."
+                  : "Most selected for scaling service teams."}
+              </p>
             </article>
             <article className="rounded-xl border border-white/10 bg-[#081327] p-5">
               <p className="text-xs uppercase tracking-wide text-zinc-400">Premium Build</p>
-              <p className="mt-2 text-3xl font-semibold text-white">GH₵9,000</p>
-              <p className="mt-2 text-xs text-zinc-400">For high-ticket offers and advanced digital workflows.</p>
+              <p className="mt-2 text-3xl font-semibold text-white">
+                {pricingTier === "priority" ? "GH₵10,500" : "GH₵9,000"}
+              </p>
+              <p className="mt-2 text-xs text-zinc-400">
+                {pricingTier === "priority"
+                  ? "White-glove delivery with top-priority production and support."
+                  : "For high-ticket offers and advanced digital workflows."}
+              </p>
             </article>
           </div>
         </div>
