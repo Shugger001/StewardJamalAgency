@@ -26,11 +26,12 @@ const brandLogos = [
 
 export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: AgencyLandingProps) {
   const isSite = mode === "site";
+  const basePath = isSite ? "/site" : "/";
   const navItems = [
-    { href: "#services", label: "Services" },
-    { href: "#pricing", label: "Pricing" },
-    { href: "#portfolio", label: "Portfolio" },
-    { href: "#proposal", label: "Proposal" },
+    { href: `${basePath}#services`, label: "Services" },
+    { href: `${basePath}#pricing`, label: "Pricing" },
+    { href: `${basePath}#portfolio`, label: "Portfolio" },
+    { href: `${basePath}#proposal`, label: "Proposal" },
   ];
 
   return (
@@ -59,7 +60,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       <header className="sticky top-0 z-30 border-b border-white/10 bg-[#050b1a]/90 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold tracking-wide text-white">The Steward Jamal Agency</p>
-          <nav className="hidden items-center gap-5 md:flex">
+          <nav className="items-center gap-3 md:flex md:gap-5">
             {navItems.map((item) => (
               <a key={item.href} href={item.href} className="text-xs font-medium text-zinc-300 hover:text-white">
                 {item.label}
