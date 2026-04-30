@@ -13,10 +13,12 @@ export function CreateClientForm() {
   const [message, setMessage] = useState<{ kind: "success" | "error"; text: string } | null>(
     null,
   );
+  const [notice, setNotice] = useState<string | null>(null);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setMessage(null);
+    setNotice(null);
 
     const formEl = event.currentTarget;
     const form = new FormData(formEl);
@@ -40,7 +42,10 @@ export function CreateClientForm() {
         }),
       });
 
-      const data = (await response.json().catch(() => ({}))) as { error?: string };
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        warning?: string;
+      };
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -54,6 +59,7 @@ export function CreateClientForm() {
 
       formEl.reset();
       setMessage({ kind: "success", text: "Client added successfully." });
+      setNotice(data.warning ?? null);
       router.refresh();
     } catch (error) {
       setMessage({
@@ -113,6 +119,11 @@ export function CreateClientForm() {
               )}
             >
               {message.text}
+            </p>
+          )}
+          {notice && (
+            <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+              {notice}
             </p>
           )}
         </form>

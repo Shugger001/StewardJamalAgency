@@ -18,6 +18,20 @@ function supabaseErrorMessage(error: unknown): string {
   return "Database request failed.";
 }
 
+/** Supabase/PostgREST when `clients.email` was never migrated. */
+function isMissingClientsEmailColumn(message: string): boolean {
+  const lower = message.toLowerCase();
+  if (!lower.includes("email")) return false;
+  const namesClients =
+    lower.includes("clients") || lower.includes("relation \"clients\"") || lower.includes("public.clients");
+  if (!namesClients) return false;
+  return (
+    lower.includes("schema cache") ||
+    (lower.includes("could not find") && lower.includes("column")) ||
+    (lower.includes("does not exist") && lower.includes("column"))
+  );
+}
+
 export async function POST(request: Request) {
   const { userId, role } = getRequestAuthContext(await cookies(), await headers());
   if (!userId) {
@@ -46,12 +60,25 @@ export async function POST(request: Request) {
 
   try {
     const supabase = createSupabaseServerClient();
-    const insert = await supabase.from("clients").insert({
+
+    let warning: string | null = null;
+    let insert = await supabase.from("clients").insert({
       business_name: businessName,
-      email,
+      ...(email ? { email } : {}),
     });
 
-    if (insert.error) {
+    if (insert.error && email) {
+      const errMsg = supabaseErrorMessage(insert.error);
+      if (isMissingClientsEmailColumn(errMsg)) {
+        insert = await supabase.from("clients").insert({
+          business_name: businessName,
+        });
+        warning =
+          "Client was saved without email: your `clients` table has no `email` column yet. In Supabase → SQL Editor, run: alter table public.clients add column if not exists email text;";
+      } else {
+        return NextResponse.json({ error: errMsg }, { status: 400 });
+      }
+    } else if (insert.error) {
       return NextResponse.json(
         { error: supabaseErrorMessage(insert.error) },
         { status: 400 },
@@ -64,7 +91,10 @@ export async function POST(request: Request) {
     revalidatePath("/dashboard/payments");
     revalidatePath("/dashboard/settings");
 
-    return NextResponse.json({ ok: true }, { status: 201 });
+    return NextResponse.json(
+      warning ? { ok: true as const, warning } : { ok: true as const },
+      { status: 201 },
+    );
   } catch (error) {
     return NextResponse.json(
       { error: supabaseErrorMessage(error) },
