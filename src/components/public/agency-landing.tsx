@@ -40,7 +40,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2200&q=80')",
+            "url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2200&q=80')",
         }}
       />
       <div
