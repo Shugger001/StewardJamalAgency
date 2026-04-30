@@ -16,6 +16,22 @@ import {
 import { RevenueChart } from "@/components/dashboard/revenue-chart";
 import { cn } from "@/lib/utils";
 
+type LeadItem = {
+  id: string;
+  name: string;
+  email: string;
+  service: string;
+  budget: string;
+  timeline: string;
+  status: string;
+  message: string;
+};
+
+type DashboardHomeProps = {
+  leads: LeadItem[];
+  leadsLoadError?: string | null;
+};
+
 const stats = [
   {
     title: "Total clients",
@@ -92,7 +108,7 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-export function DashboardHome() {
+export function DashboardHome({ leads, leadsLoadError = null }: DashboardHomeProps) {
   return (
     <div className="mx-auto max-w-7xl space-y-8">
       <motion.div
@@ -191,6 +207,57 @@ export function DashboardHome() {
             </TableBody>
           </Table>
         </TableWrap>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-sm font-semibold text-zinc-900">Recent project requests</h2>
+        </div>
+        {leadsLoadError ? (
+          <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+            Requests unavailable: {leadsLoadError}
+          </p>
+        ) : leads.length === 0 ? (
+          <p className="rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-500">
+            No project requests yet.
+          </p>
+        ) : (
+          <TableWrap>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Client</TableHead>
+                  <TableHead>Service</TableHead>
+                  <TableHead>Budget</TableHead>
+                  <TableHead>Status</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {leads.map((lead) => (
+                  <TableRow key={lead.id}>
+                    <TableCell className="font-medium">
+                      <div className="space-y-0.5">
+                        <p className="text-zinc-900">{lead.name}</p>
+                        <p className="text-xs text-zinc-500">{lead.email}</p>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-zinc-600">{lead.service}</TableCell>
+                    <TableCell className="text-zinc-600">{lead.budget}</TableCell>
+                    <TableCell>
+                      <Badge variant={lead.status === "new" ? "warning" : "neutral"}>
+                        {lead.status}
+                      </Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableWrap>
+        )}
       </motion.div>
     </div>
   );
