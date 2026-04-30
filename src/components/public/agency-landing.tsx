@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PublicLeadForm } from "@/components/leads/public-lead-form";
 
 export type LandingPortfolioItem = {
@@ -37,6 +37,36 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
     { href: `${basePath}#portfolio`, label: "Portfolio" },
     { href: `${basePath}#proposal`, label: "Proposal" },
   ];
+
+  useEffect(() => {
+    function syncTierFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const tierFromUrl = params.get("tier");
+      if (tierFromUrl === "priority" || tierFromUrl === "standard") {
+        setPricingTier(tierFromUrl);
+      } else {
+        setPricingTier("standard");
+      }
+    }
+
+    syncTierFromUrl();
+    window.addEventListener("popstate", syncTierFromUrl);
+    return () => window.removeEventListener("popstate", syncTierFromUrl);
+  }, []);
+
+  function handleTierChange(nextTier: "standard" | "priority") {
+    setPricingTier(nextTier);
+    const params = new URLSearchParams(window.location.search);
+    if (nextTier === "standard") {
+      params.delete("tier");
+    } else {
+      params.set("tier", nextTier);
+    }
+    const query = params.toString();
+    const hash = window.location.hash;
+    const nextUrl = `${window.location.pathname}${query ? `?${query}` : ""}${hash}`;
+    window.history.replaceState({}, "", nextUrl);
+  }
 
   return (
     <main className="relative overflow-hidden bg-[#050b1a] text-zinc-100">
@@ -250,7 +280,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             <div className="inline-flex rounded-full border border-white/15 bg-white/5 p-1 text-xs">
               <button
                 type="button"
-                onClick={() => setPricingTier("standard")}
+                onClick={() => handleTierChange("standard")}
                 className={`rounded-full px-3 py-1 font-semibold transition ${
                   pricingTier === "standard"
                     ? "bg-white text-zinc-900"
@@ -261,7 +291,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               </button>
               <button
                 type="button"
-                onClick={() => setPricingTier("priority")}
+                onClick={() => handleTierChange("priority")}
                 className={`rounded-full px-3 py-1 font-semibold transition ${
                   pricingTier === "priority"
                     ? "bg-white text-zinc-900"
