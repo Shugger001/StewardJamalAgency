@@ -1,27 +1,69 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
-import {
-  createClientAction,
-  initialCreateClientState,
-  type CreateClientActionState,
-} from "@/app/dashboard/clients/actions";
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 export function CreateClientForm() {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
-  const [state, action, isPending] = useActionState<CreateClientActionState, FormData>(
-    createClientAction,
-    initialCreateClientState,
+  const [isPending, setIsPending] = useState(false);
+  const [message, setMessage] = useState<{ kind: "success" | "error"; text: string } | null>(
+    null,
   );
 
-  useEffect(() => {
-    if (state.status === "success") {
-      formRef.current?.reset();
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setMessage(null);
+
+    const formEl = event.currentTarget;
+    const form = new FormData(formEl);
+    const business_name = String(form.get("businessName") ?? "").trim();
+    const emailRaw = String(form.get("email") ?? "").trim();
+
+    if (!business_name) {
+      setMessage({ kind: "error", text: "Business name is required." });
+      return;
     }
-  }, [state.status]);
+
+    setIsPending(true);
+    try {
+      const response = await fetch("/api/dashboard/clients", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          business_name,
+          email: emailRaw || null,
+        }),
+      });
+
+      const data = (await response.json().catch(() => ({}))) as { error?: string };
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error("Your session expired. Sign in again.");
+        }
+        if (response.status === 403) {
+          throw new Error("You do not have permission to add clients.");
+        }
+        throw new Error(data.error || `Could not add client (${response.status}).`);
+      }
+
+      formEl.reset();
+      setMessage({ kind: "success", text: "Client added successfully." });
+      router.refresh();
+    } catch (error) {
+      setMessage({
+        kind: "error",
+        text: error instanceof Error ? error.message : "Failed to add client.",
+      });
+    } finally {
+      setIsPending(false);
+    }
+  }
 
   return (
     <Card>
@@ -32,7 +74,7 @@ export function CreateClientForm() {
         </p>
       </CardHeader>
       <CardContent>
-        <form ref={formRef} action={action} className="space-y-4">
+        <form ref={formRef} onSubmit={onSubmit} className="space-y-4">
           <div className="grid gap-4 md:grid-cols-3">
             <label className="space-y-1.5 md:col-span-2">
               <span className="text-xs font-medium text-zinc-600">Business name</span>
@@ -61,16 +103,16 @@ export function CreateClientForm() {
             </Button>
           </div>
 
-          {state.status !== "idle" && (
+          {message && (
             <p
               className={cn(
                 "rounded-lg border px-3 py-2 text-sm",
-                state.status === "success"
+                message.kind === "success"
                   ? "border-emerald-200 bg-emerald-50 text-emerald-800"
                   : "border-red-200 bg-red-50 text-red-700",
               )}
             >
-              {state.message}
+              {message.text}
             </p>
           )}
         </form>
