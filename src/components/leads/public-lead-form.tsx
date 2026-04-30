@@ -19,7 +19,8 @@ export function PublicLeadForm() {
     event.preventDefault();
     setState({ loading: true, error: null, success: null });
 
-    const form = new FormData(event.currentTarget);
+    const formEl = event.currentTarget;
+    const form = new FormData(formEl);
     const payload = {
       name: String(form.get("name") ?? ""),
       email: String(form.get("email") ?? ""),
@@ -40,7 +41,7 @@ export function PublicLeadForm() {
       const data = (await response.json().catch(() => ({}))) as { error?: string };
       if (!response.ok) throw new Error(data.error || "Unable to submit your request.");
 
-      (event.currentTarget as HTMLFormElement).reset();
+      formEl.reset();
       setState({
         loading: false,
         error: null,
