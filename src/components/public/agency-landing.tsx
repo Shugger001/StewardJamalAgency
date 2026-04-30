@@ -38,7 +38,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
     <main className="relative overflow-hidden bg-[#050b1a] text-zinc-100">
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-cover bg-center"
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center"
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2200&q=80')",
@@ -46,17 +46,17 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_bottom_right,rgba(2,6,23,0.9),rgba(2,6,23,0.82),rgba(10,102,255,0.32))]"
+        className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_bottom_right,rgba(2,6,23,0.9),rgba(2,6,23,0.82),rgba(10,102,255,0.32))]"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-28 top-20 h-80 w-80 rounded-full bg-[#0A66FF]/20 blur-3xl"
+        className="pointer-events-none absolute -left-28 top-20 z-0 h-80 w-80 rounded-full bg-[#0A66FF]/20 blur-3xl"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-24 top-64 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl"
+        className="pointer-events-none absolute -right-24 top-64 z-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl"
       />
-
+      <div className="relative z-10">
       <header className="sticky top-0 z-30 border-b border-white/10 bg-[#050b1a]/90 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold tracking-wide text-white">The Steward Jamal Agency</p>
@@ -341,7 +341,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
         </div>
       </section>
-
+      </div>
     </main>
   );
 }
