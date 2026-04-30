@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CreateWebsiteForm } from "@/components/forms/create-website-form";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -86,7 +86,7 @@ export default async function WebsitesPage() {
       <div>
         <h1 className="text-lg font-semibold tracking-tight text-zinc-900">Websites</h1>
         <p className="mt-1 text-sm text-zinc-500">
-          Create sites, link clients, and track publishing status.
+          View and manage sites that exist in your database. New builds are done in Cursor, not here.
         </p>
       </div>
 
@@ -96,7 +96,26 @@ export default async function WebsitesPage() {
         </div>
       )}
 
-      <CreateWebsiteForm clients={safeClients} />
+      <Card className="border-zinc-200">
+        <CardHeader>
+          <CardTitle className="text-zinc-900">How websites are created</CardTitle>
+          <p className="text-sm text-zinc-500">
+            Client websites are built and deployed using{" "}
+            <span className="font-medium text-zinc-700">Cursor</span> (your editor and repo
+            workflow), not through a &quot;create website&quot; form in this dashboard.
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-2 text-sm text-zinc-600">
+          <p>
+            This screen only shows rows already stored in Supabase so you can open previews, the
+            CMS editor, and client links when those records exist.
+          </p>
+          <p className="text-xs text-zinc-500">
+            Need a row for a new project? Add it in Supabase (or your migration process)—this app
+            does not scaffold new sites from the UI.
+          </p>
+        </CardContent>
+      </Card>
 
       <section className="space-y-3">
         <h2 className="text-sm font-semibold text-zinc-900">All websites</h2>
@@ -116,7 +135,8 @@ export default async function WebsitesPage() {
               {safeWebsites.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={6} className="py-10 text-center text-zinc-500">
-                    No websites yet. Create your first website above.
+                    No websites in the database yet. Sites are built in Cursor; add records in
+                    Supabase when you want them to appear here.
                   </TableCell>
                 </TableRow>
               ) : (
