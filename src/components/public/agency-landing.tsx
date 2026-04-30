@@ -37,6 +37,18 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
     <main className="relative overflow-hidden bg-[#050b1a] text-zinc-100">
       <div
         aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2200&q=80')",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom_right,rgba(2,6,23,0.9),rgba(2,6,23,0.82),rgba(10,102,255,0.32))]"
+      />
+      <div
+        aria-hidden="true"
         className="pointer-events-none absolute -left-28 top-20 h-80 w-80 rounded-full bg-[#0A66FF]/20 blur-3xl"
       />
       <div
