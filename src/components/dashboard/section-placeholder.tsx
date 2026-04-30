@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -9,6 +10,8 @@ type SectionPlaceholderProps = {
   title: string;
   description: string;
   actionLabel?: string;
+  actionHref?: string;
+  onActionClick?: () => void;
   className?: string;
 };
 
@@ -16,8 +19,13 @@ export function SectionPlaceholder({
   title,
   description,
   actionLabel = "Add item",
+  actionHref,
+  onActionClick,
   className,
 }: SectionPlaceholderProps) {
+  const router = useRouter();
+  const hasAction = Boolean(actionHref || onActionClick);
+
   return (
     <div className={cn("mx-auto max-w-7xl space-y-6", className)}>
       <div>
@@ -43,7 +51,21 @@ export function SectionPlaceholder({
               Nothing here yet
             </h2>
             <p className="mt-1 max-w-sm text-sm text-zinc-500">{description}</p>
-            <Button variant="primary" className="mt-6" type="button">
+            <Button
+              variant="primary"
+              className="mt-6"
+              type="button"
+              disabled={!hasAction}
+              onClick={() => {
+                if (onActionClick) {
+                  onActionClick();
+                  return;
+                }
+                if (actionHref) {
+                  router.push(actionHref);
+                }
+              }}
+            >
               {actionLabel}
             </Button>
           </CardContent>

@@ -81,7 +81,7 @@ export default async function ClientDashboardPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card id="upcoming-bookings">
           <CardHeader>
             <CardTitle className="text-zinc-900">Upcoming Bookings</CardTitle>
           </CardHeader>

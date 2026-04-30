@@ -37,13 +37,13 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
             >
               Overview
             </Link>
-            <button
-              type="button"
+            <Link
+              href="/client-dashboard#upcoming-bookings"
               className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 text-zinc-600 transition-colors hover:bg-zinc-50"
-              aria-label="Notifications"
+              aria-label="View upcoming bookings"
             >
               <Bell className="h-4 w-4" />
-            </button>
+            </Link>
             <button
               type="button"
               onClick={handleSignOut}

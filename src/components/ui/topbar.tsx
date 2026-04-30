@@ -115,7 +115,10 @@ export function Topbar({ title, onMenuClick }: TopbarProps) {
                 type="button"
                 role="menuitem"
                 className="block w-full px-3 py-2 text-left text-sm text-zinc-700 transition-colors hover:bg-zinc-50"
-                onClick={() => setMenuOpen(false)}
+                onClick={() => {
+                  setMenuOpen(false);
+                  router.push("/dashboard/settings");
+                }}
               >
                 Profile
               </button>
@@ -123,7 +126,10 @@ export function Topbar({ title, onMenuClick }: TopbarProps) {
                 type="button"
                 role="menuitem"
                 className="block w-full px-3 py-2 text-left text-sm text-zinc-700 transition-colors hover:bg-zinc-50"
-                onClick={() => setMenuOpen(false)}
+                onClick={() => {
+                  setMenuOpen(false);
+                  router.push("/dashboard/settings");
+                }}
               >
                 Preferences
               </button>

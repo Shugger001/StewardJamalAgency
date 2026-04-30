@@ -11,6 +11,7 @@ export default function AnalyticsPage() {
       title="Analytics"
       description="Deeper funnel and channel analytics will live here alongside your dashboard overview."
       actionLabel="Configure goals"
+      actionHref="/dashboard/settings"
     />
   );
 }
