@@ -30,6 +30,7 @@ const brandLogos = [
 export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: AgencyLandingProps) {
   const isSite = mode === "site";
   const [pricingTier, setPricingTier] = useState<"standard" | "priority">("standard");
+  const [paymentMethod, setPaymentMethod] = useState<"momo" | "card">("momo");
   const basePath = isSite ? "/site" : "/";
   const navItems = [
     { href: `${basePath}#services`, label: "Services" },
@@ -236,10 +237,34 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               <p className="text-xs font-medium uppercase tracking-wide text-blue-200">Secure Payment</p>
               <p className="mt-2 text-2xl font-semibold text-white">Order Total: GH₵150.00</p>
               <div className="mt-3 space-y-2 text-xs text-zinc-200">
-                <p className="rounded-md border border-white/15 bg-white/5 px-3 py-2">Mobile Money (MTN, Telecel, AT)</p>
-                <p className="rounded-md border border-white/15 bg-white/5 px-3 py-2">Card Payment (Visa, Mastercard)</p>
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("momo")}
+                  className={`w-full rounded-md border px-3 py-2 text-left transition ${
+                    paymentMethod === "momo"
+                      ? "border-[#0A66FF]/60 bg-[#0A66FF]/25 text-white"
+                      : "border-white/15 bg-white/5 hover:bg-white/10"
+                  }`}
+                >
+                  Mobile Money (MTN, Telecel, AT)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("card")}
+                  className={`w-full rounded-md border px-3 py-2 text-left transition ${
+                    paymentMethod === "card"
+                      ? "border-[#0A66FF]/60 bg-[#0A66FF]/25 text-white"
+                      : "border-white/15 bg-white/5 hover:bg-white/10"
+                  }`}
+                >
+                  Card Payment (Visa, Mastercard)
+                </button>
               </div>
-              <p className="mt-3 text-xs text-blue-100">Instant processing. Zero hidden transaction charges from us.</p>
+              <p className="mt-3 text-xs text-blue-100">
+                {paymentMethod === "momo"
+                  ? "Mobile Money selected. Instant processing with local wallet convenience."
+                  : "Card payment selected. Secure checkout with Visa and Mastercard."}
+              </p>
             </div>
           </article>
         </div>
