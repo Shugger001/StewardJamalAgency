@@ -21,7 +21,8 @@ export function CreateBookingForm() {
     event.preventDefault();
     setState({ loading: true, error: null, message: null });
 
-    const form = new FormData(event.currentTarget);
+    const formEl = event.currentTarget;
+    const form = new FormData(formEl);
     const service = String(form.get("service") ?? "");
     const scheduledFor = String(form.get("scheduledFor") ?? "");
     const notes = String(form.get("notes") ?? "");
@@ -35,7 +36,7 @@ export function CreateBookingForm() {
       const payload = (await response.json().catch(() => ({}))) as { error?: string };
       if (!response.ok) throw new Error(payload.error || "Unable to create booking.");
 
-      (event.currentTarget as HTMLFormElement).reset();
+      formEl.reset();
       setState({
         loading: false,
         error: null,
