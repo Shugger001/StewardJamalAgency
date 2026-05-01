@@ -9,6 +9,9 @@ import { PublicLeadForm } from "@/components/leads/public-lead-form";
 const HERO_IMAGE_SRC =
   "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80";
 
+/** Edge padding only — no max-width / centering so fullscreen uses full width. */
+const LANDING_GUTTER = "w-full px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-20";
+
 export type LandingPortfolioItem = {
   id: string;
   name: string;
@@ -98,7 +101,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       />
       <div className="relative z-10">
       <header className="sticky top-0 z-30 border-b border-white/10 bg-[#050b1a]/90 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className={`${LANDING_GUTTER} flex h-14 items-center justify-between`}>
           <p className="text-sm font-semibold tracking-wide text-white">The Steward Jamal Agency</p>
           <nav className="items-center gap-3 md:flex md:gap-5">
             {navItems.map((item) => (
@@ -117,7 +120,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       </header>
 
       <section className="border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(10,102,255,0.35),transparent_40%),radial-gradient(circle_at_top_left,rgba(14,165,233,0.25),transparent_30%)]">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_1.12fr] lg:gap-10 lg:px-8 lg:py-24">
+        <div className={`${LANDING_GUTTER} grid gap-8 py-16 lg:grid-cols-[1fr_1.12fr] lg:gap-10 lg:py-24`}>
           <div className="agency-reveal-up">
             <span className="inline-flex rounded-full border border-[#0A66FF]/40 bg-[#0A66FF]/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-200">
               Premium Web Experience Studio
@@ -162,7 +165,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                   alt="Modern workspace representing collaborative web and brand delivery"
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  sizes="(max-width: 1024px) 100vw, 56vw"
                   className="object-cover"
                 />
                 <div
@@ -202,7 +205,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       </section>
 
       <section className="border-b border-white/10 bg-[#081327]">
-        <div className="mx-auto max-w-6xl px-4 py-5 sm:px-6 lg:px-8">
+        <div className={`${LANDING_GUTTER} py-5`}>
           <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
             Trusted by growth-focused teams
           </p>
@@ -221,7 +224,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </div>
       </section>
 
-      <section id="services" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-10 sm:px-6 lg:px-8">
+      <section id="services" className={`${LANDING_GUTTER} scroll-mt-20 py-10`}>
         <div className="grid gap-4 md:grid-cols-3">
           <article className="agency-reveal-up rounded-xl border border-white/10 bg-white/[0.04] p-5 transition hover:-translate-y-0.5 hover:bg-white/[0.06]">
             <p className="text-xs uppercase tracking-wide text-zinc-400">Projects Delivered</p>
@@ -241,7 +244,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
+      <section className={`${LANDING_GUTTER} pb-10`}>
         <div className="grid gap-4 lg:grid-cols-2">
           <article className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-300">What you get</h2>
@@ -302,7 +305,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
+      <section className={`${LANDING_GUTTER} pb-10`}>
         <div className="agency-reveal-up rounded-2xl border border-white/10 bg-white/[0.04] p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-400">
             Why premium brands choose us
@@ -330,7 +333,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </div>
       </section>
 
-      <section id="pricing" className="mx-auto max-w-6xl scroll-mt-20 px-4 pb-10 sm:px-6 lg:px-8">
+      <section id="pricing" className={`${LANDING_GUTTER} scroll-mt-20 pb-10`}>
         <div className="agency-reveal-up rounded-2xl border border-[#0A66FF]/30 bg-[#0A66FF]/10 p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="text-xs font-semibold uppercase tracking-wider text-blue-200">Service Packages</p>
@@ -397,7 +400,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </div>
       </section>
 
-      <section id="portfolio" className="mx-auto max-w-6xl scroll-mt-20 px-4 pb-10 sm:px-6 lg:px-8">
+      <section id="portfolio" className={`${LANDING_GUTTER} scroll-mt-20 pb-10`}>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {(portfolioItems.length ? portfolioItems : []).map((item) => {
             const target = item.domain || item.id;
@@ -425,7 +428,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       </section>
 
       {isSite && previewTargets.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
+        <section className={`${LANDING_GUTTER} pb-10`}>
           <div className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
             <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Available preview links</p>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -443,7 +446,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </section>
       )}
 
-      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
+      <section className={`${LANDING_GUTTER} pb-10`}>
         <div className="grid gap-4 lg:grid-cols-3">
           <blockquote className="agency-reveal-up rounded-xl border border-white/10 bg-white/[0.04] p-5 text-sm leading-relaxed text-zinc-200">
             "The final website positioned us like a top-tier brand from day one."
@@ -460,7 +463,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </div>
       </section>
 
-      <section id="proposal" className="mx-auto max-w-6xl scroll-mt-20 px-4 pb-10 sm:px-6 lg:px-8">
+      <section id="proposal" className={`${LANDING_GUTTER} scroll-mt-20 pb-10`}>
         <div className="agency-reveal-up rounded-xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_18px_60px_rgba(0,0,0,0.35)]">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-400">Request Proposal</p>
           <h2 className="mt-1 text-2xl font-semibold text-white">Tell us about your project</h2>
