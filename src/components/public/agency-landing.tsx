@@ -119,7 +119,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       </header>
 
       <section className="border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(10,102,255,0.35),transparent_40%),radial-gradient(circle_at_top_left,rgba(14,165,233,0.25),transparent_30%)]">
-        <div className={`${LANDING_GUTTER} grid gap-8 py-16 lg:grid-cols-[1fr_1.12fr] lg:gap-10 lg:py-24`}>
+        <div className={`${LANDING_GUTTER} grid gap-8 py-16 lg:grid-cols-[1fr_1.28fr] lg:gap-10 lg:py-24`}>
           <div className="agency-reveal-up">
             <span className="inline-flex rounded-full border border-[#0A66FF]/40 bg-[#0A66FF]/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-200">
               Premium Web Experience Studio
@@ -158,13 +158,13 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
 
           <div className="agency-reveal-up space-y-4 [animation-delay:120ms]">
             <figure className="relative overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-zinc-100 to-zinc-200/90 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
-              <div className="relative h-[min(44vh,400px)] w-full p-3 sm:h-[min(50vh,460px)] sm:p-4 lg:h-[min(68vh,680px)] lg:max-h-[720px] lg:p-5">
+              <div className="relative h-[min(54vh,480px)] w-full p-2 sm:h-[min(60vh,560px)] sm:p-3 lg:h-[min(80vh,860px)] lg:max-h-[min(92vh,960px)] lg:p-4">
                 <Image
                   src={HERO_IMAGE_SRC}
                   alt="Need a stunning website — custom creative designs, fast responsive builds, trusted delivery"
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 56vw"
+                  sizes="(max-width: 1024px) 100vw, 62vw"
                   className="object-contain object-center"
                 />
               </div>
