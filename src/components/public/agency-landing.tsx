@@ -15,10 +15,9 @@ const LANDING_GUTTER = "w-full px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-20";
 const IMG = {
   bannerGlass:
     "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=80",
-  strategySession:
-    "https://images.unsplash.com/photo-1600880292203-757bb62b3b99?auto=format&fit=crop&w=1600&q=80",
-  designDesk:
-    "https://images.unsplash.com/photo-1542744095-fcf48d80f0da?auto=format&fit=crop&w=1600&q=80",
+  /** Local assets — avoids broken remote thumbnails in production. */
+  strategySession: "/landing-discovery.jpg",
+  designDesk: "/landing-design.jpg",
   buildLaptop:
     "https://images.unsplash.com/photo-1517694712202-3dd9dd59c102?auto=format&fit=crop&w=1600&q=80",
   uxWhiteboard:
@@ -344,7 +343,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             <div className="relative aspect-[4/3] w-full sm:aspect-[16/10]">
               <Image
                 src={IMG.strategySession}
-                alt="Team in a strategy workshop reviewing goals and timelines"
+                alt="Desk workspace with laptop showing a site in progress, plant, and notebook"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -361,7 +360,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             <div className="relative aspect-[4/3] w-full sm:aspect-[16/10]">
               <Image
                 src={IMG.designDesk}
-                alt="Designer workspace with layouts, notes, and creative references"
+                alt="Custom web design — refined layouts and creative digital presentation"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
