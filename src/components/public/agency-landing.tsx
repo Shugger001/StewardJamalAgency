@@ -30,6 +30,19 @@ const IMG = {
 const LANDING_IMAGE_SIZES =
   "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" as const;
 
+function readPublicEnvString(value: string | undefined) {
+  if (typeof value !== "string") return "";
+  return value.trim();
+}
+
+/** Set in `.env`: `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_SOCIAL_*_URL` (full https URLs). */
+const FOOTER_CONTACT_EMAIL = readPublicEnvString(process.env.NEXT_PUBLIC_CONTACT_EMAIL);
+const FOOTER_SOCIAL_LINKS: { label: string; href: string }[] = [
+  { label: "Instagram", href: readPublicEnvString(process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM_URL) },
+  { label: "LinkedIn", href: readPublicEnvString(process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN_URL) },
+  { label: "X", href: readPublicEnvString(process.env.NEXT_PUBLIC_SOCIAL_X_URL) },
+].filter((item) => item.href.length > 0);
+
 export type LandingPortfolioItem = {
   id: string;
   name: string;
@@ -694,6 +707,21 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               <p className="mt-3 max-w-xs text-sm leading-relaxed text-zinc-400">
                 Luxury-grade websites and conversion-focused digital experiences for growth-minded brands.
               </p>
+              {FOOTER_SOCIAL_LINKS.length > 0 ? (
+                <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2" aria-label="Social profiles">
+                  {FOOTER_SOCIAL_LINKS.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-medium text-zinc-400 underline-offset-2 hover:text-white hover:underline"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              ) : null}
             </div>
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500">
@@ -756,13 +784,31 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               >
                 Request a proposal
               </a>
+              {FOOTER_CONTACT_EMAIL ? (
+                <a
+                  href={`mailto:${FOOTER_CONTACT_EMAIL}`}
+                  className="mt-3 block text-sm font-medium text-zinc-300 underline-offset-2 hover:text-white hover:underline"
+                >
+                  {FOOTER_CONTACT_EMAIL}
+                </a>
+              ) : null}
             </div>
           </div>
-          <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between lg:gap-x-6 lg:gap-y-3">
             <p className="text-xs text-zinc-500">
               © {new Date().getFullYear()} The Steward Jamal Agency. All rights reserved.
             </p>
-            <p className="text-xs text-zinc-600">Web design · Development · Launch support</p>
+            <nav className="flex flex-wrap gap-x-5 gap-y-2 text-xs" aria-label="Legal">
+              <Link href="/privacy" className="text-zinc-400 transition hover:text-white">
+                Privacy
+              </Link>
+              <Link href="/terms" className="text-zinc-400 transition hover:text-white">
+                Terms
+              </Link>
+            </nav>
+            <p className="text-xs text-zinc-600 lg:ml-auto lg:text-right">
+              Web design · Development · Launch support
+            </p>
           </div>
         </div>
       </footer>
