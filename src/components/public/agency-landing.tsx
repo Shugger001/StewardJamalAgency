@@ -239,7 +239,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               <div className="relative h-[min(54vh,480px)] w-full p-2 sm:h-[min(60vh,560px)] sm:p-3 lg:h-[min(80vh,860px)] lg:max-h-[min(92vh,960px)] lg:p-4">
                 <Image
                   src={HERO_IMAGE_SRC}
-                  alt="Need a stunning website — custom creative designs, fast responsive builds, trusted delivery"
+                  alt="Marketing graphic: Need a stunning website — laptop mockup with fast responsive builds, custom designs, and trusted client delivery"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 62vw"
