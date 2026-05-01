@@ -235,15 +235,15 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
 
           <div className="agency-reveal-up space-y-4 [animation-delay:120ms]">
-            <figure className="relative overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-zinc-100 to-zinc-200/90 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
-              <div className="relative h-[min(54vh,480px)] w-full p-2 sm:h-[min(60vh,560px)] sm:p-3 lg:h-[min(80vh,860px)] lg:max-h-[min(92vh,960px)] lg:p-4">
+            <figure className="relative overflow-hidden rounded-2xl border border-white/15 bg-zinc-100 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+              <div className="relative h-[min(54vh,480px)] w-full sm:h-[min(60vh,560px)] lg:h-[min(80vh,860px)] lg:max-h-[min(92vh,960px)]">
                 <Image
                   src={HERO_IMAGE_SRC}
                   alt="Marketing graphic: Need a stunning website — laptop mockup with fast responsive builds, custom designs, and trusted client delivery"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 62vw"
-                  className="object-contain object-center"
+                  className="object-cover object-center"
                 />
               </div>
             </figure>
