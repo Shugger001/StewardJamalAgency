@@ -18,8 +18,7 @@ const IMG = {
   /** Local assets — avoids broken remote thumbnails in production. */
   strategySession: "/landing-discovery.jpg",
   designDesk: "/landing-design.jpg",
-  buildLaptop:
-    "https://images.unsplash.com/photo-1517694712202-3dd9dd59c102?auto=format&fit=crop&w=1600&q=80",
+  buildLaptop: "/landing-build.jpg",
   uxWhiteboard:
     "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1600&q=80",
   launchTeam:
@@ -443,7 +442,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             <div className="relative aspect-[4/3] w-full">
               <Image
                 src={IMG.buildLaptop}
-                alt="Developer laptop showing application code and components"
+                alt="Modern UI and UX — laptop, tablet, and phone mockups with dashboard analytics and neon UI"
                 fill
                 className="object-cover"
                 sizes={LANDING_IMAGE_SIZES}
