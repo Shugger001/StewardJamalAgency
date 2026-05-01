@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import { PublicLeadForm } from "@/components/leads/public-lead-form";
 
@@ -80,6 +81,24 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
     { href: `${basePath}#proposal`, label: "Proposal" },
   ];
 
+  /** Same-page #hash links do not always scroll under the App Router; handle explicitly. */
+  function handleInPageAnchorClick(e: MouseEvent<HTMLAnchorElement>, href: string) {
+    try {
+      const url = new URL(href, window.location.origin);
+      const norm = (p: string) => (p.length > 1 && p.endsWith("/") ? p.slice(0, -1) : p) || "/";
+      if (norm(url.pathname) !== norm(window.location.pathname)) return;
+      const id = url.hash.slice(1);
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      e.preventDefault();
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.replaceState(null, "", `${url.pathname}${url.hash}`);
+    } catch {
+      /* ignore malformed href */
+    }
+  }
+
   useEffect(() => {
     function syncTierFromUrl() {
       const params = new URLSearchParams(window.location.search);
@@ -104,6 +123,15 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [navOpen]);
+
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (!id) return;
+    const t = window.requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return () => window.cancelAnimationFrame(t);
+  }, []);
 
   function handleTierChange(nextTier: "standard" | "priority") {
     setPricingTier(nextTier);
@@ -152,7 +180,12 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             aria-label="Page sections"
           >
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="text-xs font-medium text-zinc-300 hover:text-white">
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(e) => handleInPageAnchorClick(e, item.href)}
+                className="text-xs font-medium text-zinc-300 hover:text-white"
+              >
                 {item.label}
               </a>
             ))}
@@ -193,7 +226,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                           key={item.href}
                           href={item.href}
                           className="rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-200 hover:bg-white/10 hover:text-white"
-                          onClick={() => setNavOpen(false)}
+                          onClick={(e) => {
+                            handleInPageAnchorClick(e, item.href);
+                            setNavOpen(false);
+                          }}
                         >
                           {item.label}
                         </a>
@@ -780,6 +816,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               </p>
               <a
                 href={`${basePath}#proposal`}
+                onClick={(e) => handleInPageAnchorClick(e, `${basePath}#proposal`)}
                 className="mt-3 inline-flex text-sm font-semibold text-blue-300 hover:text-blue-200 hover:underline"
               >
                 Request a proposal
