@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { PublicLeadForm } from "@/components/leads/public-lead-form";
 
@@ -56,6 +57,7 @@ const brandLogos = [
 
 export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: AgencyLandingProps) {
   const isSite = mode === "site";
+  const [navOpen, setNavOpen] = useState(false);
   const [pricingTier, setPricingTier] = useState<"standard" | "priority">("standard");
   const [paymentMethod, setPaymentMethod] = useState<"momo" | "card">("momo");
   const basePath = isSite ? "/site" : "/";
@@ -82,6 +84,15 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
     window.addEventListener("popstate", syncTierFromUrl);
     return () => window.removeEventListener("popstate", syncTierFromUrl);
   }, []);
+
+  useEffect(() => {
+    if (!navOpen) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setNavOpen(false);
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [navOpen]);
 
   function handleTierChange(nextTier: "standard" | "priority") {
     setPricingTier(nextTier);
@@ -121,21 +132,67 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       />
       <div className="relative z-10">
       <header className="sticky top-0 z-30 border-b border-white/10 bg-[#050b1a]/90 backdrop-blur">
-        <div className={`${LANDING_GUTTER} flex h-14 items-center justify-between`}>
-          <p className="text-sm font-semibold tracking-wide text-white">The Steward Jamal Agency</p>
-          <nav className="items-center gap-3 md:flex md:gap-5">
+        <div className={`${LANDING_GUTTER} flex h-14 items-center gap-3`}>
+          <p className="min-w-0 shrink-0 truncate text-sm font-semibold tracking-wide text-white">
+            The Steward Jamal Agency
+          </p>
+          <nav
+            className="hidden flex-1 justify-center gap-4 md:flex lg:gap-5"
+            aria-label="Page sections"
+          >
             {navItems.map((item) => (
               <a key={item.href} href={item.href} className="text-xs font-medium text-zinc-300 hover:text-white">
                 {item.label}
               </a>
             ))}
           </nav>
-          <Link
-            href={isSite ? "/dashboard" : "/signup"}
-            className="inline-flex h-9 items-center rounded-lg bg-[#0A66FF] px-3 text-xs font-semibold text-white"
-          >
-            {isSite ? "Open dashboard" : "Start Project"}
-          </Link>
+          <div className="ml-auto flex shrink-0 items-center gap-2">
+            <Link
+              href={isSite ? "/dashboard" : "/signup"}
+              className="inline-flex h-9 items-center rounded-lg bg-[#0A66FF] px-3 text-xs font-semibold text-white"
+            >
+              {isSite ? "Open dashboard" : "Start Project"}
+            </Link>
+            <div className="relative md:hidden">
+              <button
+                type="button"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/20 text-zinc-100 hover:bg-white/10"
+                aria-expanded={navOpen}
+                aria-controls="landing-mobile-nav"
+                aria-label={navOpen ? "Close menu" : "Open menu"}
+                onClick={() => setNavOpen((o) => !o)}
+              >
+                {navOpen ? <X className="h-4 w-4" strokeWidth={2} /> : <Menu className="h-4 w-4" strokeWidth={2} />}
+              </button>
+              {navOpen ? (
+                <>
+                  <button
+                    type="button"
+                    className="fixed inset-0 z-40 bg-black/55"
+                    aria-label="Close menu"
+                    onClick={() => setNavOpen(false)}
+                  />
+                  <div
+                    id="landing-mobile-nav"
+                    className="fixed left-0 right-0 top-14 z-50 border-b border-white/10 bg-[#050b1a]/98 px-4 py-3 shadow-[0_16px_40px_rgba(0,0,0,0.45)] backdrop-blur-md md:hidden"
+                  >
+                    <nav className="flex flex-col gap-0.5" aria-label="Page sections">
+                      {navItems.map((item) => (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          className="rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-200 hover:bg-white/10 hover:text-white"
+                          onClick={() => setNavOpen(false)}
+                        >
+                          {item.label}
+                        </a>
+                      ))}
+                    </nav>
+                  </div>
+                </>
+              ) : null}
+            </div>
+          </div>
         </div>
       </header>
 
