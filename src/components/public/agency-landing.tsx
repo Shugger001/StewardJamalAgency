@@ -360,7 +360,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             <div className="relative aspect-[4/3] w-full sm:aspect-[16/10]">
               <Image
                 src={IMG.designDesk}
-                alt="Custom web design — refined layouts and creative digital presentation"
+                alt="Laptop workspace with code editor and GitHub — meticulous UI and implementation craft"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
