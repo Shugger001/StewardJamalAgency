@@ -680,6 +680,92 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
         </div>
       </section>
+
+      <footer
+        className="border-t border-white/10 bg-[#030811]/95"
+        aria-label="Site footer"
+      >
+        <div className={`${LANDING_GUTTER} py-10 lg:py-12`}>
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            <div className="lg:col-span-1">
+              <p className="text-sm font-semibold tracking-wide text-white">
+                The Steward Jamal Agency
+              </p>
+              <p className="mt-3 max-w-xs text-sm leading-relaxed text-zinc-400">
+                Luxury-grade websites and conversion-focused digital experiences for growth-minded brands.
+              </p>
+            </div>
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500">
+                Explore
+              </p>
+              <nav className="mt-4 flex flex-col gap-2.5" aria-label="Footer sections">
+                {navItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className="text-sm text-zinc-300 transition hover:text-white"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500">
+                Account
+              </p>
+              <nav className="mt-4 flex flex-col gap-2.5" aria-label="Account links">
+                {isSite ? (
+                  <>
+                    <Link href="/" className="text-sm text-zinc-300 transition hover:text-white">
+                      Marketing site
+                    </Link>
+                    <Link href="/dashboard" className="text-sm text-zinc-300 transition hover:text-white">
+                      Dashboard
+                    </Link>
+                    <Link href="/login" className="text-sm text-zinc-300 transition hover:text-white">
+                      Client login
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/signup" className="text-sm text-zinc-300 transition hover:text-white">
+                      Start a project
+                    </Link>
+                    <Link href="/login" className="text-sm text-zinc-300 transition hover:text-white">
+                      Client login
+                    </Link>
+                    <Link href="/site" className="text-sm text-zinc-300 transition hover:text-white">
+                      Agency workspace
+                    </Link>
+                  </>
+                )}
+              </nav>
+            </div>
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500">
+                Contact
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+                Tell us about timelines, scope, and goals—we&apos;ll respond with a clear next step.
+              </p>
+              <a
+                href={`${basePath}#proposal`}
+                className="mt-3 inline-flex text-sm font-semibold text-blue-300 hover:text-blue-200 hover:underline"
+              >
+                Request a proposal
+              </a>
+            </div>
+          </div>
+          <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs text-zinc-500">
+              © {new Date().getFullYear()} The Steward Jamal Agency. All rights reserved.
+            </p>
+            <p className="text-xs text-zinc-600">Web design · Development · Launch support</p>
+          </div>
+        </div>
+      </footer>
       </div>
     </main>
   );
