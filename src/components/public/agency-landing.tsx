@@ -11,6 +11,26 @@ const HERO_IMAGE_SRC = "/hero-landing.png";
 /** Edge padding only — no max-width / centering so fullscreen uses full width. */
 const LANDING_GUTTER = "w-full px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-20";
 
+const IMG = {
+  bannerGlass:
+    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=80",
+  strategySession:
+    "https://images.unsplash.com/photo-1600880292203-757bb62b3b99?auto=format&fit=crop&w=1600&q=80",
+  designDesk:
+    "https://images.unsplash.com/photo-1542744095-fcf48d80f0da?auto=format&fit=crop&w=1600&q=80",
+  buildLaptop:
+    "https://images.unsplash.com/photo-1517694712202-3dd9dd59c102?auto=format&fit=crop&w=1600&q=80",
+  uxWhiteboard:
+    "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1600&q=80",
+  launchTeam:
+    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80",
+  portfolioMood:
+    "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=2400&q=80",
+} as const;
+
+const LANDING_IMAGE_SIZES =
+  "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" as const;
+
 export type LandingPortfolioItem = {
   id: string;
   name: string;
@@ -41,6 +61,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
   const basePath = isSite ? "/site" : "/";
   const navItems = [
     { href: `${basePath}#services`, label: "Services" },
+    { href: `${basePath}#gallery`, label: "Gallery" },
     { href: `${basePath}#pricing`, label: "Pricing" },
     { href: `${basePath}#portfolio`, label: "Portfolio" },
     { href: `${basePath}#proposal`, label: "Proposal" },
@@ -211,6 +232,35 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </div>
       </section>
 
+      <section id="gallery" className={`${LANDING_GUTTER} scroll-mt-20 pb-10`}>
+        <div className="agency-reveal-up relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+          <div className="relative aspect-[5/3] min-h-[220px] w-full sm:aspect-[21/9] sm:min-h-[260px] lg:min-h-[300px]">
+            <Image
+              src={IMG.bannerGlass}
+              alt="Modern glass office tower at dusk representing scale and professionalism"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-r from-[#050b1a] via-[#050b1a]/75 to-[#050b1a]/20"
+            />
+            <div className="absolute inset-0 flex max-w-xl flex-col justify-center p-6 sm:p-8 lg:p-12">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-200">
+                Gallery
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl lg:text-[2rem]">
+                Spaces, systems, and craft—how premium web work actually feels.
+              </h2>
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-zinc-300">
+                A visual snapshot of the environments and focus we bring to every engagement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="services" className={`${LANDING_GUTTER} scroll-mt-20 py-10`}>
         <div className="grid gap-4 md:grid-cols-3">
           <article className="agency-reveal-up rounded-xl border border-white/10 bg-white/[0.04] p-5 transition hover:-translate-y-0.5 hover:bg-white/[0.06]">
@@ -228,6 +278,45 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             <p className="mt-2 text-3xl font-semibold text-white">Priority slots open</p>
             <p className="mt-1 text-sm text-blue-100">Book now and get faster kickoff support.</p>
           </article>
+        </div>
+      </section>
+
+      <section className={`${LANDING_GUTTER} pb-10`}>
+        <div className="grid gap-4 md:grid-cols-2">
+          <figure className="agency-reveal-up overflow-hidden rounded-2xl border border-white/10 bg-[#0a152d] shadow-[0_16px_50px_rgba(0,0,0,0.35)]">
+            <div className="relative aspect-[4/3] w-full sm:aspect-[16/10]">
+              <Image
+                src={IMG.strategySession}
+                alt="Team in a strategy workshop reviewing goals and timelines"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+            <figcaption className="border-t border-white/10 bg-white/[0.04] p-4 sm:p-5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-blue-200">Discovery</p>
+              <p className="mt-1 text-sm font-medium text-white sm:text-base">
+                Workshops that align stakeholders before a single pixel ships.
+              </p>
+            </figcaption>
+          </figure>
+          <figure className="agency-reveal-up overflow-hidden rounded-2xl border border-white/10 bg-[#0a152d] shadow-[0_16px_50px_rgba(0,0,0,0.35)] [animation-delay:90ms]">
+            <div className="relative aspect-[4/3] w-full sm:aspect-[16/10]">
+              <Image
+                src={IMG.designDesk}
+                alt="Designer workspace with layouts, notes, and creative references"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+            <figcaption className="border-t border-white/10 bg-white/[0.04] p-4 sm:p-5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-blue-200">Design craft</p>
+              <p className="mt-1 text-sm font-medium text-white sm:text-base">
+                High-fidelity systems, motion, and brand-true UI in every deliverable.
+              </p>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -289,6 +378,56 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               </p>
             </div>
           </article>
+        </div>
+      </section>
+
+      <section className={`${LANDING_GUTTER} pb-10`}>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <figure className="agency-reveal-up overflow-hidden rounded-2xl border border-white/10 bg-[#0a152d] shadow-[0_12px_40px_rgba(0,0,0,0.3)]">
+            <div className="relative aspect-[4/3] w-full">
+              <Image
+                src={IMG.buildLaptop}
+                alt="Developer laptop showing application code and components"
+                fill
+                className="object-cover"
+                sizes={LANDING_IMAGE_SIZES}
+              />
+            </div>
+            <figcaption className="p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Build</p>
+              <p className="mt-1 text-sm font-medium text-white">Clean engineering, performance budgets, and QA.</p>
+            </figcaption>
+          </figure>
+          <figure className="agency-reveal-up overflow-hidden rounded-2xl border border-white/10 bg-[#0a152d] shadow-[0_12px_40px_rgba(0,0,0,0.3)] [animation-delay:80ms]">
+            <div className="relative aspect-[4/3] w-full">
+              <Image
+                src={IMG.uxWhiteboard}
+                alt="UX planning with wireframes and sticky notes on a whiteboard"
+                fill
+                className="object-cover"
+                sizes={LANDING_IMAGE_SIZES}
+              />
+            </div>
+            <figcaption className="p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">UX</p>
+              <p className="mt-1 text-sm font-medium text-white">Flows, hierarchy, and conversion clarity.</p>
+            </figcaption>
+          </figure>
+          <figure className="agency-reveal-up overflow-hidden rounded-2xl border border-white/10 bg-[#0a152d] shadow-[0_12px_40px_rgba(0,0,0,0.3)] [animation-delay:160ms]">
+            <div className="relative aspect-[4/3] w-full">
+              <Image
+                src={IMG.launchTeam}
+                alt="Product team collaborating at launch readiness"
+                fill
+                className="object-cover"
+                sizes={LANDING_IMAGE_SIZES}
+              />
+            </div>
+            <figcaption className="p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Launch</p>
+              <p className="mt-1 text-sm font-medium text-white">Go-live support, analytics, and iteration.</p>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -383,6 +522,32 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                   : "For high-ticket offers and advanced digital workflows."}
               </p>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <section className={`${LANDING_GUTTER} pb-10`}>
+        <div className="agency-reveal-up relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_20px_70px_rgba(0,0,0,0.4)]">
+          <div className="relative aspect-[5/2] min-h-[200px] w-full sm:min-h-[240px] lg:aspect-[2.8/1] lg:min-h-[280px]">
+            <Image
+              src={IMG.portfolioMood}
+              alt="Bright modern studio space where digital products are refined before handoff"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-[#050b1a]/92 via-[#050b1a]/35 to-transparent"
+            />
+            <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 lg:p-10">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-200">
+                Before you scroll the grid
+              </p>
+              <p className="mt-2 max-w-2xl text-lg font-semibold text-white sm:text-xl">
+                Every preview below is built with the same production rigor we apply to client launches.
+              </p>
+            </div>
           </div>
         </div>
       </section>
