@@ -5,9 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { PublicLeadForm } from "@/components/leads/public-lead-form";
 
-/** Hero visual — swap for `/hero.jpg` in `public/` when you have a branded photo. */
-const HERO_IMAGE_SRC =
-  "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80";
+/** Hero visual — `public/hero-landing.png` */
+const HERO_IMAGE_SRC = "/hero-landing.png";
 
 /** Edge padding only — no max-width / centering so fullscreen uses full width. */
 const LANDING_GUTTER = "w-full px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-20";
@@ -158,28 +157,16 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
 
           <div className="agency-reveal-up space-y-4 [animation-delay:120ms]">
-            <figure className="relative overflow-hidden rounded-2xl border border-white/15 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
-              <div className="relative h-[min(44vh,400px)] w-full sm:h-[min(50vh,460px)] lg:h-[min(68vh,680px)] lg:max-h-[720px]">
+            <figure className="relative overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-zinc-100 to-zinc-200/90 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+              <div className="relative h-[min(44vh,400px)] w-full p-3 sm:h-[min(50vh,460px)] sm:p-4 lg:h-[min(68vh,680px)] lg:max-h-[720px] lg:p-5">
                 <Image
                   src={HERO_IMAGE_SRC}
-                  alt="Modern workspace representing collaborative web and brand delivery"
+                  alt="Need a stunning website — custom creative designs, fast responsive builds, trusted delivery"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 56vw"
-                  className="object-cover"
+                  className="object-contain object-center"
                 />
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-[#050b1a]/90 via-[#050b1a]/25 to-transparent"
-                />
-                <figcaption className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 lg:p-8">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-200 sm:text-xs">
-                    Studio delivery
-                  </p>
-                  <p className="mt-2 max-w-lg text-base font-semibold leading-snug text-white sm:text-lg lg:text-xl">
-                    Strategy, design, and build in one continuous team.
-                  </p>
-                </figcaption>
               </div>
             </figure>
 
