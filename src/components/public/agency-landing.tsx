@@ -1,8 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { PublicLeadForm } from "@/components/leads/public-lead-form";
+
+/** Hero visual — swap for `/hero.jpg` in `public/` when you have a branded photo. */
+const HERO_IMAGE_SRC =
+  "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80";
 
 export type LandingPortfolioItem = {
   id: string;
@@ -149,20 +154,47 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             </div>
           </div>
 
-          <div className="agency-reveal-up rounded-2xl border border-white/15 bg-white/[0.06] p-5 shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur [animation-delay:120ms]">
-            <p className="text-xs font-semibold uppercase tracking-wide text-blue-200">Elite Delivery Snapshot</p>
-            <div className="mt-4 space-y-3">
-              <div className="rounded-xl border border-white/10 bg-[#0a152d] p-4">
-                <p className="text-xs text-zinc-400">Design Quality</p>
-                <p className="mt-1 text-lg font-semibold text-white">Premium visual system</p>
+          <div className="agency-reveal-up space-y-4 [animation-delay:120ms]">
+            <figure className="relative overflow-hidden rounded-2xl border border-white/15 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+              <div className="relative aspect-[4/3] w-full sm:aspect-[5/3]">
+                <Image
+                  src={HERO_IMAGE_SRC}
+                  alt="Modern workspace representing collaborative web and brand delivery"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  className="object-cover"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-[#050b1a]/90 via-[#050b1a]/20 to-transparent"
+                />
+                <figcaption className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-blue-200">
+                    Studio delivery
+                  </p>
+                  <p className="mt-1 text-sm font-medium text-white sm:text-base">
+                    Strategy, design, and build in one continuous team.
+                  </p>
+                </figcaption>
               </div>
-              <div className="rounded-xl border border-white/10 bg-[#0a152d] p-4">
-                <p className="text-xs text-zinc-400">Performance</p>
-                <p className="mt-1 text-lg font-semibold text-white">Fast, responsive, SEO-ready</p>
-              </div>
-              <div className="rounded-xl border border-white/10 bg-[#0a152d] p-4">
-                <p className="text-xs text-zinc-400">Conversion Focus</p>
-                <p className="mt-1 text-lg font-semibold text-white">Clear offer and trust-driven flow</p>
+            </figure>
+
+            <div className="rounded-2xl border border-white/15 bg-white/[0.06] p-5 shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur">
+              <p className="text-xs font-semibold uppercase tracking-wide text-blue-200">Elite Delivery Snapshot</p>
+              <div className="mt-4 space-y-3">
+                <div className="rounded-xl border border-white/10 bg-[#0a152d] p-4">
+                  <p className="text-xs text-zinc-400">Design Quality</p>
+                  <p className="mt-1 text-lg font-semibold text-white">Premium visual system</p>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-[#0a152d] p-4">
+                  <p className="text-xs text-zinc-400">Performance</p>
+                  <p className="mt-1 text-lg font-semibold text-white">Fast, responsive, SEO-ready</p>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-[#0a152d] p-4">
+                  <p className="text-xs text-zinc-400">Conversion Focus</p>
+                  <p className="mt-1 text-lg font-semibold text-white">Clear offer and trust-driven flow</p>
+                </div>
               </div>
             </div>
           </div>
