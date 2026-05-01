@@ -117,7 +117,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       </header>
 
       <section className="border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(10,102,255,0.35),transparent_40%),radial-gradient(circle_at_top_left,rgba(14,165,233,0.25),transparent_30%)]">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-20">
+        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_1.12fr] lg:gap-10 lg:px-8 lg:py-24">
           <div className="agency-reveal-up">
             <span className="inline-flex rounded-full border border-[#0A66FF]/40 bg-[#0A66FF]/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-200">
               Premium Web Experience Studio
@@ -156,24 +156,24 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
 
           <div className="agency-reveal-up space-y-4 [animation-delay:120ms]">
             <figure className="relative overflow-hidden rounded-2xl border border-white/15 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
-              <div className="relative aspect-[4/3] w-full sm:aspect-[5/3]">
+              <div className="relative h-[min(44vh,400px)] w-full sm:h-[min(50vh,460px)] lg:h-[min(68vh,680px)] lg:max-h-[720px]">
                 <Image
                   src={HERO_IMAGE_SRC}
                   alt="Modern workspace representing collaborative web and brand delivery"
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
                 />
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-[#050b1a]/90 via-[#050b1a]/20 to-transparent"
+                  className="absolute inset-0 bg-gradient-to-t from-[#050b1a]/90 via-[#050b1a]/25 to-transparent"
                 />
-                <figcaption className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-blue-200">
+                <figcaption className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 lg:p-8">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-200 sm:text-xs">
                     Studio delivery
                   </p>
-                  <p className="mt-1 text-sm font-medium text-white sm:text-base">
+                  <p className="mt-2 max-w-lg text-base font-semibold leading-snug text-white sm:text-lg lg:text-xl">
                     Strategy, design, and build in one continuous team.
                   </p>
                 </figcaption>
