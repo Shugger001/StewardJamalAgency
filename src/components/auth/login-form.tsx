@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { formatAuthServiceError } from "@/lib/auth/errors";
 
 type LoginState = {
   loading: boolean;
@@ -41,7 +42,7 @@ export function LoginForm() {
     } catch (error) {
       setState({
         loading: false,
-        error: error instanceof Error ? error.message : "Unable to sign in right now.",
+        error: formatAuthServiceError(error),
       });
     }
   }

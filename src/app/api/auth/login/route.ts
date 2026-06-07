@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { resolveBootstrapRole } from "@/lib/auth/admin-allowlist";
+import { formatAuthServiceError } from "@/lib/auth/errors";
+import { checkAuthHealth } from "@/lib/auth/health";
 
 type AppRole = "admin" | "staff" | "client";
 
@@ -65,13 +67,32 @@ export async function POST(request: Request) {
     );
   }
 
+  const health = await checkAuthHealth();
+  if (!health.checks.authReachable) {
+    return NextResponse.json(
+      { error: formatAuthServiceError(new Error("fetch failed")) },
+      { status: 503 },
+    );
+  }
+
   const authClient = createClient(supabaseUrl, anonKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
-  const { data, error } = await authClient.auth.signInWithPassword({
-    email,
-    password,
-  });
+
+  let data;
+  let error;
+  try {
+    ({ data, error } = await authClient.auth.signInWithPassword({
+      email,
+      password,
+    }));
+  } catch (authError) {
+    return NextResponse.json(
+      { error: formatAuthServiceError(authError) },
+      { status: 503 },
+    );
+  }
+
   if (error || !data.session || !data.user) {
     return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
   }

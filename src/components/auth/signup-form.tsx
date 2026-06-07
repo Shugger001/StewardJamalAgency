@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { formatAuthServiceError } from "@/lib/auth/errors";
 
 type SignUpState = {
   loading: boolean;
@@ -10,7 +11,11 @@ type SignUpState = {
   message: string | null;
 };
 
-export function SignUpForm() {
+type SignUpFormProps = {
+  authAvailable?: boolean;
+};
+
+export function SignUpForm({ authAvailable = true }: SignUpFormProps) {
   const router = useRouter();
   const [state, setState] = useState<SignUpState>({
     loading: false,
@@ -74,7 +79,7 @@ export function SignUpForm() {
     } catch (error) {
       setState({
         loading: false,
-        error: error instanceof Error ? error.message : "Unable to create account.",
+        error: formatAuthServiceError(error),
         message: null,
       });
     }
@@ -150,7 +155,7 @@ export function SignUpForm() {
 
       <button
         type="submit"
-        disabled={state.loading}
+        disabled={state.loading || !authAvailable}
         className="inline-flex h-10 w-full items-center justify-center rounded-lg bg-[#0A66FF] px-4 text-sm font-medium text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-60"
       >
         {state.loading ? "Creating account..." : "Sign up"}

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { resolveBootstrapRole } from "@/lib/auth/admin-allowlist";
+import { formatAuthServiceError } from "@/lib/auth/errors";
+import { checkAuthHealth } from "@/lib/auth/health";
 
 type AppRole = "admin" | "staff" | "client";
 
@@ -70,23 +72,34 @@ export async function POST(request: Request) {
     );
   }
 
+  const health = await checkAuthHealth();
+  if (!health.checks.authReachable) {
+    return NextResponse.json(
+      { error: formatAuthServiceError(new Error("fetch failed")) },
+      { status: 503 },
+    );
+  }
+
   const authClient = createClient(supabaseUrl, anonKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 
-  const signUp = await authClient.auth.signUp({
-    email,
-    password,
-  });
+  let signUp;
+  try {
+    signUp = await authClient.auth.signUp({
+      email,
+      password,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { error: formatAuthServiceError(error) },
+      { status: 503 },
+    );
+  }
 
   if (signUp.error || !signUp.data.user) {
     return NextResponse.json(
-      {
-        error:
-          signUp.error?.message === "Database error saving new user"
-            ? "Unable to create account due to current database auth trigger configuration. Please contact support/admin to verify the Supabase new-user trigger."
-            : (signUp.error?.message ?? "Unable to create account."),
-      },
+      { error: formatAuthServiceError(signUp.error ?? "Unable to create account.") },
       { status: 400 },
     );
   }

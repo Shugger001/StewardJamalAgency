@@ -18,6 +18,18 @@ Set these in Vercel project settings:
 - `NEXT_PUBLIC_APP_URL` (canonical site URL for auth redirects and OG tags)
 - `NEXT_PUBLIC_SOCIAL_INSTAGRAM_URL`, `NEXT_PUBLIC_SOCIAL_LINKEDIN_URL`, `NEXT_PUBLIC_SOCIAL_X_URL` (optional footer links)
 
+## Auth Troubleshooting
+
+If signup or login shows a connection error:
+
+1. Open [Supabase Dashboard](https://supabase.com/dashboard) and confirm the project is **active** (not paused or deleted).
+2. Copy the project **URL**, **anon key**, and **service role key** from Project Settings → API.
+3. Update Vercel env vars (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`) and redeploy.
+4. Run the SQL migrations listed below in the Supabase SQL editor.
+5. Verify health at `/api/auth/health` — all checks should return `true`.
+
+Current production health endpoint: `https://steward-jamal-agency-eidc.vercel.app/api/auth/health`
+
 ## Database Migration
 
 Run migration:
