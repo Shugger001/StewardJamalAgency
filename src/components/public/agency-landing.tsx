@@ -241,9 +241,11 @@ function readPublicEnvString(value: string | undefined) {
   return value.trim();
 }
 
-const FOOTER_CONTACT_EMAIL = readPublicEnvString(process.env.NEXT_PUBLIC_CONTACT_EMAIL);
+const FOOTER_CONTACT_EMAIL =
+  readPublicEnvString(process.env.NEXT_PUBLIC_CONTACT_EMAIL) || "stewardjamalagency@gmail.com";
 const FOOTER_CONTACT_PHONE = readPublicEnvString(process.env.NEXT_PUBLIC_CONTACT_PHONE);
-const FOOTER_ADDRESS = readPublicEnvString(process.env.NEXT_PUBLIC_CONTACT_ADDRESS) || "Accra, Ghana";
+const FOOTER_ADDRESS =
+  readPublicEnvString(process.env.NEXT_PUBLIC_CONTACT_ADDRESS) || "Accra, Ghana";
 const FOOTER_SOCIAL_LINKS: { label: string; href: string }[] = [
   { label: "Instagram", href: readPublicEnvString(process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM_URL) },
   { label: "LinkedIn", href: readPublicEnvString(process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN_URL) },

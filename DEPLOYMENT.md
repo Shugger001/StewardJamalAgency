@@ -12,6 +12,11 @@ Set these in Vercel project settings:
 - `PAYSTACK_SECRET_KEY`
 - `RESEND_API_KEY`
 - `RESEND_FROM_EMAIL` (optional, defaults to `no-reply@stewardjamal.agency`)
+- `NEXT_PUBLIC_CONTACT_EMAIL` (footer and contact sections; defaults to `stewardjamalagency@gmail.com`)
+- `NEXT_PUBLIC_CONTACT_PHONE` (optional; shown in header, hero, and footer)
+- `NEXT_PUBLIC_CONTACT_ADDRESS` (optional; defaults to `Accra, Ghana`)
+- `NEXT_PUBLIC_APP_URL` (canonical site URL for auth redirects and OG tags)
+- `NEXT_PUBLIC_SOCIAL_INSTAGRAM_URL`, `NEXT_PUBLIC_SOCIAL_LINKEDIN_URL`, `NEXT_PUBLIC_SOCIAL_X_URL` (optional footer links)
 
 ## Database Migration
 

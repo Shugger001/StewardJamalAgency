@@ -26,10 +26,17 @@ const robotoSlab = Roboto_Slab({
 
 export const metadata: Metadata = {
   title: {
-    default: "The Steward Jamal Agency",
-    template: "%s · Steward Jamal",
+    default: "The Steward Jamal Agency | Web Design & Development in Ghana",
+    template: "%s · Steward Jamal Agency",
   },
-  description: "Agency operations dashboard",
+  description:
+    "Top-rated web design, development, SEO, and digital marketing in Accra and Ghana. Custom websites that rank higher, convert leads, and grow your business.",
+  openGraph: {
+    title: "The Steward Jamal Agency | Web Design & Development in Ghana",
+    description:
+      "Custom websites, SEO, and digital marketing for Ghanaian businesses. Get a site that ranks higher and sells more.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
