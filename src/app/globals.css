@@ -62,11 +62,80 @@ html {
   }
 }
 
+.agency-hero-slide {
+  opacity: 0;
+  transform: translateX(12px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease;
+  pointer-events: none;
+}
+
+.agency-hero-slide.is-active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.agency-hero-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.1s ease-in-out;
+  will-change: opacity;
+}
+
+.agency-hero-bg.is-active {
+  opacity: 1;
+}
+
+.agency-hero-bg-image {
+  transform: scale(1);
+  transition: transform 8s ease-out;
+}
+
+.agency-hero-bg.is-active .agency-hero-bg-image {
+  transform: scale(1.08);
+}
+
+.agency-landing {
+  font-family: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+}
+
+.agency-landing :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-roboto-slab), ui-serif, Georgia, serif;
+}
+
+.agency-section-eyebrow {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.agency-testimonial-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.agency-service-num {
+  font-family: var(--font-roboto-slab), ui-serif, Georgia, serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: #dfe3e6;
+}
+
+.agency-team-avatar {
+  background: linear-gradient(135deg, #ddedf5 0%, #beddea 100%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .agency-marquee-track,
-  .agency-reveal-up {
+  .agency-reveal-up,
+  .agency-hero-slide,
+  .agency-hero-bg,
+  .agency-hero-bg-image {
     animation: none !important;
     transform: none !important;
     opacity: 1 !important;
+    transition: none !important;
   }
 }
