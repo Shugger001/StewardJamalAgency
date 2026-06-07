@@ -243,7 +243,8 @@ function readPublicEnvString(value: string | undefined) {
 
 const FOOTER_CONTACT_EMAIL =
   readPublicEnvString(process.env.NEXT_PUBLIC_CONTACT_EMAIL) || "stewardjamalagency@gmail.com";
-const FOOTER_CONTACT_PHONE = readPublicEnvString(process.env.NEXT_PUBLIC_CONTACT_PHONE);
+const FOOTER_CONTACT_PHONE =
+  readPublicEnvString(process.env.NEXT_PUBLIC_CONTACT_PHONE) || "+233 54 311 1607";
 const FOOTER_ADDRESS =
   readPublicEnvString(process.env.NEXT_PUBLIC_CONTACT_ADDRESS) || "Accra, Ghana";
 const FOOTER_SOCIAL_LINKS: { label: string; href: string }[] = [
