@@ -29,7 +29,9 @@ import type { LucideIcon } from "lucide-react";
 import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import { PublicLeadForm } from "@/components/leads/public-lead-form";
+import { PageHero } from "@/components/public/page-hero";
 import { blogPosts } from "@/content/blog-posts";
+import { PUBLIC_NAV, type PublicPageView } from "@/lib/public-site-config";
 
 /** Hero visual — `public/hero-landing.png` */
 const HERO_IMAGE_SRC = "/hero-landing.png";
@@ -263,6 +265,7 @@ export type LandingPortfolioItem = {
 
 type AgencyLandingProps = {
   mode: "home" | "site";
+  view?: PublicPageView;
   portfolioItems: LandingPortfolioItem[];
   previewTargets?: string[];
 };
@@ -276,8 +279,41 @@ const brandLogos = [
   "Prime Retail",
 ];
 
-export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: AgencyLandingProps) {
+const SERVICE_LINKS: Record<string, string> = {
+  "Search Engine Optimization": "/services/seo",
+  "E-Commerce Development": "/services/ecommerce",
+  "Digital Marketing & PPC": "/services/digital-marketing",
+  "Web Development & Design": "/services/web-development",
+  "Custom Web Applications": "/services/web-development#custom-design",
+};
+
+const PAGE_HEADERS: Record<Exclude<PublicPageView, "home" | "all">, { eyebrow: string; title: string; description: string }> = {
+  about: {
+    eyebrow: "About us",
+    title: "The team behind your next website",
+    description: "We design and build digital products for Ghanaian businesses—from first launch to long-term growth.",
+  },
+  portfolio: {
+    eyebrow: "Our work",
+    title: "Projects and previews",
+    description: "A selection of websites and platforms we have built for clients across Ghana.",
+  },
+  pricing: {
+    eyebrow: "Packages",
+    title: "Clear pricing for every stage",
+    description: "Published packages with defined deliverables. Upgrade to priority delivery when you need a faster kickoff.",
+  },
+  contact: {
+    eyebrow: "Contact",
+    title: "Start a conversation",
+    description: "Tell us about your project—we will reply with scope options, timeline, and next steps.",
+  },
+};
+
+export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTargets = [] }: AgencyLandingProps) {
   const isSite = mode === "site";
+  const view: PublicPageView = viewProp ?? (isSite ? "all" : "home");
+  const isCompactHome = view === "home";
   const [navOpen, setNavOpen] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
@@ -287,14 +323,41 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
   const [pricingTier, setPricingTier] = useState<"standard" | "priority">("standard");
   const [paymentMethod, setPaymentMethod] = useState<"momo" | "card">("momo");
   const basePath = isSite ? "/site" : "/";
-  const navItems = [
-    { href: basePath, label: "Home" },
-    { href: `${basePath}#about`, label: "About Us" },
-    { href: "/services", label: "Service" },
-    { href: `${basePath}#portfolio`, label: "Portfolio" },
-    { href: "/blog", label: "Blog" },
-    { href: `${basePath}#proposal`, label: "Contact Us" },
-  ];
+  const contactHref = isSite ? `${basePath}#proposal` : "/contact";
+  const navItems = isSite
+    ? [
+        { href: basePath, label: "Home" },
+        { href: `${basePath}#about`, label: "About Us" },
+        { href: "/services", label: "Service" },
+        { href: `${basePath}#portfolio`, label: "Portfolio" },
+        { href: "/blog", label: "Blog" },
+        { href: `${basePath}#proposal`, label: "Contact Us" },
+      ]
+    : PUBLIC_NAV.map((item) => ({ href: item.href, label: item.label }));
+
+  function renderNavLink(item: { href: string; label: string }, className: string, onNavigate?: () => void) {
+    const isHashLink = item.href.includes("#");
+    if (isHashLink) {
+      return (
+        <a
+          key={item.href}
+          href={item.href}
+          onClick={(e) => {
+            handleInPageAnchorClick(e, item.href);
+            onNavigate?.();
+          }}
+          className={className}
+        >
+          {item.label}
+        </a>
+      );
+    }
+    return (
+      <Link key={item.href} href={item.href} className={className} onClick={onNavigate}>
+        {item.label}
+      </Link>
+    );
+  }
 
   function handleInPageAnchorClick(e: MouseEvent<HTMLAnchorElement>, href: string) {
     try {
@@ -348,11 +411,12 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
   }, []);
 
   useEffect(() => {
+    if (view !== "home" && view !== "all") return;
     const timer = window.setInterval(() => {
       setHeroIndex((i) => (i + 1) % heroSlides.length);
     }, 6000);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [view]);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -408,16 +472,9 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             The Steward Jamal Agency
           </Link>
           <nav className="hidden flex-1 justify-center gap-6 xl:flex" aria-label="Page sections">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => handleInPageAnchorClick(e, item.href)}
-                className="text-sm font-medium text-zinc-700 transition hover:text-[#0693e3]"
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item) =>
+              renderNavLink(item, "text-sm font-medium text-zinc-700 transition hover:text-[#0693e3]"),
+            )}
           </nav>
           <div className="ml-auto flex shrink-0 items-center gap-2">
             <Link
@@ -451,19 +508,13 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                     className="fixed left-0 right-0 top-[4.5rem] z-50 border-b border-zinc-200 bg-white px-4 py-3 shadow-lg md:hidden"
                   >
                     <nav className="flex flex-col gap-0.5" aria-label="Page sections">
-                      {navItems.map((item) => (
-                        <a
-                          key={item.href}
-                          href={item.href}
-                          className="rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
-                          onClick={(e) => {
-                            handleInPageAnchorClick(e, item.href);
-                            setNavOpen(false);
-                          }}
-                        >
-                          {item.label}
-                        </a>
-                      ))}
+                      {navItems.map((item) =>
+                        renderNavLink(
+                          item,
+                          "rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50",
+                          () => setNavOpen(false),
+                        ),
+                      )}
                     </nav>
                   </div>
                 </>
@@ -473,7 +524,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </div>
       </header>
 
-      {/* Hero carousel — full-bleed with crossfading backgrounds */}
+      {(view === "home" || view === "all") ? (
       <section className="relative min-h-[min(78vh,680px)] overflow-hidden" style={{ backgroundColor: DB.navy }}>
         <div aria-hidden="true" className="absolute inset-0">
           {heroSlides.map((slide, idx) => (
@@ -551,8 +602,8 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             </p>
           ) : (
             <a
-              href={`${basePath}#proposal`}
-              onClick={(e) => handleInPageAnchorClick(e, `${basePath}#proposal`)}
+              href={contactHref}
+              onClick={(e) => !contactHref.includes("#") ? undefined : handleInPageAnchorClick(e, contactHref)}
               className="mt-2 inline-block text-sm font-semibold text-[#0693e3] hover:underline"
             >
               Send us a brief →
@@ -560,8 +611,11 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           )}
         </aside>
       </section>
+      ) : (
+        <PageHero {...PAGE_HEADERS[view as keyof typeof PAGE_HEADERS]} />
+      )}
 
-      {/* Quick CTA strip */}
+      {(view === "home" || view === "all" || view === "contact") && (
       <section style={{ backgroundColor: DB.teal }} className="text-white">
         <div className={`${LANDING_GUTTER} flex flex-wrap items-center justify-between gap-3 py-3.5`}>
           <p className="text-sm font-semibold sm:text-base">Ready to grow your business online?</p>
@@ -572,8 +626,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             </a>
           ) : (
             <a
-              href={`${basePath}#proposal`}
-              onClick={(e) => handleInPageAnchorClick(e, `${basePath}#proposal`)}
+              href={contactHref}
               className="text-sm font-medium underline-offset-2 hover:underline"
             >
               Send us a brief →
@@ -581,8 +634,9 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           )}
         </div>
       </section>
+      )}
 
-      {/* Intro + split feature rows */}
+      {(view === "home" || view === "about" || view === "all") && (
       <section id="about" className="scroll-mt-24 py-14 lg:py-20" style={{ backgroundColor: DB.skyLight }}>
         <div className={`${LANDING_GUTTER} grid gap-12 lg:grid-cols-2 lg:items-center`}>
           <div className="agency-reveal-up">
@@ -597,14 +651,31 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               search fundamentals included from the start. From early-stage startups in Accra to established teams in
               Kumasi, we design around how you actually win customers.
             </p>
-            <Link
-              href={`${basePath}#proposal`}
-              onClick={(e) => handleInPageAnchorClick(e, `${basePath}#proposal`)}
-              className="mt-6 inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-white transition hover:brightness-110"
-              style={{ backgroundColor: DB.orange }}
-            >
-              Request a Quote
-            </Link>
+            {isCompactHome ? (
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href="/about"
+                  className="inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-white transition hover:brightness-110"
+                  style={{ backgroundColor: DB.orange }}
+                >
+                  About our agency
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex h-11 items-center rounded-full border border-[#051B2E] px-6 text-sm font-semibold text-[#051B2E] transition hover:bg-[#051B2E] hover:text-white"
+                >
+                  Request a quote
+                </Link>
+              </div>
+            ) : (
+              <Link
+                href={contactHref}
+                className="mt-6 inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-white transition hover:brightness-110"
+                style={{ backgroundColor: DB.orange }}
+              >
+                Request a Quote
+              </Link>
+            )}
           </div>
           <figure className="agency-reveal-up overflow-hidden rounded-2xl shadow-lg">
             <div className="relative aspect-[4/3] w-full">
@@ -613,7 +684,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </figure>
         </div>
       </section>
+      )}
 
+      {(view === "about" || view === "all") && (
+      <>
       <section className="py-14 lg:py-20">
         <div className={`${LANDING_GUTTER} grid gap-12 lg:grid-cols-2 lg:items-center`}>
           <figure className="agency-reveal-up order-2 overflow-hidden rounded-2xl shadow-lg lg:order-1">
@@ -632,14 +706,13 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               Ranking matters—but so does relevance. We improve site structure, page content, and technical health so your
               business appears for the searches that lead to calls, bookings, and purchases.
             </p>
-            <a
-              href={`${basePath}#services`}
-              onClick={(e) => handleInPageAnchorClick(e, `${basePath}#services`)}
+            <Link
+              href="/services/seo"
               className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3] hover:underline"
             >
               Explore our SEO work
               <ArrowRight className="h-4 w-4" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -658,11 +731,11 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               return on ad spend—so marketing spend connects to business results.
             </p>
             <Link
-              href={isSite ? "/dashboard" : "/signup"}
+              href="/services/digital-marketing"
               className="mt-6 inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-[#051B2E] transition hover:brightness-95"
               style={{ backgroundColor: DB.gold }}
             >
-              Start Your Project
+              Explore marketing services
             </Link>
           </div>
           <figure className="agency-reveal-up overflow-hidden rounded-2xl shadow-lg">
@@ -672,8 +745,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </figure>
         </div>
       </section>
+      </>
+      )}
 
-      {/* Client logos */}
+      {(view === "home" || view === "all") && (
       <section className="border-y border-zinc-200 bg-white py-8">
         <div className={LANDING_GUTTER}>
           <p className="text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">Brands we&apos;ve supported</p>
@@ -691,8 +766,56 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
         </div>
       </section>
+      )}
 
-      {/* Services — Doctor Barns service-page style preview */}
+      {view === "home" && (
+      <section className={`${LANDING_GUTTER} py-14 lg:py-16`}>
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">What we do</p>
+          <h2 className="mt-2 text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
+            Services for every stage of growth
+          </h2>
+          <p className="mt-3 text-sm text-zinc-600">
+            From your first company site to SEO, e-commerce, and paid campaigns—each service has its own page with full details.
+          </p>
+        </div>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {serviceItems.slice(0, 4).map((item) => {
+            const Icon = item.icon;
+            const href = SERVICE_LINKS[item.title] ?? "/services";
+            return (
+              <Link
+                key={item.num}
+                href={href}
+                className="group rounded-lg border border-zinc-200 bg-white p-5 shadow-sm transition hover:border-[#0693e3]/40 hover:shadow-md"
+              >
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#DDEDF5] text-[#0693e3]">
+                  <Icon className="h-5 w-5" strokeWidth={1.75} />
+                </span>
+                <h3 className="mt-4 text-sm font-bold" style={{ color: DB.navy }}>
+                  {item.title}
+                </h3>
+                <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-zinc-600">{item.body}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#0693e3]">
+                  Learn more <ArrowRight className="h-3 w-3" />
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+        <div className="mt-8 text-center">
+          <Link
+            href="/services"
+            className="inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-white"
+            style={{ backgroundColor: DB.navy }}
+          >
+            View all services
+          </Link>
+        </div>
+      </section>
+      )}
+
+      {view === "all" && (
       <section id="services" className={`${LANDING_GUTTER} scroll-mt-20 py-14 lg:py-20`}>
         <div className="grid gap-10 lg:grid-cols-[280px_1fr] xl:grid-cols-[300px_1fr]">
           <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
@@ -801,8 +924,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
         </div>
       </section>
+      )}
 
-      {/* Why choose us */}
+      {(view === "about" || view === "all") && (
+      <>
       <section className="py-14 lg:py-20" style={{ backgroundColor: DB.skyLight }}>
         <div className={LANDING_GUTTER}>
           <div className="mx-auto max-w-2xl text-center">
@@ -836,18 +961,16 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             })}
           </div>
           <div className="mt-8 text-center">
-            <a
-              href={`${basePath}#about`}
-              onClick={(e) => handleInPageAnchorClick(e, `${basePath}#about`)}
+            <Link
+              href="/contact"
               className="inline-flex h-11 items-center rounded-sm border border-[#051B2E] px-6 text-sm font-bold uppercase tracking-wide text-[#051B2E] transition hover:bg-[#051B2E] hover:text-white"
             >
-              More About Us
-            </a>
+              Work with us
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Stats banner */}
       <section style={{ backgroundColor: DB.navy }} className="py-14 text-white lg:py-16">
         <div className={`${LANDING_GUTTER} grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:items-center`}>
           <div className="text-center lg:text-left">
@@ -861,7 +984,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               Our focus is simple: help businesses look credible online and turn that credibility into enquiries and sales.
             </p>
             <Link
-              href={isSite ? "/dashboard" : "/signup"}
+              href={contactHref}
               className="mt-6 inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-[#051B2E]"
               style={{ backgroundColor: DB.gold }}
             >
@@ -948,8 +1071,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           ))}
         </div>
       </section>
+      </>
+      )}
 
-      {/* Quick stats row */}
+      {(view === "about" || view === "pricing" || view === "all") && (
       <section className={`${LANDING_GUTTER} pb-10`}>
         <div className="grid gap-4 md:grid-cols-3">
           <article className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
@@ -978,8 +1103,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </article>
         </div>
       </section>
+      )}
 
-      {/* Pricing value props — Doctor Barns style */}
+      {(view === "pricing" || view === "all") && (
+      <>
       <section className="py-12" style={{ backgroundColor: DB.sky }}>
         <div className={LANDING_GUTTER}>
           <div className="mx-auto max-w-2xl text-center">
@@ -1008,8 +1135,11 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
           <div className="mt-8 text-center">
             <a
-              href={`${basePath}#pricing`}
-              onClick={(e) => handleInPageAnchorClick(e, `${basePath}#pricing`)}
+              href={isSite ? `${basePath}#pricing` : "/pricing"}
+              onClick={(e) => {
+                if (!isSite) return;
+                handleInPageAnchorClick(e, `${basePath}#pricing`);
+              }}
               className="inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-white"
               style={{ backgroundColor: DB.orange }}
             >
@@ -1019,7 +1149,6 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </div>
       </section>
 
-      {/* Pricing */}
       <section id="pricing" className={`${LANDING_GUTTER} scroll-mt-20 pb-14`}>
         <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm lg:p-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -1146,8 +1275,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
         </div>
       </section>
+      </>
+      )}
 
-      {/* Portfolio */}
+      {(view === "portfolio" || view === "all") && (
       <section id="portfolio" className="py-14 lg:py-16" style={{ backgroundColor: DB.skyLight }}>
         <div className={LANDING_GUTTER}>
           <div className="agency-reveal-up relative mb-8 overflow-hidden rounded-2xl shadow-lg">
@@ -1196,6 +1327,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
         </div>
       </section>
+      )}
 
       {isSite && previewTargets.length > 0 && (
         <section className={`${LANDING_GUTTER} pb-10`}>
@@ -1216,7 +1348,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </section>
       )}
 
-      {/* FAQ */}
+      {(view === "contact" || view === "all") && (
       <section id="faq" className={`${LANDING_GUTTER} scroll-mt-20 pb-14`}>
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
@@ -1265,8 +1397,9 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
         </div>
       </section>
+      )}
 
-      {/* Testimonials carousel */}
+      {(view === "home" || view === "about" || view === "all") && (
       <section className="py-14 lg:py-16" style={{ backgroundColor: DB.skyLight }}>
         <div className={LANDING_GUTTER}>
           <div className="text-center">
@@ -1342,8 +1475,9 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
         </div>
       </section>
+      )}
 
-      {/* Blog / insights */}
+      {view === "all" && (
       <section id="blog" className={`${LANDING_GUTTER} scroll-mt-20 pb-14`}>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -1390,8 +1524,9 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           ))}
         </div>
       </section>
+      )}
 
-      {/* Discount CTA */}
+      {(view === "home" || view === "all") && (
       <section style={{ backgroundColor: "#FCDA8A" }} className="py-10">
         <div className={`${LANDING_GUTTER} flex flex-wrap items-center justify-between gap-4`}>
           <div>
@@ -1401,8 +1536,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             </h2>
           </div>
           <Link
-            href={`${basePath}#proposal`}
-            onClick={(e) => handleInPageAnchorClick(e, `${basePath}#proposal`)}
+            href={contactHref}
             className="inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-white"
             style={{ backgroundColor: DB.orange }}
           >
@@ -1410,8 +1544,9 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </Link>
         </div>
       </section>
+      )}
 
-      {/* CTA banner */}
+      {(view === "home" || view === "all") && (
       <section style={{ backgroundColor: DB.navy }} className="py-12 text-white">
         <div className={`${LANDING_GUTTER} flex flex-wrap items-center justify-between gap-4`}>
           <div>
@@ -1420,7 +1555,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             <p className="mt-2 text-sm text-zinc-300">Tell us what you need—we will map the right scope and timeline.</p>
           </div>
           <Link
-            href={isSite ? "/dashboard" : "/signup"}
+            href={contactHref}
             className="inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-[#051B2E]"
             style={{ backgroundColor: DB.gold }}
           >
@@ -1428,8 +1563,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </Link>
         </div>
       </section>
+      )}
 
-      {/* Contact / proposal */}
+      {(view === "contact" || view === "all") && (
+      <>
       <section id="proposal" className={`${LANDING_GUTTER} scroll-mt-20 py-14 lg:py-16`}>
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
@@ -1482,7 +1619,6 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </div>
       </section>
 
-      {/* Pre-footer contact strip — Doctor Barns style */}
       <section style={{ backgroundColor: DB.sky }} className="border-y border-zinc-200 py-10">
         <div className={`${LANDING_GUTTER} grid gap-8 md:grid-cols-2`}>
           <div>
@@ -1511,6 +1647,8 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
         </div>
       </section>
+      </>
+      )}
 
       <footer className="border-t border-zinc-800 text-zinc-300" style={{ backgroundColor: DB.navyMid }} aria-label="Site footer">
         <div className={`${LANDING_GUTTER} py-10 lg:py-12`}>
@@ -1540,30 +1678,22 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500">Services</p>
               <nav className="mt-4 flex flex-col gap-2.5" aria-label="Footer services">
                 {serviceItems.slice(0, 5).map((item) => (
-                  <a
+                  <Link
                     key={item.num}
-                    href={`${basePath}#services`}
-                    onClick={(e) => handleInPageAnchorClick(e, `${basePath}#services`)}
+                    href={SERVICE_LINKS[item.title] ?? "/services"}
                     className="text-sm text-zinc-300 transition hover:text-white"
                   >
                     {item.title}
-                  </a>
+                  </Link>
                 ))}
               </nav>
             </div>
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500">Explore</p>
               <nav className="mt-4 flex flex-col gap-2.5" aria-label="Footer sections">
-                {navItems.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={(e) => handleInPageAnchorClick(e, item.href)}
-                    className="text-sm text-zinc-300 transition hover:text-white"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+                {navItems.map((item) =>
+                  renderNavLink(item, "text-sm text-zinc-300 transition hover:text-white"),
+                )}
               </nav>
             </div>
             <div>

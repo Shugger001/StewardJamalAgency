@@ -17,7 +17,7 @@ export default function BlogIndexPage() {
             ← The Steward Jamal Agency
           </Link>
           <Link
-            href="/#proposal"
+            href="/contact"
             className="rounded-sm bg-[#FFCC53] px-4 py-2 text-xs font-bold uppercase tracking-wide text-[#051B2E]"
           >
             Request a quote

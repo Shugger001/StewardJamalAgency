@@ -65,5 +65,5 @@ export default async function SitePage() {
     clientName: "Client",
   }));
 
-  return <AgencyLanding mode="site" portfolioItems={portfolioItems} previewTargets={previewTargets} />;
+  return <AgencyLanding mode="site" view="all" portfolioItems={portfolioItems} previewTargets={previewTargets} />;
 }

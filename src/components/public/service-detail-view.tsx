@@ -72,10 +72,10 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
 
             <div className="flex flex-col gap-2">
               {[
-                { label: "Request a quote", href: "/#proposal", style: DB.orange },
-                { label: "Visit our studio", href: "/#proposal", style: DB.navy },
-                { label: "Book a call", href: "/#proposal", style: DB.teal },
-                { label: "See pricing", href: "/#pricing", style: DB.gold, darkText: true },
+                { label: "Request a quote", href: "/contact", style: DB.orange },
+                { label: "Visit our studio", href: "/contact", style: DB.navy },
+                { label: "Book a call", href: "/contact", style: DB.teal },
+                { label: "See pricing", href: "/pricing", style: DB.gold, darkText: true },
               ].map((btn) => (
                 <Link
                   key={btn.label}
@@ -251,7 +251,7 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
                 </div>
               </div>
               <Link
-                href="/#proposal"
+                href="/contact"
                 className="mt-6 inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-[#051B2E]"
                 style={{ backgroundColor: DB.gold }}
               >

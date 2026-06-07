@@ -67,7 +67,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             Share your goals and we will reply with scope options and a realistic timeline.
           </p>
           <Link
-            href="/#proposal"
+            href="/contact"
             className="mt-4 inline-flex h-11 items-center rounded-sm bg-[#ff6900] px-6 text-sm font-bold uppercase tracking-wide text-white"
           >
             Request a quote

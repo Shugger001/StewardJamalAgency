@@ -33,9 +33,12 @@ export const SERVICE_NAV = [
 
 export const PUBLIC_NAV = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/#about" },
+  { label: "About Us", href: "/about" },
   { label: "Service", href: "/services" },
-  { label: "Portfolio", href: "/#portfolio" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact Us", href: "/#proposal" },
+  { label: "Contact Us", href: "/contact" },
 ] as const;
+
+export type PublicPageView = "home" | "about" | "portfolio" | "pricing" | "contact" | "all";

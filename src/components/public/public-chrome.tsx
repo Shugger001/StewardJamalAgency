@@ -158,7 +158,7 @@ export function PublicChrome({ children }: PublicChromeProps) {
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500">Working time</p>
               <p className="mt-4 text-sm text-zinc-400">{SITE_CONTACT.hours}</p>
-              <Link href="/#proposal" className="mt-4 inline-block text-sm font-semibold text-[#FFCC53] hover:underline">
+              <Link href="/contact" className="mt-4 inline-block text-sm font-semibold text-[#FFCC53] hover:underline">
                 Request a proposal →
               </Link>
             </div>
