@@ -76,7 +76,7 @@ export function PublicChrome({ children }: PublicChromeProps) {
               className="hidden h-10 items-center rounded-sm px-5 text-sm font-bold uppercase tracking-wide text-[#051B2E] shadow-sm transition hover:brightness-95 sm:inline-flex"
               style={{ backgroundColor: DB.gold }}
             >
-              Get Started Now
+              Start a project
             </Link>
             <div className="relative xl:hidden">
               <button

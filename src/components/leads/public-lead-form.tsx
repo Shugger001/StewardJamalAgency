@@ -45,7 +45,7 @@ export function PublicLeadForm() {
       setState({
         loading: false,
         error: null,
-        success: "Thanks! We received your request and will reach out shortly.",
+        success: "Thank you—we received your message and will respond within one business day.",
       });
     } catch (error) {
       setState({
@@ -62,7 +62,7 @@ export function PublicLeadForm() {
         <input
           name="name"
           required
-          placeholder="Your name"
+          placeholder="Your full name"
           className="h-10 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
         />
         <input
@@ -84,11 +84,12 @@ export function PublicLeadForm() {
           required
           className="h-10 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
         >
-          <option value="">Service needed</option>
-          <option value="Website Design">Website Design</option>
-          <option value="Website Development">Website Development</option>
-          <option value="E-commerce Build">E-commerce Build</option>
-          <option value="Maintenance & Support">Maintenance & Support</option>
+          <option value="">Select a service</option>
+          <option value="Website Design">Website design</option>
+          <option value="Website Development">Website development</option>
+          <option value="E-commerce Build">E-commerce build</option>
+          <option value="SEO & Marketing">SEO & marketing</option>
+          <option value="Maintenance & Support">Maintenance & support</option>
         </select>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
@@ -117,7 +118,7 @@ export function PublicLeadForm() {
         name="message"
         required
         rows={4}
-        placeholder="Tell us about your project goals."
+        placeholder="Describe your goals, timeline, and anything we should know."
         className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
       />
       <input
@@ -144,7 +145,7 @@ export function PublicLeadForm() {
         disabled={state.loading}
         className="inline-flex h-10 items-center rounded-lg bg-[#0A66FF] px-5 text-sm font-medium text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {state.loading ? "Submitting..." : "Get proposal"}
+        {state.loading ? "Sending..." : "Send enquiry"}
       </button>
     </form>
   );

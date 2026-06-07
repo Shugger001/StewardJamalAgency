@@ -10,8 +10,8 @@ import { DB, LANDING_GUTTER } from "@/lib/public-site-config";
 const allServices = [webDevelopmentPage, ecommercePage, seoPage, digitalMarketingPage];
 
 export const metadata: Metadata = {
-  title: "Our Services",
-  description: "Web development, e-commerce, SEO, and digital marketing for businesses in Accra and across Ghana.",
+  title: "Services",
+  description: "Website design, e-commerce, SEO, and digital marketing services for businesses in Ghana.",
 };
 
 export default function ServicesIndexPage() {
@@ -19,9 +19,9 @@ export default function ServicesIndexPage() {
     <PublicChrome>
       <section style={{ backgroundColor: DB.sky }} className="border-b border-zinc-200">
         <div className={`${LANDING_GUTTER} py-10 lg:py-12`}>
-          <h1 className="text-3xl font-bold text-[#051B2E] sm:text-4xl">Our services</h1>
+          <h1 className="text-3xl font-bold text-[#051B2E] sm:text-4xl">What we offer</h1>
           <p className="mt-3 max-w-2xl text-sm text-zinc-600 sm:text-base">
-            Design, build, and growth services to help your brand get found online and turn traffic into enquiries.
+            Website design, online stores, search optimization, and paid campaigns—scoped for teams across Ghana.
           </p>
         </div>
       </section>
@@ -35,7 +35,7 @@ export default function ServicesIndexPage() {
             >
               <h2 className="text-lg font-bold text-[#051B2E] group-hover:text-[#0693e3]">{service.title}</h2>
               <p className="mt-2 text-sm leading-relaxed text-zinc-600">{service.subtitle}</p>
-              <span className="mt-4 inline-block text-sm font-semibold text-[#0693e3]">Learn more →</span>
+              <span className="mt-4 inline-block text-sm font-semibold text-[#0693e3]">View details →</span>
             </Link>
           ))}
         </div>

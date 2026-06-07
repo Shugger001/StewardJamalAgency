@@ -150,20 +150,20 @@ const whyChooseUs = [
 
 const faqItems = [
   {
-    q: "How long does a typical website project take?",
-    a: "Most business websites launch in 3–6 weeks depending on scope, content readiness, and revision rounds.",
+    q: "What is the typical timeline for a business website?",
+    a: "Most projects go live in three to six weeks. Timeline depends on page count, how quickly you provide content, and how many design rounds you need.",
   },
   {
-    q: "Do you offer SEO with every website?",
-    a: "Yes. We integrate foundational SEO—metadata, structure, performance, and analytics—into every build.",
+    q: "Is SEO included when you build a site?",
+    a: "Every build includes core SEO setup: page titles, descriptions, heading structure, sitemap, and performance tuning. Ongoing SEO campaigns are available separately.",
   },
   {
-    q: "Can I pay with Mobile Money or card?",
-    a: "Absolutely. We support MTN MoMo, Telecel, AT, and card payments for deposits and milestone billing.",
+    q: "Which payment methods do you accept?",
+    a: "We accept MTN MoMo, Telecel Cash, AT Money, and card payments. Projects are usually billed in milestones—deposit, design approval, and launch.",
   },
   {
-    q: "Do you provide updates after launch?",
-    a: "Yes. We offer post-launch support, content updates, and optimization packages for ongoing growth.",
+    q: "Can you help after the site goes live?",
+    a: "Yes. We offer maintenance plans for updates, security patches, content changes, and periodic performance reviews.",
   },
 ] as const;
 
@@ -425,7 +425,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               className="hidden h-10 items-center rounded-sm px-5 text-sm font-bold uppercase tracking-wide text-[#051B2E] shadow-sm transition hover:brightness-95 sm:inline-flex"
               style={{ backgroundColor: DB.gold }}
             >
-              {isSite ? "Dashboard" : "Get Started Now"}
+              {isSite ? "Dashboard" : "Start a project"}
             </Link>
             <div className="relative md:hidden">
               <button
@@ -544,7 +544,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Ready to grow online?</p>
           {FOOTER_CONTACT_PHONE ? (
             <p className="mt-2 text-sm font-semibold text-[#051B2E]">
-              Quick Call:{" "}
+              Call us:{" "}
               <a href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`} className="text-[#0693e3] hover:underline">
                 {FOOTER_CONTACT_PHONE}
               </a>
@@ -555,7 +555,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               onClick={(e) => handleInPageAnchorClick(e, `${basePath}#proposal`)}
               className="mt-2 inline-block text-sm font-semibold text-[#0693e3] hover:underline"
             >
-              Request a free quote →
+              Send us a brief →
             </a>
           )}
         </aside>
@@ -568,7 +568,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           {FOOTER_CONTACT_PHONE ? (
             <a href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`} className="inline-flex items-center gap-2 text-sm font-medium">
               <Phone className="h-4 w-4" />
-              Quick Call: {FOOTER_CONTACT_PHONE}
+              Call us: {FOOTER_CONTACT_PHONE}
             </a>
           ) : (
             <a
@@ -576,7 +576,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               onClick={(e) => handleInPageAnchorClick(e, `${basePath}#proposal`)}
               className="text-sm font-medium underline-offset-2 hover:underline"
             >
-              Request a free quote →
+              Send us a brief →
             </a>
           )}
         </div>
@@ -637,7 +637,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               onClick={(e) => handleInPageAnchorClick(e, `${basePath}#services`)}
               className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3] hover:underline"
             >
-              Learn more about our SEO services
+              Explore our SEO work
               <ArrowRight className="h-4 w-4" />
             </a>
           </div>
@@ -676,7 +676,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       {/* Client logos */}
       <section className="border-y border-zinc-200 bg-white py-8">
         <div className={LANDING_GUTTER}>
-          <p className="text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">Some of our clients</p>
+          <p className="text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">Brands we&apos;ve supported</p>
           <div className="agency-marquee-wrap mt-4 overflow-hidden">
             <div className="agency-marquee-track flex w-max gap-3 text-sm font-medium text-zinc-600">
               {[...brandLogos, ...brandLogos].map((name, idx) => (
@@ -697,7 +697,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         <div className="grid gap-10 lg:grid-cols-[280px_1fr] xl:grid-cols-[300px_1fr]">
           <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
-              <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Consultation</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Talk to us</p>
               <a
                 href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`}
                 className="mt-2 flex items-center gap-2 text-base font-bold text-[#051B2E] hover:text-[#0693e3]"
@@ -728,10 +728,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             </div>
             <div className="flex flex-col gap-2">
               <Link href={`${basePath}#proposal`} onClick={(e) => handleInPageAnchorClick(e, `${basePath}#proposal`)} className="inline-flex h-10 items-center justify-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-white" style={{ backgroundColor: DB.orange }}>
-                Want a website?
+                Start a project
               </Link>
               <Link href="/services/web-development" className="inline-flex h-10 items-center justify-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-white" style={{ backgroundColor: DB.navy }}>
-                View full service page
+                Browse web services
               </Link>
             </div>
           </aside>
@@ -779,7 +779,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                         href={href}
                         className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3] hover:underline"
                       >
-                        Read More <ArrowRight className="h-3.5 w-3.5" />
+                        Explore service <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
                     </div>
                   </article>
@@ -795,7 +795,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                 className="mt-3 inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-white"
                 style={{ backgroundColor: DB.navy }}
               >
-                View All Services
+                Browse all services
               </Link>
             </div>
           </div>
@@ -852,7 +852,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         <div className={`${LANDING_GUTTER} grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:items-center`}>
           <div className="text-center lg:text-left">
             <p className="text-5xl font-bold text-[#FFCC53]">10+</p>
-            <p className="mt-1 text-sm uppercase tracking-wider text-zinc-300">Years experience</p>
+            <p className="mt-1 text-sm uppercase tracking-wider text-zinc-300">Years in digital work</p>
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-[#FFCC53]">Client work across Ghana</p>
@@ -865,7 +865,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               className="mt-6 inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-[#051B2E]"
               style={{ backgroundColor: DB.gold }}
             >
-              Get Started Today
+              Start your project
             </Link>
           </div>
         </div>
@@ -921,16 +921,16 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             <div className="absolute inset-0 flex max-w-lg flex-col justify-center p-8">
               <p className="text-xs font-semibold uppercase tracking-wider text-[#FFCC53]">Our process</p>
               <h2 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
-                Discovery, design, build, and launch—done with precision
+                How we take you from brief to live site
               </h2>
             </div>
           </div>
         </div>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {[
-            { img: IMG.strategySession, label: "Discovery", text: "Workshops that align stakeholders before design begins." },
-            { img: IMG.uxWhiteboard, label: "Design & UX", text: "Flows, hierarchy, and conversion clarity." },
-            { img: IMG.launchTeam, label: "Launch", text: "Go-live support, analytics, and iteration." },
+            { img: IMG.strategySession, label: "Discovery", text: "We clarify goals, audience, and must-have features before any design work starts." },
+            { img: IMG.uxWhiteboard, label: "Design & UX", text: "Wireframes and visuals shaped around how visitors move toward enquiry or purchase." },
+            { img: IMG.launchTeam, label: "Launch", text: "Deployment, analytics hooks, and a smooth handoff so your team can manage day one." },
           ].map((item, idx) => (
             <figure
               key={item.label}
@@ -953,28 +953,28 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       <section className={`${LANDING_GUTTER} pb-10`}>
         <div className="grid gap-4 md:grid-cols-3">
           <article className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs uppercase tracking-wide text-zinc-500">Projects delivered</p>
+            <p className="text-xs uppercase tracking-wide text-zinc-500">Sites shipped</p>
             <p className="mt-2 text-3xl font-bold" style={{ color: DB.navy }}>
               120+
             </p>
-            <p className="mt-1 text-sm text-zinc-600">Business sites, e-commerce, and custom portals.</p>
+            <p className="mt-1 text-sm text-zinc-600">Corporate sites, shops, and custom web apps.</p>
           </article>
           <article className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs uppercase tracking-wide text-zinc-500">Avg launch timeline</p>
+            <p className="text-xs uppercase tracking-wide text-zinc-500">Typical go-live window</p>
             <p className="mt-2 text-3xl font-bold" style={{ color: DB.navy }}>
               3–6 weeks
             </p>
-            <p className="mt-1 text-sm text-zinc-600">Fast shipping without quality compromise.</p>
+            <p className="mt-1 text-sm text-zinc-600">Structured milestones keep delivery on track.</p>
           </article>
           <article
             className="rounded-2xl border border-[#FFCC53]/50 p-5 shadow-sm"
             style={{ backgroundColor: "#FCDA8A33" }}
           >
-            <p className="text-xs uppercase tracking-wide text-[#051B2E]">Current offer</p>
+            <p className="text-xs uppercase tracking-wide text-[#051B2E]">Limited availability</p>
             <p className="mt-2 text-3xl font-bold" style={{ color: DB.navy }}>
-              Priority slots open
+              Priority kickoffs
             </p>
-            <p className="mt-1 text-sm text-zinc-700">Book now and get faster kickoff support.</p>
+            <p className="mt-1 text-sm text-zinc-700">Reserve a slot for faster project start dates.</p>
           </article>
         </div>
       </section>
@@ -1013,7 +1013,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               className="inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-white"
               style={{ backgroundColor: DB.orange }}
             >
-              See Pricing Plans
+              View package pricing
             </a>
           </div>
         </div>
@@ -1057,8 +1057,8 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                 price: pricingTier === "priority" ? "GH₵5,500" : "GH₵4,500",
                 note:
                   pricingTier === "priority"
-                    ? "Includes priority slot + faster first draft turnaround."
-                    : "Ideal for lean brands that need premium fundamentals.",
+                    ? "Includes expedited kickoff and priority production queue."
+                    : "Solid foundation for brands launching their first professional site.",
                 featured: false,
               },
               {
@@ -1066,8 +1066,8 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                 price: pricingTier === "priority" ? "GH₵7,500" : "GH₵6,500",
                 note:
                   pricingTier === "priority"
-                    ? "Priority support, weekly review calls, and faster launch queue."
-                    : "Most selected for scaling service teams.",
+                    ? "Weekly check-ins, faster revisions, and priority support channel."
+                    : "Popular choice for teams adding lead capture and content sections.",
                 featured: true,
               },
               {
@@ -1075,8 +1075,8 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                 price: pricingTier === "priority" ? "GH₵10,500" : "GH₵9,000",
                 note:
                   pricingTier === "priority"
-                    ? "White-glove delivery with top-priority production and support."
-                    : "For high-ticket offers and advanced digital workflows.",
+                    ? "Dedicated lead contact with accelerated delivery windows."
+                    : "For complex builds, integrations, and multi-stakeholder sign-off.",
                 featured: false,
               },
             ].map((pkg) => (
@@ -1099,18 +1099,18 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
             <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-5">
               <h3 className="text-sm font-bold" style={{ color: DB.navy }}>
-                What you get
+                Included in every package
               </h3>
               <ul className="mt-3 space-y-2 text-sm text-zinc-600">
-                <li>• Conversion-focused UX and page structure</li>
-                <li>• Responsive build across all devices</li>
-                <li>• Basic analytics and SEO setup</li>
-                <li>• Launch support and post-launch guidance</li>
+                <li>• UX structure focused on enquiries and conversions</li>
+                <li>• Responsive layout for phone, tablet, and desktop</li>
+                <li>• Analytics setup and baseline SEO configuration</li>
+                <li>• Launch checklist and post-go-live guidance</li>
               </ul>
             </article>
             <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-5">
               <h3 className="text-sm font-bold" style={{ color: DB.navy }}>
-                Secure checkout preview
+                Payment options preview
               </h3>
               <div className="mt-3 rounded-xl border border-[#0693e3]/25 bg-white p-4">
                 <p className="text-xs font-medium uppercase tracking-wide text-[#0693e3]">Order total</p>
@@ -1157,7 +1157,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               <div className="absolute bottom-0 p-6 sm:p-8">
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#FFCC53]">Portfolio</p>
                 <p className="mt-1 max-w-xl text-lg font-bold text-white sm:text-xl">
-                  Every preview is built with the same production rigor we apply to client launches.
+                  Each project follows the same quality bar we use for client launches.
                 </p>
               </div>
             </div>
@@ -1171,7 +1171,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                   className="agency-reveal-up rounded-xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:shadow-md"
                 >
                   <p className="text-xs uppercase tracking-wide text-zinc-500">
-                    {item.status === "published" ? "Live project" : "In progress"}
+                    {item.status === "published" ? "Published work" : "In development"}
                   </p>
                   <h3 className="mt-2 text-lg font-bold" style={{ color: DB.navy }}>
                     {item.name}
@@ -1181,7 +1181,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                     href={`/sites/${target}`}
                     className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3] hover:underline"
                   >
-                    View project preview <ArrowRight className="h-3.5 w-3.5" />
+                    Open preview <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </article>
               );
@@ -1189,7 +1189,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             {!portfolioItems.length && (
               <article className="agency-reveal-up rounded-xl border border-zinc-200 bg-white p-5 lg:col-span-3">
                 <p className="text-sm text-zinc-600">
-                  Portfolio previews will appear here as soon as websites are published from the dashboard.
+                  Published client work will appear here. Sites go live from your dashboard once approved.
                 </p>
               </article>
             )}
@@ -1221,10 +1221,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
             <h2 className="text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
-              Frequently asked questions
+              Common questions
             </h2>
             <p className="mt-2 text-sm text-zinc-600">
-              Common questions about web development, pricing, timelines, and support.
+              Answers about scope, timelines, payments, and support for new projects.
             </p>
           </div>
           <div className="mt-8 space-y-3">
@@ -1260,7 +1260,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               onClick={(e) => handleInPageAnchorClick(e, `${basePath}#faq`)}
               className="inline-flex h-11 items-center rounded-sm border border-[#051B2E] px-6 text-sm font-bold uppercase tracking-wide text-[#051B2E] transition hover:bg-[#051B2E] hover:text-white"
             >
-              View All Questions
+              See all FAQs
             </a>
           </div>
         </div>
@@ -1270,9 +1270,9 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       <section className="py-14 lg:py-16" style={{ backgroundColor: DB.skyLight }}>
         <div className={LANDING_GUTTER}>
           <div className="text-center">
-            <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">Customer testimonials</p>
+            <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">Client stories</p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
-              Client feedback
+              Feedback from recent projects
             </h2>
             <div className="mt-3 inline-flex items-center gap-2 text-sm text-zinc-600">
               <span className="flex text-[#FFCC53]">
@@ -1280,7 +1280,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                   <Star key={i} className="h-4 w-4 fill-current" />
                 ))}
               </span>
-              Overall rating 4.9 / 5
+              Average client rating 4.9 / 5
             </div>
           </div>
           <div className="relative mx-auto mt-10 max-w-4xl">
@@ -1347,9 +1347,9 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       <section id="blog" className={`${LANDING_GUTTER} scroll-mt-20 pb-14`}>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">Read our latest news</p>
+            <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">From our blog</p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
-              Featured blogs and insights
+              Guides for growing online in Ghana
             </h2>
           </div>
           <Link href="/blog" className="text-sm font-semibold text-[#0693e3] hover:underline">
@@ -1382,7 +1382,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                   </h3>
                   <p className="mt-2 line-clamp-2 text-xs text-zinc-600">{post.excerpt}</p>
                   <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3]">
-                    Continue Reading <ArrowRight className="h-3.5 w-3.5" />
+                    Read article <ArrowRight className="h-3.5 w-3.5" />
                   </span>
                 </div>
               </Link>
@@ -1395,7 +1395,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       <section style={{ backgroundColor: "#FCDA8A" }} className="py-10">
         <div className={`${LANDING_GUTTER} flex flex-wrap items-center justify-between gap-4`}>
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-[#051B2E]">Sites built to win customers</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-[#051B2E]">New project incentive</p>
             <h2 className="mt-1 text-xl font-bold sm:text-2xl" style={{ color: DB.navy }}>
               10% off new projects booked this month
             </h2>
@@ -1406,7 +1406,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             className="inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-white"
             style={{ backgroundColor: DB.orange }}
           >
-            Claim Offer
+            Claim 10% off
           </Link>
         </div>
       </section>
@@ -1424,7 +1424,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             className="inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-[#051B2E]"
             style={{ backgroundColor: DB.gold }}
           >
-            Get Started Now
+            Get started
           </Link>
         </div>
       </section>
@@ -1462,7 +1462,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               </div>
               {FOOTER_CONTACT_PHONE ? (
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-wider text-zinc-500">Tell</p>
+                  <p className="text-xs font-bold uppercase tracking-wider text-zinc-500">Phone</p>
                   <a href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`} className="mt-1 inline-flex items-center gap-2 font-semibold text-[#051B2E] hover:text-[#0693e3]">
                     <Phone className="h-4 w-4" />
                     {FOOTER_CONTACT_PHONE}
@@ -1473,7 +1473,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </div>
           <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-bold" style={{ color: DB.navy }}>
-              What are your needs?
+              Tell us about your project
             </p>
             <div className="mt-4">
               <PublicLeadForm />
@@ -1486,12 +1486,12 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       <section style={{ backgroundColor: DB.sky }} className="border-y border-zinc-200 py-10">
         <div className={`${LANDING_GUTTER} grid gap-8 md:grid-cols-2`}>
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Address of The Steward Jamal Agency</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Studio location</p>
             <p className="mt-2 text-sm text-zinc-700">{FOOTER_ADDRESS}</p>
-            <p className="mt-1 text-sm text-zinc-600">Opening hours: 8:00am – 5:00pm</p>
+            <p className="mt-1 text-sm text-zinc-600">Hours: Mon–Sat, 8:00am – 5:00pm</p>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Contact us</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Reach us directly</p>
             {FOOTER_CONTACT_EMAIL ? (
               <p className="mt-2 text-sm text-zinc-700">
                 Email:{" "}
@@ -1567,9 +1567,9 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               </nav>
             </div>
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500">Subscribe newsletter</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500">Email updates</p>
               <p className="mt-3 text-xs leading-relaxed text-zinc-400">
-                Sign up to follow the latest news and events. We promise not to spam your inbox.
+                Get occasional updates on web design, SEO, and digital growth. No spam—unsubscribe anytime.
               </p>
               <form
                 className="mt-4 flex gap-2"

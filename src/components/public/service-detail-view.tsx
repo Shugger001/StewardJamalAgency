@@ -38,7 +38,7 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
         <div className="grid gap-10 lg:grid-cols-[280px_1fr] xl:grid-cols-[300px_1fr]">
           <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
-              <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Consultation</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Talk to us</p>
               <a
                 href={`tel:${SITE_CONTACT.phone.replace(/\s/g, "")}`}
                 className="mt-2 flex items-center gap-2 text-lg font-bold text-[#051B2E] hover:text-[#0693e3]"
@@ -72,10 +72,10 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
 
             <div className="flex flex-col gap-2">
               {[
-                { label: "Want a website?", href: "/#proposal", style: DB.orange },
-                { label: "Our office location", href: "/#proposal", style: DB.navy },
-                { label: "Book consultation", href: "/#proposal", style: DB.teal },
-                { label: "Price estimates", href: "/#pricing", style: DB.gold, darkText: true },
+                { label: "Request a quote", href: "/#proposal", style: DB.orange },
+                { label: "Visit our studio", href: "/#proposal", style: DB.navy },
+                { label: "Book a call", href: "/#proposal", style: DB.teal },
+                { label: "See pricing", href: "/#pricing", style: DB.gold, darkText: true },
               ].map((btn) => (
                 <Link
                   key={btn.label}
@@ -110,7 +110,7 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
             </div>
 
             <section>
-              <h2 className="text-xl font-bold text-[#051B2E] sm:text-2xl">Why choose us?</h2>
+              <h2 className="text-xl font-bold text-[#051B2E] sm:text-2xl">Why clients choose us</h2>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 {content.whyChoose.map((item) => (
                   <article key={item.title} className="rounded-lg border border-zinc-200 bg-[#F1F2F2] p-5">
@@ -128,7 +128,7 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-[#051B2E]">The results we deliver</h2>
+              <h2 className="text-lg font-bold text-[#051B2E]">Outcomes you can expect</h2>
               <ul className="mt-4 space-y-3">
                 {content.results.map((item) => (
                   <li key={item} className="flex gap-3 text-sm text-zinc-600">
@@ -143,7 +143,7 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
               <section key={offering.id} id={offering.id} className="scroll-mt-24 border-t border-zinc-200 pt-10">
                 <h3 className="text-lg font-bold text-[#051B2E] sm:text-xl">{offering.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-zinc-600 sm:text-base">{offering.intro}</p>
-                <p className="mt-4 text-xs font-bold uppercase tracking-wider text-zinc-500">Key features</p>
+                <p className="mt-4 text-xs font-bold uppercase tracking-wider text-zinc-500">What&apos;s included</p>
                 <ul className="mt-3 space-y-2">
                   {offering.features.map((feature) => (
                     <li key={feature} className="flex gap-2 text-sm text-zinc-600">
@@ -174,15 +174,15 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
             ) : null}
 
             <section className="rounded-lg border border-zinc-200 bg-[#F1F2F2] p-6 sm:p-8">
-              <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Customer testimonials</p>
-              <h2 className="mt-2 text-xl font-bold text-[#051B2E]">What clients say</h2>
+              <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Client feedback</p>
+              <h2 className="mt-2 text-xl font-bold text-[#051B2E]">Recent project reviews</h2>
               <div className="mt-2 flex items-center gap-1 text-sm text-zinc-600">
                 <span className="flex text-[#FFCC53]">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="h-4 w-4 fill-current" />
                   ))}
                 </span>
-                Overall rating 4.9 / 5
+                Average rating 4.9 / 5
               </div>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 {SERVICE_TESTIMONIALS.map((item) => (
@@ -198,7 +198,7 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-[#051B2E]">Frequently asked questions</h2>
+              <h2 className="text-xl font-bold text-[#051B2E]">Questions we hear often</h2>
               <div className="mt-6 space-y-2">
                 {content.faqs.map((item, idx) => {
                   const isOpen = openFaq === idx;
@@ -235,7 +235,7 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#FFCC53]">Tell</p>
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#FFCC53]">Phone</p>
                   <a
                     href={`tel:${SITE_CONTACT.phone.replace(/\s/g, "")}`}
                     className="mt-1 block text-sm font-semibold text-white hover:text-[#FFCC53]"
@@ -255,7 +255,7 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
                 className="mt-6 inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-[#051B2E]"
                 style={{ backgroundColor: DB.gold }}
               >
-                Submit request
+                Send enquiry
               </Link>
             </section>
           </div>

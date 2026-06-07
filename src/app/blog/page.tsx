@@ -5,7 +5,7 @@ import { blogPosts } from "@/content/blog-posts";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Web development, SEO, and digital marketing insights from The Steward Jamal Agency.",
+  description: "Articles on web design, e-commerce, SEO, and marketing for Ghanaian business owners.",
 };
 
 export default function BlogIndexPage() {
@@ -20,16 +20,16 @@ export default function BlogIndexPage() {
             href="/#proposal"
             className="rounded-sm bg-[#FFCC53] px-4 py-2 text-xs font-bold uppercase tracking-wide text-[#051B2E]"
           >
-            Get Started
+            Request a quote
           </Link>
         </div>
       </header>
 
       <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:py-20">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">Read our latest news</p>
-        <h1 className="mt-2 text-3xl font-bold text-[#051B2E] sm:text-4xl">Featured blogs and insights</h1>
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">Insights & guides</p>
+        <h1 className="mt-2 text-3xl font-bold text-[#051B2E] sm:text-4xl">Articles for Ghanaian business owners</h1>
         <p className="mt-3 max-w-2xl text-sm text-zinc-600">
-          Practical guides on web design, e-commerce, SEO, and digital marketing for Ghanaian businesses.
+          Practical notes on websites, e-commerce, SEO, and marketing—written for teams building or improving their online presence.
         </p>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -57,7 +57,7 @@ export default function BlogIndexPage() {
                     {post.title}
                   </h2>
                   <p className="mt-2 line-clamp-2 text-xs text-zinc-600">{post.excerpt}</p>
-                  <span className="mt-4 inline-block text-sm font-semibold text-[#0693e3]">Continue Reading →</span>
+                  <span className="mt-4 inline-block text-sm font-semibold text-[#0693e3]">Read article →</span>
                 </div>
               </Link>
             </article>

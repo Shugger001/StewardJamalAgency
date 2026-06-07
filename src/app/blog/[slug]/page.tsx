@@ -62,15 +62,15 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
 
         <div className="mt-10 rounded-lg border border-[#DDEDF5] bg-[#DDEDF5]/40 p-6">
-          <p className="text-sm font-bold text-[#051B2E]">Ready to grow your business online?</p>
+          <p className="text-sm font-bold text-[#051B2E]">Planning a new site or refresh?</p>
           <p className="mt-2 text-sm text-zinc-600">
-            Tell us about your project and we&apos;ll reply with a clear plan and timeline.
+            Share your goals and we will reply with scope options and a realistic timeline.
           </p>
           <Link
             href="/#proposal"
             className="mt-4 inline-flex h-11 items-center rounded-sm bg-[#ff6900] px-6 text-sm font-bold uppercase tracking-wide text-white"
           >
-            Get A Quote
+            Request a quote
           </Link>
         </div>
       </article>
@@ -78,7 +78,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       {related.length > 0 ? (
         <section className="border-t border-zinc-200 bg-[#F1F2F2] py-12">
           <div className="mx-auto max-w-3xl px-4 sm:px-6">
-            <h2 className="text-lg font-bold text-[#051B2E]">Continue reading</h2>
+            <h2 className="text-lg font-bold text-[#051B2E]">More to read</h2>
             <ul className="mt-4 space-y-3">
               {related.map((item) => (
                 <li key={item.slug}>
