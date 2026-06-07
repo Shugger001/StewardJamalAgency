@@ -22,6 +22,18 @@ export const SITE_CONTACT = {
   hours: "Mon – Sat: 8:00am – 5:00pm",
 } as const;
 
+export const SITE_WHATSAPP = {
+  phone: readPublicEnvString(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER) || SITE_CONTACT.phone,
+  defaultMessage: "Hi Steward Jamal Agency, I'd like to learn more about your services.",
+} as const;
+
+export function buildWhatsAppUrl(phone: string, message?: string) {
+  const digits = phone.replace(/\D/g, "");
+  if (!digits) return null;
+  const base = `https://wa.me/${digits}`;
+  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
+}
+
 export const SERVICE_NAV = [
   { label: "Web Development And Design", href: "/services/web-development" },
   { label: "e-Commerce Development", href: "/services/ecommerce" },

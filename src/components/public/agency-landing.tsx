@@ -29,6 +29,7 @@ import { useEffect, useState } from "react";
 import { PublicLeadForm } from "@/components/leads/public-lead-form";
 import { MobileMenuButton } from "@/components/public/mobile-menu-button";
 import { PageHero } from "@/components/public/page-hero";
+import { WhatsAppBubble } from "@/components/public/whatsapp-bubble";
 import { blogPosts } from "@/content/blog-posts";
 import { PUBLIC_NAV, type PublicPageView } from "@/lib/public-site-config";
 
@@ -1740,6 +1741,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
           </div>
         </div>
       </footer>
+      <WhatsAppBubble />
     </main>
   );
 }

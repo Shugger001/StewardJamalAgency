@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useEffect, useState } from "react";
 import { MobileMenuButton } from "@/components/public/mobile-menu-button";
+import { WhatsAppBubble } from "@/components/public/whatsapp-bubble";
 import {
   DB,
   LANDING_GUTTER,
@@ -171,6 +172,7 @@ export function PublicChrome({ children }: PublicChromeProps) {
           </div>
         </div>
       </footer>
+      <WhatsAppBubble />
     </div>
   );
 }

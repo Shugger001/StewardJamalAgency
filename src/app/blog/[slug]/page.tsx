@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPost, getBlogPostSlugs } from "@/content/blog-posts";
+import { WhatsAppBubble } from "@/components/public/whatsapp-bubble";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -91,6 +92,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
         </section>
       ) : null}
+      <WhatsAppBubble />
     </main>
   );
 }
