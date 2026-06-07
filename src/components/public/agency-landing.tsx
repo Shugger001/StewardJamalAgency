@@ -13,7 +13,6 @@ import {
   Headphones,
   Mail,
   MapPin,
-  Menu,
   Megaphone,
   Phone,
   RefreshCw,
@@ -22,13 +21,13 @@ import {
   Sparkles,
   Star,
   TrendingUp,
-  X,
   Zap,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import { PublicLeadForm } from "@/components/leads/public-lead-form";
+import { MobileMenuButton } from "@/components/public/mobile-menu-button";
 import { PageHero } from "@/components/public/page-hero";
 import { blogPosts } from "@/content/blog-posts";
 import { PUBLIC_NAV, type PublicPageView } from "@/lib/public-site-config";
@@ -484,17 +483,12 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             >
               {isSite ? "Dashboard" : "Start a project"}
             </Link>
-            <div className="relative md:hidden">
-              <button
-                type="button"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-200 text-zinc-700 hover:bg-zinc-50"
-                aria-expanded={navOpen}
-                aria-controls="landing-mobile-nav"
-                aria-label={navOpen ? "Close menu" : "Open menu"}
+            <div className="relative xl:hidden">
+              <MobileMenuButton
+                open={navOpen}
                 onClick={() => setNavOpen((o) => !o)}
-              >
-                {navOpen ? <X className="h-4 w-4" strokeWidth={2} /> : <Menu className="h-4 w-4" strokeWidth={2} />}
-              </button>
+                aria-controls="landing-mobile-nav"
+              />
               {navOpen ? (
                 <>
                   <button
@@ -505,7 +499,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                   />
                   <div
                     id="landing-mobile-nav"
-                    className="fixed left-0 right-0 top-[4.5rem] z-50 border-b border-zinc-200 bg-white px-4 py-3 shadow-lg md:hidden"
+                    className="fixed left-0 right-0 top-[4.5rem] z-50 border-b border-zinc-200 bg-white px-4 py-3 shadow-lg xl:hidden"
                   >
                     <nav className="flex flex-col gap-0.5" aria-label="Page sections">
                       {navItems.map((item) =>
