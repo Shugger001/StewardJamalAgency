@@ -290,7 +290,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
   const navItems = [
     { href: basePath, label: "Home" },
     { href: `${basePath}#about`, label: "About Us" },
-    { href: `${basePath}#services`, label: "Service" },
+    { href: "/services/web-development", label: "Service" },
     { href: `${basePath}#portfolio`, label: "Portfolio" },
     { href: "/blog", label: "Blog" },
     { href: `${basePath}#proposal`, label: "Contact Us" },
@@ -510,8 +510,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                 <p className="mt-5 max-w-xl text-sm leading-relaxed text-zinc-200 sm:text-base">{slide.body}</p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
-                    href={`${basePath}#services`}
-                    onClick={(e) => handleInPageAnchorClick(e, `${basePath}#services`)}
+                    href="/services/web-development"
                     className="inline-flex h-12 items-center gap-2 rounded-sm px-7 text-sm font-bold uppercase tracking-wide text-[#051B2E] transition hover:brightness-95"
                     style={{ backgroundColor: DB.gold }}
                   >
@@ -692,64 +691,111 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         </div>
       </section>
 
-      {/* Services */}
+      {/* Services — Doctor Barns service-page style preview */}
       <section id="services" className={`${LANDING_GUTTER} scroll-mt-20 py-14 lg:py-20`}>
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">
-            Tailored services designed to boost your online visibility
-          </p>
-          <h2 className="mt-2 text-2xl font-bold sm:text-3xl lg:text-4xl" style={{ color: DB.navy }}>
-            Best web design company in Ghana | Web development | SEO | E-Commerce
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-zinc-600 sm:text-base">
-            We craft custom websites, SEO-optimized designs, and digital marketing solutions that drive traffic,
-            conversions, and sales—whether you need a responsive site, e-commerce platform, or brand refresh.
-          </p>
-        </div>
-        <div className="mt-10 space-y-4">
-          {serviceItems.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <article
-                key={item.num}
-                className="agency-reveal-up group flex flex-col gap-4 rounded-lg border border-zinc-200 bg-white p-5 shadow-sm transition hover:shadow-md sm:flex-row sm:items-start sm:p-6"
-                style={{ animationDelay: `${idx * 60}ms` }}
+        <div className="grid gap-10 lg:grid-cols-[280px_1fr] xl:grid-cols-[300px_1fr]">
+          <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
+            <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Consultation</p>
+              <a
+                href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`}
+                className="mt-2 flex items-center gap-2 text-base font-bold text-[#051B2E] hover:text-[#0693e3]"
               >
-                <span className="agency-service-num shrink-0 font-bold">{item.num}.</span>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="text-lg font-bold" style={{ color: DB.navy }}>
-                      {item.title}
-                    </h3>
-                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#DDEDF5] text-[#0693e3]">
-                      <Icon className="h-5 w-5" strokeWidth={1.75} />
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-600">{item.body}</p>
+                <Phone className="h-4 w-4 shrink-0 text-[#0693e3]" />
+                {FOOTER_CONTACT_PHONE}
+              </a>
+            </div>
+            <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+              <p className="text-sm font-bold text-[#051B2E]">Services</p>
+              <nav className="mt-3 flex flex-col gap-1">
+                <Link href="/services/web-development" className="rounded bg-[#DDEDF5] px-2 py-2 text-sm font-semibold text-[#051B2E]">
+                  Web Development And Design
+                </Link>
+                <Link href="/services/web-development#ecommerce" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]">
+                  e-Commerce Development
+                </Link>
+                <Link href="/services/web-development#seo" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]">
+                  Search Engine Optimization
+                </Link>
+                {serviceItems.slice(3).map((item) => (
                   <a
-                    href={`${basePath}#proposal`}
-                    onClick={(e) => handleInPageAnchorClick(e, `${basePath}#proposal`)}
-                    className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3] hover:underline"
+                    key={item.num}
+                    href={`${basePath}#services`}
+                    onClick={(e) => handleInPageAnchorClick(e, `${basePath}#services`)}
+                    className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]"
                   >
-                    Read More <ArrowRight className="h-3.5 w-3.5" />
+                    {item.title}
                   </a>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-        <div className="mt-10 text-center">
-          <p className="text-lg font-semibold" style={{ color: DB.navy }}>
-            You need a website that converts?
-          </p>
-          <a
-            href={`${basePath}#services`}
-            onClick={(e) => handleInPageAnchorClick(e, `${basePath}#services`)}
-            className="mt-3 inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-white"
-            style={{ backgroundColor: DB.navy }}
-          >
-            View All Services
-          </a>
+                ))}
+              </nav>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Link href={`${basePath}#proposal`} onClick={(e) => handleInPageAnchorClick(e, `${basePath}#proposal`)} className="inline-flex h-10 items-center justify-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-white" style={{ backgroundColor: DB.orange }}>
+                Want a website?
+              </Link>
+              <Link href="/services/web-development" className="inline-flex h-10 items-center justify-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-white" style={{ backgroundColor: DB.navy }}>
+                View full service page
+              </Link>
+            </div>
+          </aside>
+
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">
+              Tailored services designed to boost your online visibility
+            </p>
+            <h2 className="mt-2 text-2xl font-bold sm:text-3xl lg:text-4xl" style={{ color: DB.navy }}>
+              Best web design company in Ghana | Web development | SEO | E-Commerce
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-zinc-600 sm:text-base">
+              We craft custom websites, SEO-optimized designs, and digital marketing solutions that drive traffic,
+              conversions, and sales—whether you need a responsive site, e-commerce platform, or brand refresh.
+            </p>
+            <div className="mt-8 space-y-4">
+              {serviceItems.map((item, idx) => {
+                const Icon = item.icon;
+                const readMoreHref =
+                  item.title.includes("Web Development") ? "/services/web-development" : `${basePath}#proposal`;
+                return (
+                  <article
+                    key={item.num}
+                    className="agency-reveal-up group flex flex-col gap-4 rounded-lg border border-zinc-200 bg-white p-5 shadow-sm transition hover:shadow-md sm:flex-row sm:items-start sm:p-6"
+                    style={{ animationDelay: `${idx * 60}ms` }}
+                  >
+                    <span className="agency-service-num shrink-0 font-bold">{item.num}.</span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-start justify-between gap-3">
+                        <h3 className="text-lg font-bold" style={{ color: DB.navy }}>
+                          {item.title}
+                        </h3>
+                        <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#DDEDF5] text-[#0693e3]">
+                          <Icon className="h-5 w-5" strokeWidth={1.75} />
+                        </span>
+                      </div>
+                      <p className="mt-2 text-sm leading-relaxed text-zinc-600">{item.body}</p>
+                      <Link
+                        href={readMoreHref}
+                        className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3] hover:underline"
+                      >
+                        Read More <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+            <div className="mt-10 text-center lg:text-left">
+              <p className="text-lg font-semibold" style={{ color: DB.navy }}>
+                You need a website that converts?
+              </p>
+              <Link
+                href="/services/web-development"
+                className="mt-3 inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-white"
+                style={{ backgroundColor: DB.navy }}
+              >
+                View All Services
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

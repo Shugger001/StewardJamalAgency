@@ -18,6 +18,20 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/service/best-web-development-and-design-in-accra-ghana",
+        destination: "/services/web-development",
+        permanent: true,
+      },
+      {
+        source: "/service/web-development",
+        destination: "/services/web-development",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
