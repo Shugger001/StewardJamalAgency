@@ -134,11 +134,14 @@ export function PublicChrome({ children }: PublicChromeProps) {
                 <Link href="/services/web-development" className="text-sm text-zinc-300 hover:text-white">
                   Web Development
                 </Link>
-                <Link href="/services/web-development#ecommerce" className="text-sm text-zinc-300 hover:text-white">
+                <Link href="/services/ecommerce" className="text-sm text-zinc-300 hover:text-white">
                   e-Commerce Development
                 </Link>
-                <Link href="/services/web-development#seo" className="text-sm text-zinc-300 hover:text-white">
+                <Link href="/services/seo" className="text-sm text-zinc-300 hover:text-white">
                   Search Engine Optimization
+                </Link>
+                <Link href="/services/digital-marketing" className="text-sm text-zinc-300 hover:text-white">
+                  Digital Marketing
                 </Link>
               </nav>
             </div>

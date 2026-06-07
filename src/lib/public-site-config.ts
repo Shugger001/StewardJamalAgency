@@ -24,17 +24,17 @@ export const SITE_CONTACT = {
 
 export const SERVICE_NAV = [
   { label: "Web Development And Design", href: "/services/web-development" },
-  { label: "e-Commerce Development", href: "/services/web-development#ecommerce" },
-  { label: "Search Engine Optimization", href: "/services/web-development#seo" },
-  { label: "Digital Marketing & PPC Ads", href: "/#services" },
-  { label: "Custom Web Applications", href: "/#services" },
-  { label: "Business Marketing Development", href: "/#services" },
+  { label: "e-Commerce Development", href: "/services/ecommerce" },
+  { label: "Search Engine Optimization", href: "/services/seo" },
+  { label: "Digital Marketing & PPC Ads", href: "/services/digital-marketing" },
+  { label: "Custom Web Applications", href: "/services/web-development#custom-design" },
+  { label: "Business Marketing Development", href: "/services/digital-marketing" },
 ] as const;
 
 export const PUBLIC_NAV = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/#about" },
-  { label: "Service", href: "/services/web-development" },
+  { label: "Service", href: "/services" },
   { label: "Portfolio", href: "/#portfolio" },
   { label: "Blog", href: "/blog" },
   { label: "Contact Us", href: "/#proposal" },

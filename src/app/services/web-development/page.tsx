@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PublicChrome } from "@/components/public/public-chrome";
-import { WebDevelopmentServiceView } from "@/components/public/web-development-service-view";
+import { ServiceDetailView } from "@/components/public/service-detail-view";
+import { webDevelopmentPage } from "@/content/services/web-development";
 
 export const metadata: Metadata = {
   title: "Web Development And Design in Accra, Ghana",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 export default function WebDevelopmentServicePage() {
   return (
     <PublicChrome>
-      <WebDevelopmentServiceView />
+      <ServiceDetailView content={webDevelopmentPage} />
     </PublicChrome>
   );
 }

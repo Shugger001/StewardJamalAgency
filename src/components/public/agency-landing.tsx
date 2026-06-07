@@ -290,7 +290,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
   const navItems = [
     { href: basePath, label: "Home" },
     { href: `${basePath}#about`, label: "About Us" },
-    { href: "/services/web-development", label: "Service" },
+    { href: "/services", label: "Service" },
     { href: `${basePath}#portfolio`, label: "Portfolio" },
     { href: "/blog", label: "Blog" },
     { href: `${basePath}#proposal`, label: "Contact Us" },
@@ -711,22 +711,18 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                 <Link href="/services/web-development" className="rounded bg-[#DDEDF5] px-2 py-2 text-sm font-semibold text-[#051B2E]">
                   Web Development And Design
                 </Link>
-                <Link href="/services/web-development#ecommerce" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]">
+                <Link href="/services/ecommerce" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]">
                   e-Commerce Development
                 </Link>
-                <Link href="/services/web-development#seo" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]">
+                <Link href="/services/seo" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]">
                   Search Engine Optimization
                 </Link>
-                {serviceItems.slice(3).map((item) => (
-                  <a
-                    key={item.num}
-                    href={`${basePath}#services`}
-                    onClick={(e) => handleInPageAnchorClick(e, `${basePath}#services`)}
-                    className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]"
-                  >
-                    {item.title}
-                  </a>
-                ))}
+                <Link href="/services/digital-marketing" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]">
+                  Digital Marketing & PPC
+                </Link>
+                <Link href="/services/web-development#custom-design" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]">
+                  Custom Web Applications
+                </Link>
               </nav>
             </div>
             <div className="flex flex-col gap-2">
@@ -753,8 +749,14 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             <div className="mt-8 space-y-4">
               {serviceItems.map((item, idx) => {
                 const Icon = item.icon;
-                const readMoreHref =
-                  item.title.includes("Web Development") ? "/services/web-development" : `${basePath}#proposal`;
+                const readMoreHref: Record<string, string> = {
+                  "Search Engine Optimization": "/services/seo",
+                  "E-Commerce Development": "/services/ecommerce",
+                  "Digital Marketing & PPC": "/services/digital-marketing",
+                  "Web Development & Design": "/services/web-development",
+                  "Custom Web Applications": "/services/web-development#custom-design",
+                };
+                const href = readMoreHref[item.title] ?? `${basePath}#proposal`;
                 return (
                   <article
                     key={item.num}
@@ -773,7 +775,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                       </div>
                       <p className="mt-2 text-sm leading-relaxed text-zinc-600">{item.body}</p>
                       <Link
-                        href={readMoreHref}
+                        href={href}
                         className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3] hover:underline"
                       >
                         Read More <ArrowRight className="h-3.5 w-3.5" />
