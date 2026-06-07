@@ -63,18 +63,41 @@ html {
 }
 
 .agency-hero-slide {
+  position: absolute;
+  inset: 0;
   opacity: 0;
+  visibility: hidden;
   transform: translateX(12px);
   transition:
     opacity 0.55s ease,
-    transform 0.55s ease;
+    transform 0.55s ease,
+    visibility 0.55s ease;
   pointer-events: none;
 }
 
 .agency-hero-slide.is-active {
+  position: relative;
   opacity: 1;
+  visibility: visible;
   transform: translateX(0);
   pointer-events: auto;
+}
+
+.agency-hero-slides {
+  position: relative;
+  min-height: 320px;
+}
+
+@media (min-width: 640px) {
+  .agency-hero-slides {
+    min-height: 360px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .agency-hero-slides {
+    min-height: 400px;
+  }
 }
 
 .agency-hero-bg {
@@ -130,12 +153,34 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .agency-marquee-track,
   .agency-reveal-up,
-  .agency-hero-slide,
   .agency-hero-bg,
   .agency-hero-bg-image {
     animation: none !important;
     transform: none !important;
-    opacity: 1 !important;
     transition: none !important;
+  }
+
+  .agency-hero-slide {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .agency-hero-slide:not(.is-active) {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+
+  .agency-hero-slide.is-active {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .agency-hero-bg:not(.is-active) {
+    opacity: 0 !important;
+  }
+
+  .agency-hero-bg.is-active {
+    opacity: 1 !important;
   }
 }

@@ -496,11 +496,11 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           ))}
         </div>
         <div className={`${LANDING_GUTTER} relative z-10 flex min-h-[min(78vh,680px)] flex-col justify-center py-16 lg:py-20`}>
-          <div className="relative max-w-3xl pb-14">
+          <div className="agency-hero-slides relative max-w-3xl pb-14">
             {heroSlides.map((slide, idx) => (
               <div
                 key={slide.title}
-                className={`agency-hero-slide ${idx === heroIndex ? "is-active relative" : "absolute inset-0"}`}
+                className={`agency-hero-slide ${idx === heroIndex ? "is-active" : ""}`}
                 aria-hidden={idx !== heroIndex}
               >
                 <p className="agency-section-eyebrow text-xs font-semibold text-[#FFCC53]">{slide.eyebrow}</p>
