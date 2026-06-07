@@ -13,7 +13,7 @@ const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 export async function sendEmail({ to, subject, html }: SendEmailArgs) {
   if (!resend) {
-    throw new Error("Missing RESEND_API_KEY.");
+    return { skipped: true as const, reason: "Missing RESEND_API_KEY." };
   }
 
   const result = await resend.emails.send({
@@ -27,5 +27,5 @@ export async function sendEmail({ to, subject, html }: SendEmailArgs) {
     throw new Error(result.error.message);
   }
 
-  return result.data;
+  return { skipped: false as const, data: result.data };
 }

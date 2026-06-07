@@ -61,5 +61,7 @@ export async function notifyUser({
     to: email,
     subject: emailSubject,
     html: emailHtml,
+  }).catch(() => {
+    // Notification is still stored in-app when email provider is unavailable.
   });
 }

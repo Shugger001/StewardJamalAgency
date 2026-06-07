@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { PublicChrome } from "@/components/public/public-chrome";
 import { blogPosts, getBlogPost, getBlogPostSlugs } from "@/content/blog-posts";
-import { WhatsAppBubble } from "@/components/public/whatsapp-bubble";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -31,20 +31,12 @@ export default async function BlogPostPage({ params }: PageProps) {
   const related = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 2);
 
   return (
-    <main className="agency-landing min-h-screen bg-white text-zinc-900">
-      <header className="border-b border-zinc-200 bg-[#F1F2F2]">
-        <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-4 sm:px-6">
-          <Link href="/blog" className="text-sm font-medium text-[#0693e3] hover:underline">
-            ← All posts
-          </Link>
-          <Link href="/" className="text-sm font-bold text-[#051B2E] hover:text-[#0693e3]">
-            Home
-          </Link>
-        </div>
-      </header>
-
+    <PublicChrome>
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:py-16">
-        <p className="text-xs font-semibold uppercase tracking-wider text-[#0693e3]">{post.category}</p>
+        <Link href="/blog" className="text-sm font-medium text-[#0693e3] hover:underline">
+          ← All posts
+        </Link>
+        <p className="mt-6 text-xs font-semibold uppercase tracking-wider text-[#0693e3]">{post.category}</p>
         <h1 className="mt-3 text-2xl font-bold leading-tight text-[#051B2E] sm:text-3xl lg:text-4xl">
           {post.title}
         </h1>
@@ -92,7 +84,6 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
         </section>
       ) : null}
-      <WhatsAppBubble />
-    </main>
+    </PublicChrome>
   );
 }

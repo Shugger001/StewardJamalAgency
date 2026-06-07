@@ -38,14 +38,19 @@ export function PublicLeadForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = (await response.json().catch(() => ({}))) as { error?: string };
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        warning?: string;
+      };
       if (!response.ok) throw new Error(data.error || "Unable to submit your request.");
 
       formEl.reset();
       setState({
         loading: false,
         error: null,
-        success: "Thank you—we received your message and will respond within one business day.",
+        success: data.warning
+          ? `${data.warning} We still received your details.`
+          : "Thank you—we received your message and will respond within one business day.",
       });
     } catch (error) {
       setState({

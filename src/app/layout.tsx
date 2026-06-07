@@ -25,6 +25,10 @@ const robotoSlab = Roboto_Slab({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ??
+      "https://steward-jamal-agency-eidc.vercel.app",
+  ),
   title: {
     default: "The Steward Jamal Agency | Web Design & Development in Ghana",
     template: "%s · Steward Jamal Agency",

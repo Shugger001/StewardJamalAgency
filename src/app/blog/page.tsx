@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { PublicChrome } from "@/components/public/public-chrome";
 import { blogPosts } from "@/content/blog-posts";
-import { WhatsAppBubble } from "@/components/public/whatsapp-bubble";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -11,21 +11,7 @@ export const metadata: Metadata = {
 
 export default function BlogIndexPage() {
   return (
-    <main className="agency-landing min-h-screen bg-white text-zinc-900">
-      <header className="border-b border-zinc-200 bg-[#F1F2F2]">
-        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-sm font-bold text-[#051B2E] hover:text-[#0693e3]">
-            ← The Steward Jamal Agency
-          </Link>
-          <Link
-            href="/contact"
-            className="rounded-sm bg-[#FFCC53] px-4 py-2 text-xs font-bold uppercase tracking-wide text-[#051B2E]"
-          >
-            Request a quote
-          </Link>
-        </div>
-      </header>
-
+    <PublicChrome>
       <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:py-20">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">Insights & guides</p>
         <h1 className="mt-2 text-3xl font-bold text-[#051B2E] sm:text-4xl">Articles for Ghanaian business owners</h1>
@@ -65,7 +51,6 @@ export default function BlogIndexPage() {
           ))}
         </div>
       </div>
-      <WhatsAppBubble />
-    </main>
+    </PublicChrome>
   );
 }

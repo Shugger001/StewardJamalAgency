@@ -32,12 +32,34 @@ Current production health endpoint: `https://steward-jamal-agency-eidc.vercel.ap
 
 ## Database Migration
 
-Run migration:
+**Fastest path:** open Supabase → SQL Editor and run the full file `supabase/setup_all.sql` (creates all tables, RLS, and demo portfolio seed).
+
+Or, with a Postgres URI in `SUPABASE_DB_URL`:
+
+```bash
+npm run db:migrate
+```
+
+Or call once (with `SUPABASE_DB_URL` set on the server):
+
+```bash
+curl -X POST https://steward-jamal-agency-eidc.vercel.app/api/admin/bootstrap-db \
+  -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY"
+```
+
+Individual migration files (also included in `setup_all.sql`):
 
 - `supabase/migrations/20260415_final_phase_notifications_domains.sql`
 - `supabase/migrations/20260415_auth_signup_trigger_fix.sql` (required for reliable email/password signup)
 - `supabase/migrations/20260415_client_bookings.sql` (client booking features)
 - `supabase/migrations/20260415_public_leads.sql` (public proposal/lead capture)
+
+Optional env vars:
+
+- `LEADS_ALERT_EMAIL` — inbox for new contact form submissions (defaults to contact email)
+- `RESEND_API_KEY` + `RESEND_FROM_EMAIL` — email alerts for leads and notifications
+- `ADMIN_EMAIL_ALLOWLIST` — comma-separated emails promoted to admin on signup/login
+- `SUPABASE_DB_URL` — Postgres URI for `npm run db:migrate` or `/api/admin/bootstrap-db`
 
 This creates:
 

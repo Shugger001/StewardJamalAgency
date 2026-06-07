@@ -80,13 +80,11 @@ export async function POST(request: Request) {
     <p>${safe(message)}</p>
   `;
 
-  await sendEmail({
+  const emailResult = await sendEmail({
     to: adminLeadEmail,
     subject: `New project request from ${name}`,
     html,
-  }).catch(() => {
-    // Keep lead capture successful even if email provider is unavailable.
-  });
+  }).catch(() => ({ skipped: true as const, reason: "Email send failed." }));
 
   if (dbError) {
     const missingLeadsTable =
@@ -98,7 +96,8 @@ export async function POST(request: Request) {
         {
           ok: true,
           warning:
-            "Lead email sent, but database table is missing. Run the leads migration to enable inbox storage.",
+            "Lead received, but database table is missing. Run supabase/setup_all.sql in the Supabase SQL editor.",
+          emailSent: !emailResult.skipped,
         },
         { status: 201 },
       );
@@ -107,5 +106,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: dbError }, { status: 400 });
   }
 
-  return NextResponse.json({ ok: true }, { status: 201 });
+  return NextResponse.json({ ok: true, emailSent: !emailResult.skipped }, { status: 201 });
 }

@@ -1,5 +1,6 @@
 import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase/server";
 import type { LandingPortfolioItem } from "@/components/public/agency-landing";
+import { PORTFOLIO_SHOWCASE } from "@/content/portfolio-showcase";
 
 type DbRow = Record<string, unknown>;
 
@@ -12,7 +13,7 @@ function firstString(row: DbRow, keys: string[]) {
 }
 
 export async function loadPortfolioItems(): Promise<LandingPortfolioItem[]> {
-  if (!hasSupabaseServerEnv()) return [];
+  if (!hasSupabaseServerEnv()) return PORTFOLIO_SHOWCASE;
   try {
     const supabase = createSupabaseServerClient();
     const [{ data: websites }, { data: clients }] = await Promise.all([
@@ -36,7 +37,7 @@ export async function loadPortfolioItems(): Promise<LandingPortfolioItem[]> {
       createdAt: firstString(row, ["created_at"]) || null,
     }));
 
-    return normalized
+    const items = normalized
       .sort((a, b) => {
         if (a.status === "published" && b.status !== "published") return -1;
         if (a.status !== "published" && b.status === "published") return 1;
@@ -49,7 +50,9 @@ export async function loadPortfolioItems(): Promise<LandingPortfolioItem[]> {
         domain: item.domain,
         clientName: item.clientId ? clientMap.get(item.clientId) ?? "Client" : "Client",
       }));
+
+    return items.length ? items : PORTFOLIO_SHOWCASE;
   } catch {
-    return [];
+    return PORTFOLIO_SHOWCASE;
   }
 }
