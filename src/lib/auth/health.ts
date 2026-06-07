@@ -11,6 +11,7 @@ export type AuthHealthChecks = {
 
 export type AuthHealthResult = {
   ok: boolean;
+  signupAvailable: boolean;
   checks: AuthHealthChecks;
   message: string;
 };
@@ -45,6 +46,7 @@ export async function checkAuthHealth(): Promise<AuthHealthResult> {
   if (!supabaseUrl || !anonKey) {
     return {
       ok: false,
+      signupAvailable: false,
       checks,
       message: "Auth environment variables are incomplete.",
     };
@@ -55,6 +57,7 @@ export async function checkAuthHealth(): Promise<AuthHealthResult> {
   if (!checks.authReachable) {
     return {
       ok: false,
+      signupAvailable: false,
       checks,
       message:
         "The Supabase authentication service could not be reached. Verify the project is active and NEXT_PUBLIC_SUPABASE_URL is correct.",
@@ -64,8 +67,9 @@ export async function checkAuthHealth(): Promise<AuthHealthResult> {
   if (!serviceRoleKey) {
     return {
       ok: false,
+      signupAvailable: true,
       checks,
-      message: "Supabase service role key is missing.",
+      message: "Sign-up works, but the service role key is missing for profile and admin setup.",
     };
   }
 
@@ -88,11 +92,16 @@ export async function checkAuthHealth(): Promise<AuthHealthResult> {
   }
 
   const ok = Object.values(checks).every(Boolean);
+  const signupAvailable = checks.authReachable && checks.supabaseUrl && checks.anonKey;
+
   return {
     ok,
+    signupAvailable,
     checks,
     message: ok
       ? "Auth health checks passed."
-      : "Some auth health checks failed. Review Supabase auth trigger and profile setup.",
+      : signupAvailable
+        ? "Account sign-up is available. Some optional admin/profile checks still need setup in Supabase."
+        : "Some auth health checks failed. Review Supabase auth trigger and profile setup.",
   };
 }
