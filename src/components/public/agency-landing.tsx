@@ -66,21 +66,21 @@ const LANDING_IMAGE_SIZES =
 
 const heroSlides = [
   {
-    eyebrow: "Best Web Development Company in Ghana",
-    title: "Results you can measure",
-    body: "From stunning designs to powerful features, we build websites tailored to maximize your ROI and elevate your online presence.",
+    eyebrow: "Web Design & Development · Ghana",
+    title: "Websites that work as hard as you do",
+    body: "Purpose-built design, reliable engineering, and SEO-ready structure—so your site attracts qualified visitors and turns interest into revenue.",
     image: HERO_IMAGE_SRC,
   },
   {
     eyebrow: "The Steward Jamal Agency",
-    title: "Get websites that rank higher and sell more",
-    body: "Our SEO-optimized websites not only look great but deliver measurable results—higher rankings, increased leads, and more revenue.",
+    title: "Show up in search. Win more business.",
+    body: "We build fast, mobile-first sites with search fundamentals baked in—helping Ghanaian brands capture more enquiries and close more sales online.",
     image: IMG.buildLaptop,
   },
   {
-    eyebrow: "Top Web Design Services in Ghana",
-    title: "Increase your sales with premium digital experiences",
-    body: "We craft visually stunning, user-friendly websites designed to drive traffic, boost conversions, and grow your business.",
+    eyebrow: "Accra · Kumasi · Nationwide",
+    title: "Digital experiences your customers will trust",
+    body: "Clear messaging, polished visuals, and conversion paths that guide visitors from first click to booked call, purchase, or signup.",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2200&q=80",
   },
 ] as const;
@@ -96,54 +96,54 @@ const serviceItems: ServiceItem[] = [
   {
     num: "01",
     title: "Search Engine Optimization",
-    body: "Advanced SEO strategies integrated into every project—from keyword research to on-page optimization and technical SEO.",
+    body: "Research, technical fixes, and on-page tuning so the right people find your business when they search on Google.",
     icon: Search,
   },
   {
     num: "02",
     title: "E-Commerce Development",
-    body: "Powerful online stores with intuitive product pages and seamless checkout experiences that maximize online sales.",
+    body: "Online stores with MoMo-friendly checkout, clear product pages, and layouts shaped around how Ghanaians shop on mobile.",
     icon: ShoppingCart,
   },
   {
     num: "03",
     title: "Custom Web Applications",
-    body: "Scalable portals, dashboards, and SaaS-style platforms built for growth-minded teams across Ghana.",
+    body: "Client portals, booking systems, and internal dashboards tailored to your workflow—not off-the-shelf templates.",
     icon: Globe,
   },
   {
     num: "04",
     title: "Digital Marketing & PPC",
-    body: "Campaigns engineered for tangible outcomes—more leads, sales, and customer engagement in Accra and beyond.",
+    body: "Paid search and social campaigns tracked against real outcomes: cost per lead, booked calls, and revenue.",
     icon: Megaphone,
   },
   {
     num: "05",
     title: "Web Development & Design",
-    body: "High-conversion platforms designed to generate leads and drive sales with brand-true visual systems.",
+    body: "Brand-aligned websites built for speed, clarity, and lead capture—from single-page launches to multi-section platforms.",
     icon: Sparkles,
   },
 ];
 
 const whyChooseUs = [
   {
-    title: "Results-Driven Web Design",
-    body: "Designs optimized to attract visitors, engage them, and turn them into loyal customers.",
+    title: "Design With Intent",
+    body: "Every layout choice supports a goal—credibility, enquiry, signup, or purchase—not decoration for its own sake.",
     icon: Zap,
   },
   {
-    title: "Boosted Traffic & Visibility",
-    body: "SEO-focused development so your audience finds you in Ghana and beyond.",
+    title: "Built to Be Found",
+    body: "Clean code, fast load times, and SEO basics included so your site can compete in local and national search.",
     icon: BarChart3,
   },
   {
-    title: "High-Impact Conversions",
-    body: "Clear CTAs and user-friendly layouts that increase sales, leads, and engagement.",
+    title: "Conversion-First UX",
+    body: "Straightforward navigation, strong calls to action, and mobile layouts tested for real-world use.",
     icon: Star,
   },
   {
-    title: "Custom Solutions for Every Industry",
-    body: "Tailored web solutions for startups and established brands with long-term success in mind.",
+    title: "Flexible for Any Stage",
+    body: "Whether you are launching a new venture or refreshing an established brand, scope and timeline fit your needs.",
     icon: Globe,
   },
 ] as const;
@@ -170,27 +170,27 @@ const faqItems = [
 const testimonials = [
   {
     quote:
-      "The Steward Jamal Agency built us a stunning website and implemented an SEO strategy that changed everything for our bakery. Within three months, our orders increased by 300%, and we started receiving bulk orders from corporate clients across Ghana. Their team didn't just create a site; they created a platform that turned us into a household name.",
+      "We needed a site that could handle online orders and still feel personal. The Steward Jamal Agency delivered a clean storefront, set up MoMo checkout, and helped us rank for local search terms. Enquiries picked up within the first month.",
     name: "Ama Osei",
-    role: "Founder",
+    role: "Founder, Sweet Crust Bakery",
   },
   {
     quote:
-      "Partnering with The Steward Jamal Agency was a game-changer for our company. They developed a sleek, responsive website that showcased our operations across multiple countries. Their SEO expertise ensured we ranked at the top for industry-related keywords, significantly increasing our visibility to international clients.",
+      "Our old website looked dated and loaded slowly on mobile. The rebuild was professional from kickoff to launch—clear milestones, fast turnaround, and a structure that makes it easy for our team to update content.",
     name: "Dr. Kwame Mensah",
-    role: "CEO",
+    role: "Managing Director",
   },
   {
     quote:
-      "They helped us redefine how we engage with our customers online. They designed an interactive customer portal and implemented a digital strategy that improved user experience dramatically. Within three months, we saw a 45% increase in customer satisfaction scores and a 60% rise in self-service transactions.",
+      "They rebuilt our customer portal with a simpler login flow and clearer service menus. Support tickets dropped and self-service usage went up. The team listened to our ops team, not just our marketing wish list.",
     name: "Angela Boadu",
     role: "Head of Digital Strategy",
   },
   {
     quote:
-      "Our collaboration was pivotal in streamlining our online operations. They created a secure, user-friendly interface that allowed our clients to access services seamlessly. Additionally, their tailored SEO campaigns attracted thousands of new sign-ups. Their ability to merge technical expertise with business objectives was truly exceptional.",
+      "From analytics setup to landing pages for our ad campaigns, everything was connected properly. We finally had visibility into which channels were actually producing leads—not just clicks.",
     name: "Samuel Upton",
-    role: "CTO",
+    role: "Operations Lead",
   },
 ] as const;
 
@@ -220,18 +220,18 @@ const teamMembers = [
 
 const pricingBenefits = [
   {
-    title: "Boost your online presence in 3 months",
-    body: "We provide quick digital marketing solutions to 3X your monthly recurring revenue.",
+    title: "Momentum in the first quarter",
+    body: "Launch-ready sites and campaign landing pages designed to generate early traction—not months of waiting.",
     icon: TrendingUp,
   },
   {
-    title: "Constant updates and support",
-    body: "Post-launch maintenance, content updates, and optimization so your site stays fresh.",
+    title: "Support after go-live",
+    body: "Optional maintenance for security patches, content edits, and performance checks once your site is live.",
     icon: RefreshCw,
   },
   {
-    title: "Affordable + high conversions",
-    body: "Outstanding web development services that give you value for your money.",
+    title: "Transparent pricing",
+    body: "Published packages with clear deliverables so you know exactly what you are paying for before work begins.",
     icon: Headphones,
   },
 ] as const;
@@ -514,7 +514,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
                     className="inline-flex h-12 items-center gap-2 rounded-sm px-7 text-sm font-bold uppercase tracking-wide text-[#051B2E] transition hover:brightness-95"
                     style={{ backgroundColor: DB.gold }}
                   >
-                    View All Our Service
+                    View Our Services
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
@@ -541,7 +541,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           className="absolute bottom-6 right-4 z-20 hidden max-w-xs rounded-lg border border-white/20 bg-white/95 p-4 shadow-xl backdrop-blur sm:block lg:right-10"
           aria-label="Quick contact"
         >
-          <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Let us help your business grow!</p>
+          <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Ready to grow online?</p>
           {FOOTER_CONTACT_PHONE ? (
             <p className="mt-2 text-sm font-semibold text-[#051B2E]">
               Quick Call:{" "}
@@ -564,7 +564,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       {/* Quick CTA strip */}
       <section style={{ backgroundColor: DB.teal }} className="text-white">
         <div className={`${LANDING_GUTTER} flex flex-wrap items-center justify-between gap-3 py-3.5`}>
-          <p className="text-sm font-semibold sm:text-base">Let us help your business grow!</p>
+          <p className="text-sm font-semibold sm:text-base">Ready to grow your business online?</p>
           {FOOTER_CONTACT_PHONE ? (
             <a href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`} className="inline-flex items-center gap-2 text-sm font-medium">
               <Phone className="h-4 w-4" />
@@ -588,13 +588,14 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           <div className="agency-reveal-up">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">The Steward Jamal Agency</p>
             <h2 className="mt-2 text-2xl font-bold leading-tight sm:text-3xl lg:text-4xl" style={{ color: DB.navy }}>
-              Top-rated web development services in Ghana for business growth
+              Web development that supports real business goals
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-zinc-600 sm:text-base">
-              Your website should be more than a digital presence—it should drive measurable growth. We specialize in{" "}
-              <strong>custom web development in Ghana</strong>, focusing on high-performance, SEO-optimized websites that
-              attract visitors, convert leads, and boost sales. Whether you&apos;re a startup in Accra or a corporate
-              brand in Kumasi, we build tools to fuel your success.
+              A website should do more than sit online—it should bring in enquiries, support sales, and strengthen your
+              reputation. We build{" "}
+              <strong>custom websites for businesses across Ghana</strong>, with performance, mobile usability, and
+              search fundamentals included from the start. From early-stage startups in Accra to established teams in
+              Kumasi, we design around how you actually win customers.
             </p>
             <Link
               href={`${basePath}#proposal`}
@@ -602,7 +603,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               className="mt-6 inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-white transition hover:brightness-110"
               style={{ backgroundColor: DB.orange }}
             >
-              Get A Quote
+              Request a Quote
             </Link>
           </div>
           <figure className="agency-reveal-up overflow-hidden rounded-2xl shadow-lg">
@@ -622,14 +623,14 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           </figure>
           <div className="agency-reveal-up order-1 lg:order-2">
             <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">
-              Results-driven SEO services in Accra and Ghana
+              Search visibility for Ghanaian brands
             </p>
             <h3 className="mt-2 text-xl font-bold sm:text-2xl" style={{ color: DB.navy }}>
-              Maximum visibility for your brand
+              Get found when customers are searching
             </h3>
             <p className="mt-4 text-sm leading-relaxed text-zinc-600 sm:text-base">
-              Don&apos;t just exist online—thrive. Our SEO services are engineered to help businesses dominate search
-              results and reach their target audience with organic traffic, qualified leads, and consistent growth.
+              Ranking matters—but so does relevance. We improve site structure, page content, and technical health so your
+              business appears for the searches that lead to calls, bookings, and purchases.
             </p>
             <a
               href={`${basePath}#services`}
@@ -647,14 +648,14 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         <div className={`${LANDING_GUTTER} grid gap-12 lg:grid-cols-2 lg:items-center`}>
           <div className="agency-reveal-up">
             <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">
-              Digital marketing services in Ghana
+              Digital marketing for Ghana-based teams
             </p>
             <h3 className="mt-2 text-xl font-bold sm:text-2xl" style={{ color: DB.navy }}>
-              Campaigns that drive real results
+              Advertising tied to outcomes you can track
             </h3>
             <p className="mt-4 text-sm leading-relaxed text-zinc-600 sm:text-base">
-              Marketing isn&apos;t just about being seen—it&apos;s about delivering results. Our digital marketing
-              solutions create tangible outcomes like more leads, sales, and customer engagement across Ghana.
+              We plan and manage campaigns across search and social with clear targets—lead volume, cost per enquiry, and
+              return on ad spend—so marketing spend connects to business results.
             </p>
             <Link
               href={isSite ? "/dashboard" : "/signup"}
@@ -737,14 +738,14 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
 
           <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">
-              Tailored services designed to boost your online visibility
+              Full-service digital under one roof
             </p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl lg:text-4xl" style={{ color: DB.navy }}>
-              Best web design company in Ghana | Web development | SEO | E-Commerce
+              Web design, development, SEO, and e-commerce for Ghanaian businesses
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-zinc-600 sm:text-base">
-              We craft custom websites, SEO-optimized designs, and digital marketing solutions that drive traffic,
-              conversions, and sales—whether you need a responsive site, e-commerce platform, or brand refresh.
+              Need a new company site, an online store, or a refresh of an outdated platform? We handle strategy, design,
+              build, and launch—with room to add SEO and paid campaigns when you are ready to scale.
             </p>
             <div className="mt-8 space-y-4">
               {serviceItems.map((item, idx) => {
@@ -787,7 +788,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             </div>
             <div className="mt-10 text-center lg:text-left">
               <p className="text-lg font-semibold" style={{ color: DB.navy }}>
-                You need a website that converts?
+                Need a site that turns visitors into customers?
               </p>
               <Link
                 href="/services/web-development"
@@ -805,13 +806,13 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       <section className="py-14 lg:py-20" style={{ backgroundColor: DB.skyLight }}>
         <div className={LANDING_GUTTER}>
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">Why partner with us?</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">Why work with us?</p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
-              We deliver results that drive growth for your business
+              Practical digital work focused on your bottom line
             </h2>
             <p className="mt-3 text-sm text-zinc-600">
-              In today&apos;s competitive digital landscape, your website is your most powerful tool to generate leads,
-              increase traffic, and drive conversions.
+              We combine design, development, and growth basics so your online presence supports lead generation—not just
+              aesthetics.
             </p>
           </div>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -840,7 +841,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
               onClick={(e) => handleInPageAnchorClick(e, `${basePath}#about`)}
               className="inline-flex h-11 items-center rounded-sm border border-[#051B2E] px-6 text-sm font-bold uppercase tracking-wide text-[#051B2E] transition hover:bg-[#051B2E] hover:text-white"
             >
-              More Why Choose Us
+              More About Us
             </a>
           </div>
         </div>
@@ -854,10 +855,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             <p className="mt-1 text-sm uppercase tracking-wider text-zinc-300">Years experience</p>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-[#FFCC53]">Revenue generating service</p>
-            <h2 className="mt-2 text-2xl font-bold sm:text-3xl">Worked with over 120+ businesses with remarkable results</h2>
+            <p className="text-xs font-semibold uppercase tracking-wider text-[#FFCC53]">Client work across Ghana</p>
+            <h2 className="mt-2 text-2xl font-bold sm:text-3xl">120+ projects delivered for growing brands</h2>
             <p className="mt-3 text-sm text-zinc-300">
-              Our goal is to make sure businesses flourish online, gaining more sales and visibility.
+              Our focus is simple: help businesses look credible online and turn that credibility into enquiries and sales.
             </p>
             <Link
               href={isSite ? "/dashboard" : "/signup"}
@@ -875,10 +876,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         <div className={LANDING_GUTTER}>
           <div className="mx-auto max-w-2xl text-center">
             <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">
-              People who are always dedicated to make your online presence explode
+              The people behind your project
             </p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
-              Meet our team of professional developers
+              Meet the team building your next site
             </h2>
           </div>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -983,10 +984,10 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         <div className={LANDING_GUTTER}>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-xl font-bold sm:text-2xl" style={{ color: DB.navy }}>
-              Affordable + high conversions and sales
+              Strong value without cutting corners
             </h2>
             <p className="mt-2 text-sm text-zinc-600">
-              We provide the most outstanding web development services that give you value for your money.
+              Clear packages, honest timelines, and builds engineered to perform—not just look good in a screenshot.
             </p>
           </div>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -1023,9 +1024,9 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm lg:p-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#0693e3]">Affordable + high conversions</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-[#0693e3]">Packages & pricing</p>
               <h2 className="mt-1 text-xl font-bold sm:text-2xl" style={{ color: DB.navy }}>
-                Service packages that give you value for your money
+                Plans shaped around how you want to launch
               </h2>
             </div>
             <div className="inline-flex rounded-full border border-zinc-200 bg-zinc-50 p-1 text-xs">
@@ -1271,7 +1272,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
           <div className="text-center">
             <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">Customer testimonials</p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
-              What our customers say?
+              Client feedback
             </h2>
             <div className="mt-3 inline-flex items-center gap-2 text-sm text-zinc-600">
               <span className="flex text-[#FFCC53]">
@@ -1394,9 +1395,9 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       <section style={{ backgroundColor: "#FCDA8A" }} className="py-10">
         <div className={`${LANDING_GUTTER} flex flex-wrap items-center justify-between gap-4`}>
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-[#051B2E]">We make websites that bring customers</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-[#051B2E]">Sites built to win customers</p>
             <h2 className="mt-1 text-xl font-bold sm:text-2xl" style={{ color: DB.navy }}>
-              10% discount for new projects this month!
+              10% off new projects booked this month
             </h2>
           </div>
           <Link
@@ -1414,9 +1415,9 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
       <section style={{ backgroundColor: DB.navy }} className="py-12 text-white">
         <div className={`${LANDING_GUTTER} flex flex-wrap items-center justify-between gap-4`}>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-[#FFCC53]">We make websites that bring customers</p>
-            <h2 className="mt-2 text-xl font-bold sm:text-2xl">Begin your journey with The Steward Jamal Agency</h2>
-            <p className="mt-2 text-sm text-zinc-300">Get your website designed by industry experts.</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-[#FFCC53]">Start your project</p>
+            <h2 className="mt-2 text-xl font-bold sm:text-2xl">Work with The Steward Jamal Agency</h2>
+            <p className="mt-2 text-sm text-zinc-300">Tell us what you need—we will map the right scope and timeline.</p>
           </div>
           <Link
             href={isSite ? "/dashboard" : "/signup"}
@@ -1433,7 +1434,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
             <h2 className="text-xl font-bold" style={{ color: DB.navy }}>
-              Contact with us!
+              Get in touch
             </h2>
             <div className="mt-6 space-y-4 text-sm text-zinc-600">
               <div>
@@ -1517,7 +1518,7 @@ export function AgencyLanding({ mode, portfolioItems, previewTargets = [] }: Age
             <div>
               <p className="text-sm font-bold text-white">The Steward Jamal Agency</p>
               <p className="mt-3 max-w-xs text-sm leading-relaxed text-zinc-400">
-                Custom websites, SEO, and digital marketing solutions for Ghanaian businesses ready to grow online.
+                Web design, development, SEO, and marketing for Ghanaian businesses that want a stronger online presence.
               </p>
               {FOOTER_SOCIAL_LINKS.length > 0 ? (
                 <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2" aria-label="Social profiles">

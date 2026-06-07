@@ -125,7 +125,7 @@ export function PublicChrome({ children }: PublicChromeProps) {
             <div>
               <p className="text-sm font-bold text-white">The Steward Jamal Agency</p>
               <p className="mt-3 max-w-xs text-sm leading-relaxed text-zinc-400">
-                Custom websites, SEO, and digital marketing for Ghanaian businesses ready to grow online.
+                Custom websites, SEO, and digital marketing for Ghanaian businesses that want a stronger online presence.
               </p>
             </div>
             <div>

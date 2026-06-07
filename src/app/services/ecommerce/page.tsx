@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "e-Commerce Development in Ghana",
   description:
-    "E-commerce website development in Accra and Ghana. Online stores with MoMo payments, SEO product pages, and conversion-focused checkout.",
+    "E-commerce website development in Ghana. Online stores with MoMo checkout, mobile-first design, and product pages built to sell.",
 };
 
 export default function EcommerceServicePage() {

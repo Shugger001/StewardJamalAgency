@@ -30,11 +30,11 @@ export const metadata: Metadata = {
     template: "%s · Steward Jamal Agency",
   },
   description:
-    "Top-rated web design, development, SEO, and digital marketing in Accra and Ghana. Custom websites that rank higher, convert leads, and grow your business.",
+    "Web design, development, SEO, and digital marketing for businesses in Accra and across Ghana. Custom sites built to load fast, rank well, and convert visitors into customers.",
   openGraph: {
     title: "The Steward Jamal Agency | Web Design & Development in Ghana",
     description:
-      "Custom websites, SEO, and digital marketing for Ghanaian businesses. Get a site that ranks higher and sells more.",
+      "Custom websites, SEO, and digital marketing for Ghanaian businesses. Launch a site that looks credible and generates enquiries.",
     type: "website",
   },
 };

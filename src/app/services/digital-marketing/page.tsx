@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Digital Marketing & PPC Ads in Ghana",
   description:
-    "Digital marketing and PPC services in Accra and Ghana. Google Ads, social media, and campaigns that drive leads and measurable ROI.",
+    "Digital marketing and PPC in Ghana. Google Ads, social campaigns, and tracking focused on leads, cost per enquiry, and return on ad spend.",
 };
 
 export default function DigitalMarketingServicePage() {

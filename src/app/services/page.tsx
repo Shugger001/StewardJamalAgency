@@ -11,7 +11,7 @@ const allServices = [webDevelopmentPage, ecommercePage, seoPage, digitalMarketin
 
 export const metadata: Metadata = {
   title: "Our Services",
-  description: "Web development, e-commerce, SEO, and digital marketing services in Accra and Ghana.",
+  description: "Web development, e-commerce, SEO, and digital marketing for businesses in Accra and across Ghana.",
 };
 
 export default function ServicesIndexPage() {
@@ -21,7 +21,7 @@ export default function ServicesIndexPage() {
         <div className={`${LANDING_GUTTER} py-10 lg:py-12`}>
           <h1 className="text-3xl font-bold text-[#051B2E] sm:text-4xl">Our services</h1>
           <p className="mt-3 max-w-2xl text-sm text-zinc-600 sm:text-base">
-            Tailored digital services designed to boost your online visibility, traffic, and sales across Ghana.
+            Design, build, and growth services to help your brand get found online and turn traffic into enquiries.
           </p>
         </div>
       </section>

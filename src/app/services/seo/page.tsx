@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "SEO Services in Accra, Ghana",
   description:
-    "Search engine optimization services in Ghana. Technical SEO, local SEO, and content strategy to rank higher and drive organic traffic.",
+    "SEO services in Ghana. Technical audits, on-page optimization, and local search strategy to improve rankings and organic enquiries.",
 };
 
 export default function SeoServicePage() {

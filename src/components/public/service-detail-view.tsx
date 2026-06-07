@@ -175,7 +175,7 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
 
             <section className="rounded-lg border border-zinc-200 bg-[#F1F2F2] p-6 sm:p-8">
               <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Customer testimonials</p>
-              <h2 className="mt-2 text-xl font-bold text-[#051B2E]">What our customers say?</h2>
+              <h2 className="mt-2 text-xl font-bold text-[#051B2E]">What clients say</h2>
               <div className="mt-2 flex items-center gap-1 text-sm text-zinc-600">
                 <span className="flex text-[#FFCC53]">
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -225,7 +225,7 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
             </section>
 
             <section className="rounded-lg p-6 text-white sm:p-8" style={{ backgroundColor: DB.navy }}>
-              <h2 className="text-xl font-bold">Contact with us!</h2>
+              <h2 className="text-xl font-bold">Get in touch</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-[#FFCC53]">Address</p>

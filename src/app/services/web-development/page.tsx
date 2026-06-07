@@ -6,11 +6,11 @@ import { webDevelopmentPage } from "@/content/services/web-development";
 export const metadata: Metadata = {
   title: "Web Development And Design in Accra, Ghana",
   description:
-    "Best web development and design services in Ghana. Custom websites, e-commerce, corporate sites, and redesigns that drive traffic, conversions, and growth.",
+    "Custom website design and development in Ghana. Company sites, e-commerce, corporate builds, and redesigns focused on speed, clarity, and lead generation.",
   openGraph: {
     title: "Web Development And Design | The Steward Jamal Agency",
     description:
-      "Custom web development in Accra and Ghana—responsive design, SEO, e-commerce, and conversion-focused builds.",
+      "Web design and development in Accra and across Ghana—responsive builds, SEO basics, e-commerce, and conversion-focused pages.",
     type: "website",
   },
 };

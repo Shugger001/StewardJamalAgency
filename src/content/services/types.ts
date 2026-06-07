@@ -32,13 +32,13 @@ export type ServicePageContent = {
 export const SERVICE_TESTIMONIALS = [
   {
     quote:
-      "They built us a stunning website and implemented an SEO strategy that changed everything. Within three months our orders increased dramatically and we started receiving bulk orders from corporate clients across Ghana.",
+      "They rebuilt our service pages and fixed tracking on our contact forms. Within weeks we could see which campaigns were producing real enquiries—not just traffic.",
     name: "Ama Osei",
     role: "Founder",
   },
   {
     quote:
-      "They developed a sleek, responsive website and ensured we ranked for industry keywords. Their professionalism and attention to detail were unparalleled.",
+      "Professional process from brief to launch. The site is faster, easier to update, and our team finally has a structure we can grow into.",
     name: "Dr. Kwame Mensah",
     role: "CEO",
   },
