@@ -15,6 +15,7 @@ import {
   TableWrap,
 } from "@/components/ui/table";
 import { LeadStatusSelect } from "@/components/leads/lead-status-select";
+import { EmptyState } from "@/components/ui/empty-state";
 import { cn } from "@/lib/utils";
 
 type LeadItem = {
@@ -147,8 +148,13 @@ export function DashboardHome({
             <TableBody>
               {activity.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={4} className="py-8 text-center text-zinc-500">
-                    No projects yet.
+                  <TableCell colSpan={4} className="p-0">
+                    <EmptyState
+                      title="No projects yet"
+                      description="Create a project once a client is in the CRM—or convert an approved lead."
+                      actionHref="/dashboard/projects"
+                      actionLabel="Open projects"
+                    />
                   </TableCell>
                 </TableRow>
               ) : (
@@ -184,9 +190,12 @@ export function DashboardHome({
             Requests unavailable: {leadsLoadError}
           </p>
         ) : leads.length === 0 ? (
-          <p className="rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-500">
-            No project requests yet.
-          </p>
+          <EmptyState
+            title="No project requests yet"
+            description="Public quotes arrive from /contact. Share that link—visitors do not need an account."
+            actionHref="/contact"
+            actionLabel="View contact form"
+          />
         ) : (
           <TableWrap>
             <Table>

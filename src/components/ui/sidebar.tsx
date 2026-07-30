@@ -61,12 +61,12 @@ export function Sidebar({
           )}
           onClick={onCloseMobile}
         >
-          <BrandLogo href={null} variant="mark" height={32} className="shrink-0" />
-          {!rail && (
-            <span className="truncate text-sm font-semibold tracking-tight text-zinc-900">
-              Steward Jamal
-            </span>
-          )}
+          <BrandLogo
+            href={null}
+            variant={rail ? "mark" : "header"}
+            height={rail ? 28 : 36}
+            className={rail ? "shrink-0" : "max-w-[168px]"}
+          />
         </Link>
         {!rail && (
           <button

@@ -115,8 +115,34 @@ Until keys are set, lead inserts still succeed; email alerts are skipped and log
 
 DNS cutover is blocked until you provide the domain string; the app already reads `NEXT_PUBLIC_APP_URL` everywhere that matters.
 
+**When you have the domain:** send the exact hostname (e.g. `stewardjamal.agency`). Then we can finish Vercel Domains cutover against that string.
+
+## Marketing content (no CMS required)
+
+| Content | File |
+|---------|------|
+| Portfolio fallback case studies | `src/content/portfolio-showcase.ts` |
+| Blog posts | `src/content/blog-posts.ts` |
+| Service page copy | `src/content/services/*.ts` |
+| Brand colors / contact defaults | `src/lib/public-site-config.ts` |
+| Logo assets | `public/brand/*` |
+
+Live portfolio also comes from published `websites` + `clients` (Dashboard → Websites). Prefer real client domains there when ready.
+
+## Integrations status checklist
+
+| Integration | Ready when… |
+|-------------|-------------|
+| Supabase Auth | `/api/auth/health` returns `authReachable: true` |
+| Lead alerts | `RESEND_API_KEY` + verified `RESEND_FROM_EMAIL`; test from Dashboard → Settings |
+| Paystack | Public + secret keys set; webhook → `/api/paystack/webhook` |
+| CMS templates | Run `20260730_content_blocks_key.sql` on the **active** Supabase project (SQL Editor) |
+
+> Cursor’s StewardJamalAgency Supabase MCP may still point at an old inactive project. Prefer the SQL Editor on the project whose URL matches `NEXT_PUBLIC_SUPABASE_URL` in Vercel.
+
 ## Performance Notes
 
 - Heavy admin/editor data paths use server components
 - Editor page remains lazy-loaded by route segment
 - Public rendering route (`/sites/[id]`) uses dynamic Supabase fetch with minimal section mapping
+- Contact and pricing pages do not load portfolio data

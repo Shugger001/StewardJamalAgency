@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ClientLinkActions } from "@/components/clients/client-link-actions";
 import { CreateClientForm } from "@/components/clients/create-client-form";
+import { EmptyState } from "@/components/ui/empty-state";
 import {
   Table,
   TableBody,
@@ -85,8 +86,11 @@ export default async function ClientsPage() {
             <TableBody>
               {clients.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={4} className="py-10 text-center text-zinc-500">
-                    No clients yet. Add your first client above.
+                  <TableCell colSpan={4} className="p-0">
+                    <EmptyState
+                      title="No clients yet"
+                      description="Add a business above, then link their portal account by email when they need access."
+                    />
                   </TableCell>
                 </TableRow>
               ) : (

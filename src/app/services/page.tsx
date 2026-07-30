@@ -17,12 +17,38 @@ export const metadata: Metadata = {
 export default function ServicesIndexPage() {
   return (
     <PublicChrome>
-      <section style={{ backgroundColor: DB.sky }} className="border-b border-zinc-200">
-        <div className={`${LANDING_GUTTER} py-10 lg:py-12`}>
-          <h1 className="text-3xl font-bold text-[#182635] sm:text-4xl">What we offer</h1>
-          <p className="mt-3 max-w-2xl text-sm text-zinc-600 sm:text-base">
-            Website design, online stores, search optimization, and paid campaigns—scoped for teams across Ghana.
+      <section className="relative overflow-hidden border-b border-zinc-200" style={{ backgroundColor: DB.navy }}>
+        <div
+          className="pointer-events-none absolute inset-0 opacity-40"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 70% 20%, rgba(24,96,240,0.45), transparent 55%), radial-gradient(ellipse 50% 40% at 10% 80%, rgba(255,204,83,0.12), transparent 50%)",
+          }}
+        />
+        <div className={`${LANDING_GUTTER} relative py-14 lg:py-20`}>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#FFCC53]">Services</p>
+          <h1 className="mt-3 max-w-2xl text-3xl font-bold text-white sm:text-4xl lg:text-[2.75rem]">
+            Web, commerce, search, and campaigns—built for Ghanaian businesses
+          </h1>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-zinc-300 sm:text-base">
+            Clear scope, mobile-first delivery, and a path to enquiries or sales. Pick a service to see what&apos;s
+            included—or get a quote if you already know what you need.
           </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/contact"
+              className="inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-[#182635] transition hover:brightness-95"
+              style={{ backgroundColor: DB.gold }}
+            >
+              Get a quote
+            </Link>
+            <Link
+              href="/pricing"
+              className="inline-flex h-11 items-center rounded-sm border border-white/30 px-6 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white/10"
+            >
+              See pricing
+            </Link>
+          </div>
         </div>
       </section>
       <div className={`${LANDING_GUTTER} py-12 lg:py-16`}>

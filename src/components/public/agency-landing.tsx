@@ -313,7 +313,6 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "done">("idle");
   const [pricingTier, setPricingTier] = useState<"standard" | "priority">("standard");
-  const [paymentMethod, setPaymentMethod] = useState<"momo" | "card">("momo");
   const basePath = isSite ? "/site" : "/";
   const contactHref = isSite ? `${basePath}#proposal` : "/contact";
   const navItems = isSite
@@ -664,7 +663,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                   href="/contact"
                   className="inline-flex h-11 items-center rounded-full border border-[#182635] px-6 text-sm font-semibold text-[#182635] transition hover:bg-[#182635] hover:text-white"
                 >
-                  Request a quote
+                  Get a quote
                 </Link>
               </div>
             ) : (
@@ -673,7 +672,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                 className="mt-6 inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-white transition hover:brightness-110"
                 style={{ backgroundColor: DB.orange }}
               >
-                Request a Quote
+                Get a quote
               </Link>
             )}
           </div>
@@ -853,7 +852,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             </div>
             <div className="flex flex-col gap-2">
               <Link href={contactHref} onClick={(e) => contactHref.includes("#") ? handleInPageAnchorClick(e, contactHref) : undefined} className="inline-flex h-10 items-center justify-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-white" style={{ backgroundColor: DB.orange }}>
-                Start a project
+                Get a quote
               </Link>
               <Link href="/services/web-development" className="inline-flex h-10 items-center justify-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-white" style={{ backgroundColor: DB.navy }}>
                 Browse web services
@@ -1213,7 +1212,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             ].map((pkg) => (
               <article
                 key={pkg.name}
-                className={`rounded-xl border p-5 ${
+                className={`flex flex-col rounded-xl border p-5 ${
                   pkg.featured
                     ? "border-[#1860F0]/40 bg-[#DDEDF5]/60 shadow-md"
                     : "border-zinc-200 bg-zinc-50"
@@ -1223,7 +1222,19 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                 <p className="mt-2 text-3xl font-bold" style={{ color: DB.navy }}>
                   {pkg.price}
                 </p>
-                <p className="mt-2 text-xs text-zinc-600">{pkg.note}</p>
+                <p className="mt-2 flex-1 text-xs text-zinc-600">{pkg.note}</p>
+                <Link
+                  href={isSite ? contactHref : "/contact"}
+                  onClick={(e) =>
+                    isSite && contactHref.includes("#")
+                      ? handleInPageAnchorClick(e, contactHref)
+                      : undefined
+                  }
+                  className="mt-5 inline-flex h-10 items-center justify-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-[#182635] transition hover:brightness-95"
+                  style={{ backgroundColor: DB.gold }}
+                >
+                  Get a quote
+                </Link>
               </article>
             ))}
           </div>
@@ -1241,38 +1252,26 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             </article>
             <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-5">
               <h3 className="text-sm font-bold" style={{ color: DB.navy }}>
-                Payment options preview
+                How payment works
               </h3>
-              <div className="mt-3 rounded-xl border border-[#1860F0]/25 bg-white p-4">
-                <p className="text-xs font-medium uppercase tracking-wide text-[#1860F0]">Order total</p>
-                <p className="mt-1 text-2xl font-bold" style={{ color: DB.navy }}>
-                  GH₵150.00
-                </p>
-                <div className="mt-3 space-y-2 text-xs">
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod("momo")}
-                    className={`w-full rounded-lg border px-3 py-2 text-left transition ${
-                      paymentMethod === "momo"
-                        ? "border-[#1860F0] bg-[#DDEDF5] text-[#182635]"
-                        : "border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50"
-                    }`}
-                  >
-                    Mobile Money (MTN, Telecel, AT)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod("card")}
-                    className={`w-full rounded-lg border px-3 py-2 text-left transition ${
-                      paymentMethod === "card"
-                        ? "border-[#1860F0] bg-[#DDEDF5] text-[#182635]"
-                        : "border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50"
-                    }`}
-                  >
-                    Card Payment (Visa, Mastercard)
-                  </button>
-                </div>
-              </div>
+              <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+                After we agree scope, we invoice a deposit to start. Balance is due at agreed milestones. Ghana businesses
+                can pay by Mobile Money (MTN, Telecel, AT) or card through Paystack when enabled.
+              </p>
+              <p className="mt-3 text-sm text-zinc-600">
+                No account needed to request a quote—tell us about the project on the contact form.
+              </p>
+              <Link
+                href={isSite ? contactHref : "/contact"}
+                onClick={(e) =>
+                  isSite && contactHref.includes("#")
+                    ? handleInPageAnchorClick(e, contactHref)
+                    : undefined
+                }
+                className="mt-4 inline-flex text-sm font-semibold text-[#1860F0] hover:underline"
+              >
+                Get a quote →
+              </Link>
             </article>
           </div>
         </div>
@@ -1317,7 +1316,11 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                   ) : null}
                   <div className="p-5">
                     <p className="text-xs uppercase tracking-wide text-zinc-500">
-                      {item.status === "published" ? "Case study" : "In development"}
+                      {item.clientName?.startsWith("Sample")
+                        ? "Sample work"
+                        : item.status === "published"
+                          ? "Case study"
+                          : "In development"}
                     </p>
                     <h3 className="mt-2 text-lg font-bold" style={{ color: DB.navy }}>
                       {item.name}

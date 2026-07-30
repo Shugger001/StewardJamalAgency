@@ -4,6 +4,7 @@ import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CreateBookingForm } from "@/components/bookings/create-booking-form";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export const metadata: Metadata = {
   title: "Client Dashboard",
@@ -128,7 +129,10 @@ export default async function ClientDashboardPage() {
             {bookingLoadError ? (
               <p className="text-sm text-amber-700">Booking data unavailable: {bookingLoadError}</p>
             ) : safeBookings.length === 0 ? (
-              <p className="text-sm text-zinc-500">No bookings yet.</p>
+              <EmptyState
+                title="No bookings yet"
+                description="Use the form on the left to request a session. We will confirm the time with you."
+              />
             ) : (
               safeBookings.map((booking) => (
                 <div
@@ -162,7 +166,12 @@ export default async function ClientDashboardPage() {
           </CardHeader>
           <CardContent className="space-y-2">
             {safeProjects.length === 0 ? (
-              <p className="text-sm text-zinc-500">No projects linked to your account yet.</p>
+              <EmptyState
+                title="No projects linked yet"
+                description="When your account is linked to a client record, active projects will show here."
+                actionHref="/"
+                actionLabel="Back to website"
+              />
             ) : (
               safeProjects.map((project) => (
                 <div
@@ -187,7 +196,10 @@ export default async function ClientDashboardPage() {
           </CardHeader>
           <CardContent className="space-y-2">
             {safePayments.length === 0 ? (
-              <p className="text-sm text-zinc-500">No payments linked to your account yet.</p>
+              <EmptyState
+                title="No payments yet"
+                description="Invoices and receipts appear here after payments are recorded for your account."
+              />
             ) : (
               safePayments.map((payment) => (
                 <div

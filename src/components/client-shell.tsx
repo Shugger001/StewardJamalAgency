@@ -21,18 +21,17 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-[#F7F8FB]">
       <header className="sticky top-0 z-30 border-b border-zinc-200/80 bg-white/95 backdrop-blur">
         <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <BrandLogo href="/client-dashboard" variant="mark" height={32} />
-            <div>
-              <p className="text-sm font-semibold tracking-tight text-zinc-900">Client Portal</p>
-              <p className="text-[11px] text-zinc-500">Steward Jamal Agency</p>
-            </div>
+          <div className="flex min-w-0 items-center gap-3">
+            <BrandLogo href="/client-dashboard" variant="header" height={36} className="max-w-[160px] sm:max-w-[200px]" />
+            <span className="hidden rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-[11px] font-medium text-zinc-600 sm:inline">
+              Client portal
+            </span>
           </div>
 
           <div className="flex items-center gap-2">
             <Link
               href="/client-dashboard"
-              className="hidden rounded-md border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 sm:inline-flex"
+              className="hidden rounded-md border border-[#1860F0]/20 bg-[#1860F0]/5 px-2.5 py-1 text-xs font-medium text-[#1860F0] sm:inline-flex"
             >
               Overview
             </Link>

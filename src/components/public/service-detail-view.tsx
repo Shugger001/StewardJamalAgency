@@ -23,14 +23,29 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
               Home
             </Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/services/web-development" className="hover:text-[#1860F0]">
-              Service
+            <Link href="/services" className="hover:text-[#1860F0]">
+              Services
             </Link>
             <ChevronRight className="h-3 w-3" />
             <span className="font-medium text-[#182635]">{content.title}</span>
           </nav>
           <h1 className="mt-4 text-3xl font-bold text-[#182635] sm:text-4xl lg:text-[2.75rem]">{content.title}</h1>
           <p className="mt-3 max-w-2xl text-sm text-zinc-600 sm:text-base">{content.subtitle}</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href="/contact"
+              className="inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-[#182635] transition hover:brightness-95"
+              style={{ backgroundColor: DB.gold }}
+            >
+              Get a quote
+            </Link>
+            <Link
+              href="/pricing"
+              className="inline-flex h-11 items-center rounded-sm border border-[#182635]/20 px-6 text-sm font-bold uppercase tracking-wide text-[#182635] transition hover:bg-white"
+            >
+              See pricing
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -71,23 +86,19 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
             </div>
 
             <div className="flex flex-col gap-2">
-              {[
-                { label: "Request a quote", href: "/contact", style: DB.orange },
-                { label: "Visit our studio", href: "/contact", style: DB.navy },
-                { label: "Book a call", href: "/contact", style: DB.teal },
-                { label: "See pricing", href: "/pricing", style: DB.gold, darkText: true },
-              ].map((btn) => (
-                <Link
-                  key={btn.label}
-                  href={btn.href}
-                  className={`inline-flex h-11 items-center justify-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide transition hover:brightness-95 ${
-                    btn.darkText ? "text-[#182635]" : "text-white"
-                  }`}
-                  style={{ backgroundColor: btn.style }}
-                >
-                  {btn.label}
-                </Link>
-              ))}
+              <Link
+                href="/contact"
+                className="inline-flex h-11 items-center justify-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-[#182635] transition hover:brightness-95"
+                style={{ backgroundColor: DB.gold }}
+              >
+                Get a quote
+              </Link>
+              <Link
+                href="/pricing"
+                className="inline-flex h-11 items-center justify-center rounded-sm border border-zinc-200 bg-white px-4 text-xs font-bold uppercase tracking-wide text-[#182635] transition hover:bg-zinc-50"
+              >
+                See pricing
+              </Link>
             </div>
           </aside>
 
@@ -255,7 +266,7 @@ export function ServiceDetailView({ content }: ServiceDetailViewProps) {
                 className="mt-6 inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-[#182635]"
                 style={{ backgroundColor: DB.gold }}
               >
-                Send enquiry
+                Get a quote
               </Link>
             </section>
           </div>
