@@ -1,3 +1,4 @@
+import { createClient } from "@supabase/supabase-js";
 import { sendEmail } from "@/lib/email";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -24,24 +25,82 @@ export async function createInAppNotification({
   }
 }
 
+async function resolveAuthUserIdFromClientId(clientId: string): Promise<string | null> {
+  const supabase = createSupabaseServerClient();
+  const client = await supabase
+    .from("clients")
+    .select("id, user_id, email")
+    .eq("id", clientId)
+    .maybeSingle();
+
+  if (client.error || !client.data) return null;
+
+  const linkedUserId =
+    typeof client.data.user_id === "string" && client.data.user_id ? client.data.user_id : null;
+  if (linkedUserId) return linkedUserId;
+
+  const email = typeof client.data.email === "string" ? client.data.email.trim().toLowerCase() : "";
+  if (!email) return null;
+
+  const byProfile = await supabase.from("profiles").select("id").ilike("email", email).maybeSingle();
+  if (!byProfile.error && byProfile.data?.id) return String(byProfile.data.id);
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceRole) return null;
+
+  const admin = createClient(supabaseUrl, serviceRole, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  const listed = await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
+  const match = listed.data?.users?.find((user) => user.email?.toLowerCase() === email);
+  return match?.id ?? null;
+}
+
 async function resolveRecipientEmail(userId: string) {
   const supabase = createSupabaseServerClient();
 
-  // Prefer profile email if available.
   const profile = await supabase.from("profiles").select("email").eq("id", userId).maybeSingle();
-  if (!profile.error && profile.data && typeof profile.data.email === "string") {
+  if (!profile.error && profile.data && typeof profile.data.email === "string" && profile.data.email) {
     return profile.data.email;
   }
 
-  // Fallback: clients.email if schema has it.
-  const client = await supabase.from("clients").select("email").eq("id", userId).maybeSingle();
-  if (!client.error && client.data && typeof client.data.email === "string") {
-    return client.data.email;
+  const clientByUser = await supabase.from("clients").select("email").eq("user_id", userId).maybeSingle();
+  if (
+    !clientByUser.error &&
+    clientByUser.data &&
+    typeof clientByUser.data.email === "string" &&
+    clientByUser.data.email
+  ) {
+    return clientByUser.data.email;
+  }
+
+  const clientById = await supabase.from("clients").select("email").eq("id", userId).maybeSingle();
+  if (
+    !clientById.error &&
+    clientById.data &&
+    typeof clientById.data.email === "string" &&
+    clientById.data.email
+  ) {
+    return clientById.data.email;
+  }
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (supabaseUrl && serviceRole) {
+    const admin = createClient(supabaseUrl, serviceRole, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+    const user = await admin.auth.admin.getUserById(userId);
+    if (user.data.user?.email) return user.data.user.email;
   }
 
   return null;
 }
 
+/**
+ * Notify a recipient. `userId` may be an auth user id OR a clients.id (admin form).
+ */
 export async function notifyUser({
   userId,
   title,
@@ -52,16 +111,31 @@ export async function notifyUser({
   emailSubject: string;
   emailHtml: string;
 }) {
-  await createInAppNotification({ userId, title, message });
+  const authUserId = (await resolveAuthUserIdFromClientId(userId)) ?? userId;
 
-  const email = await resolveRecipientEmail(userId);
-  if (!email) return;
+  try {
+    await createInAppNotification({ userId: authUserId, title, message });
+  } catch {
+    // Still attempt email if in-app write fails (e.g. missing notifications table).
+  }
+
+  const email = await resolveRecipientEmail(authUserId);
+  if (!email) {
+    const fallback = await resolveRecipientEmail(userId);
+    if (!fallback) return;
+    await sendEmail({
+      to: fallback,
+      subject: emailSubject,
+      html: emailHtml,
+    }).catch(() => undefined);
+    return;
+  }
 
   await sendEmail({
     to: email,
     subject: emailSubject,
     html: emailHtml,
   }).catch(() => {
-    // Notification is still stored in-app when email provider is unavailable.
+    // Notification path stays resilient when Resend is unset.
   });
 }

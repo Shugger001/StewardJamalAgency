@@ -10,16 +10,45 @@ type LeadPayload = {
   budget?: string;
   timeline?: string;
   message?: string;
-  website?: string; // honeypot
+  website?: string;
 };
+
+const rateBucket = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 8;
+const RATE_WINDOW_MS = 60_000;
 
 function sanitize(input: unknown) {
   return typeof input === "string" ? input.trim() : "";
 }
 
+function clientIp(request: Request) {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0]?.trim() || "unknown";
+  return request.headers.get("x-real-ip") || "unknown";
+}
+
+function isRateLimited(key: string) {
+  const now = Date.now();
+  const entry = rateBucket.get(key);
+  if (!entry || entry.resetAt <= now) {
+    rateBucket.set(key, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return false;
+  }
+  entry.count += 1;
+  return entry.count > RATE_LIMIT;
+}
+
 export async function POST(request: Request) {
   if (!hasSupabaseServerEnv()) {
     return NextResponse.json({ error: "Server is not configured yet." }, { status: 500 });
+  }
+
+  const ip = clientIp(request);
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { error: "Too many requests. Please wait a minute and try again." },
+      { status: 429 },
+    );
   }
 
   const body = (await request.json().catch(() => ({}))) as LeadPayload;
@@ -41,6 +70,10 @@ export async function POST(request: Request) {
       { error: "Name, email, service and message are required." },
       { status: 400 },
     );
+  }
+
+  if (name.length > 120 || email.length > 200 || message.length > 5000) {
+    return NextResponse.json({ error: "One or more fields are too long." }, { status: 400 });
   }
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -97,7 +130,7 @@ export async function POST(request: Request) {
           ok: true,
           warning:
             "Lead received, but database table is missing. Run supabase/setup_all.sql in the Supabase SQL editor.",
-          emailSent: !emailResult.skipped,
+          emailSent: !("skipped" in emailResult && emailResult.skipped),
         },
         { status: 201 },
       );
@@ -106,5 +139,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: dbError }, { status: 400 });
   }
 
-  return NextResponse.json({ ok: true, emailSent: !emailResult.skipped }, { status: 201 });
+  return NextResponse.json(
+    { ok: true, emailSent: !("skipped" in emailResult && emailResult.skipped) },
+    { status: 201 },
+  );
 }

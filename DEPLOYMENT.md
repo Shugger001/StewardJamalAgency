@@ -7,7 +7,7 @@ Set these in Vercel project settings:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
-- `ADMIN_EMAIL_ALLOWLIST` (optional comma-separated trusted emails promoted to admin on signup/login)
+- `ADMIN_EMAIL_ALLOWLIST` — set to `stewardjamalagency@gmail.com` (comma-separated for more admins)
 - `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY`
 - `PAYSTACK_SECRET_KEY`
 - `RESEND_API_KEY`
@@ -17,6 +17,8 @@ Set these in Vercel project settings:
 - `NEXT_PUBLIC_CONTACT_ADDRESS` (optional; defaults to `Accra, Ghana`)
 - `NEXT_PUBLIC_APP_URL` (canonical site URL for auth redirects and OG tags)
 - `NEXT_PUBLIC_SOCIAL_INSTAGRAM_URL`, `NEXT_PUBLIC_SOCIAL_LINKEDIN_URL`, `NEXT_PUBLIC_SOCIAL_X_URL` (optional footer links)
+- `LEADS_ALERT_EMAIL` — inbox for new contact form submissions (use `stewardjamalagency@gmail.com`)
+- `SUPABASE_DB_URL` — Postgres URI for `npm run db:migrate` or `/api/admin/bootstrap-db`
 
 ## Auth Troubleshooting
 
@@ -27,6 +29,8 @@ If signup or login shows a connection error:
 3. Update Vercel env vars (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`) and redeploy.
 4. Run the SQL migrations listed below in the Supabase SQL editor.
 5. Verify health at `/api/auth/health` — all checks should return `true`.
+
+If the project was paused or DNS fails, unpause/restore it in Supabase before redeploying — `/api/auth/health` must show `authReachable: true`.
 
 Current production health endpoint: `https://steward-jamal-agency-eidc.vercel.app/api/auth/health`
 
@@ -53,13 +57,7 @@ Individual migration files (also included in `setup_all.sql`):
 - `supabase/migrations/20260415_auth_signup_trigger_fix.sql` (required for reliable email/password signup)
 - `supabase/migrations/20260415_client_bookings.sql` (client booking features)
 - `supabase/migrations/20260415_public_leads.sql` (public proposal/lead capture)
-
-Optional env vars:
-
-- `LEADS_ALERT_EMAIL` — inbox for new contact form submissions (defaults to contact email)
-- `RESEND_API_KEY` + `RESEND_FROM_EMAIL` — email alerts for leads and notifications
-- `ADMIN_EMAIL_ALLOWLIST` — comma-separated emails promoted to admin on signup/login
-- `SUPABASE_DB_URL` — Postgres URI for `npm run db:migrate` or `/api/admin/bootstrap-db`
+- `supabase/migrations/20260730_clients_user_link.sql` (client portal scoping + profile email for notifications)
 
 This creates:
 
@@ -68,6 +66,7 @@ This creates:
 - resilient `auth.users -> public.profiles` new-user trigger that does not block signup
 - `bookings` table + RLS policies for client self-service booking
 - `leads` table for website proposal request submissions
+- `clients.user_id` + `profiles.email` for scoped client portal data and messaging
 
 ## Security Notes
 
@@ -77,6 +76,7 @@ This creates:
 - Role routing:
   - `admin/staff` -> `/dashboard`
   - `client` -> `/client-dashboard`
+- Client dashboard only loads projects/payments for linked `clients` rows (`user_id` / email), not the full agency dataset
 
 ## Performance Notes
 

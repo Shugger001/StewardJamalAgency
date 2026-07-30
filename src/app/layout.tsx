@@ -40,7 +40,34 @@ export const metadata: Metadata = {
     description:
       "Custom websites, SEO, and digital marketing for Ghanaian businesses. Launch a site that looks credible and generates enquiries.",
     type: "website",
+    images: [{ url: "/hero-landing.png", width: 1200, height: 630, alt: "Steward Jamal Agency" }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Steward Jamal Agency | Web Design & Development in Ghana",
+    description:
+      "Custom websites, SEO, and digital marketing for Ghanaian businesses.",
+    images: ["/hero-landing.png"],
+  },
+};
+
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "The Steward Jamal Agency",
+  description:
+    "Web design, development, SEO, and digital marketing for businesses in Accra and across Ghana.",
+  url:
+    process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ??
+    "https://steward-jamal-agency-eidc.vercel.app",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "stewardjamalagency@gmail.com",
+  telephone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "+233 54 311 1607",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Accra",
+    addressCountry: "GH",
+  },
+  areaServed: "GH",
 };
 
 export default function RootLayout({
@@ -53,7 +80,13 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} ${robotoSlab.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-white text-zinc-950">{children}</body>
+      <body className="min-h-full bg-white text-zinc-950">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

@@ -20,14 +20,37 @@ function bookingVariant(status: string): "default" | "success" | "warning" | "ne
   return "default";
 }
 
+async function resolveClientScope(userId: string | null) {
+  if (!userId) return { clientIds: [] as string[], email: null as string | null };
+
+  const supabase = createSupabaseServerClient();
+  const profile = await supabase.from("profiles").select("email").eq("id", userId).maybeSingle();
+  const email =
+    !profile.error && typeof profile.data?.email === "string" ? profile.data.email.toLowerCase() : null;
+
+  const byUser = await supabase.from("clients").select("id").eq("user_id", userId);
+  const ids = new Set(((byUser.data ?? []) as DbRow[]).map((row) => String(row.id ?? "")).filter(Boolean));
+
+  if (email) {
+    const byEmail = await supabase.from("clients").select("id").ilike("email", email);
+    for (const row of (byEmail.data ?? []) as DbRow[]) {
+      const id = String(row.id ?? "");
+      if (id) ids.add(id);
+    }
+  }
+
+  // Also treat auth user id as a possible client_id (legacy rows).
+  ids.add(userId);
+
+  return { clientIds: [...ids], email };
+}
+
 export default async function ClientDashboardPage() {
   if (!hasSupabaseServerEnv()) {
     return (
       <div className="mx-auto max-w-7xl space-y-6">
         <div>
-          <h1 className="text-lg font-semibold tracking-tight text-zinc-900">
-            Client Dashboard
-          </h1>
+          <h1 className="text-lg font-semibold tracking-tight text-zinc-900">Client Dashboard</h1>
           <p className="mt-1 text-sm text-zinc-500">
             Track your latest projects, status updates, and payments.
           </p>
@@ -42,23 +65,39 @@ export default async function ClientDashboardPage() {
   const supabase = createSupabaseServerClient();
   const cookieStore = await cookies();
   const userId = cookieStore.get("steward_user_id")?.value ?? null;
+  const { clientIds } = await resolveClientScope(userId);
 
-  // In production this should scope by authenticated client id.
-  const [{ data: projects }, { data: payments }, bookingsResponse] = await Promise.all([
-    supabase.from("projects").select("*").order("created_at", { ascending: false }).limit(5),
-    supabase.from("payments").select("*").order("created_at", { ascending: false }).limit(5),
-    userId
-      ? supabase
-          .from("bookings")
+  const projectsQuery =
+    clientIds.length > 0
+      ? await supabase
+          .from("projects")
           .select("*")
-          .eq("user_id", userId)
-          .order("scheduled_for", { ascending: true })
+          .in("client_id", clientIds)
+          .order("created_at", { ascending: false })
           .limit(8)
-      : Promise.resolve({ data: null, error: null }),
-  ]);
+      : { data: [], error: null };
 
-  const safeProjects = (projects ?? []) as DbRow[];
-  const safePayments = (payments ?? []) as DbRow[];
+  const paymentsQuery =
+    clientIds.length > 0
+      ? await supabase
+          .from("payments")
+          .select("*")
+          .in("client_id", clientIds)
+          .order("created_at", { ascending: false })
+          .limit(8)
+      : { data: [], error: null };
+
+  const bookingsResponse = userId
+    ? await supabase
+        .from("bookings")
+        .select("*")
+        .eq("user_id", userId)
+        .order("scheduled_for", { ascending: true })
+        .limit(8)
+    : { data: null, error: null };
+
+  const safeProjects = (projectsQuery.data ?? []) as DbRow[];
+  const safePayments = (paymentsQuery.data ?? []) as DbRow[];
   const safeBookings = ((bookingsResponse.data ?? []) as DbRow[]).filter(Boolean);
   const bookingLoadError = bookingsResponse.error?.message ?? null;
 
@@ -87,9 +126,7 @@ export default async function ClientDashboardPage() {
           </CardHeader>
           <CardContent className="space-y-2">
             {bookingLoadError ? (
-              <p className="text-sm text-amber-700">
-                Booking data unavailable: {bookingLoadError}
-              </p>
+              <p className="text-sm text-amber-700">Booking data unavailable: {bookingLoadError}</p>
             ) : safeBookings.length === 0 ? (
               <p className="text-sm text-zinc-500">No bookings yet.</p>
             ) : (
@@ -125,7 +162,7 @@ export default async function ClientDashboardPage() {
           </CardHeader>
           <CardContent className="space-y-2">
             {safeProjects.length === 0 ? (
-              <p className="text-sm text-zinc-500">No projects yet.</p>
+              <p className="text-sm text-zinc-500">No projects linked to your account yet.</p>
             ) : (
               safeProjects.map((project) => (
                 <div
@@ -150,7 +187,7 @@ export default async function ClientDashboardPage() {
           </CardHeader>
           <CardContent className="space-y-2">
             {safePayments.length === 0 ? (
-              <p className="text-sm text-zinc-500">No payments yet.</p>
+              <p className="text-sm text-zinc-500">No payments linked to your account yet.</p>
             ) : (
               safePayments.map((payment) => (
                 <div

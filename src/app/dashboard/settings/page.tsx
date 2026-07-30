@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AdminMessageForm } from "@/components/messages/admin-message-form";
+import { LeadStatusSelect } from "@/components/leads/lead-status-select";
 import { TestLeadAlertButton } from "@/components/settings/test-lead-alert-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { checkDbSetup } from "@/lib/check-db-setup";
@@ -116,7 +117,7 @@ export default async function SettingsPage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card id="leads-inbox">
         <CardHeader>
           <CardTitle className="text-zinc-900">Leads inbox</CardTitle>
           <p className="text-sm text-zinc-500">
@@ -138,9 +139,10 @@ export default async function SettingsPage() {
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <p className="text-sm font-semibold text-zinc-900">{String(lead.name ?? "Lead")}</p>
-                  <span className="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-600">
-                    {String(lead.status ?? "new")}
-                  </span>
+                  <LeadStatusSelect
+                    leadId={String(lead.id ?? "")}
+                    status={String(lead.status ?? "new")}
+                  />
                 </div>
                 <p className="mt-1 text-xs text-zinc-500">
                   {String(lead.email ?? "—")}

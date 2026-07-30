@@ -49,6 +49,7 @@ export async function loadPortfolioItems(): Promise<LandingPortfolioItem[]> {
         status: item.status,
         domain: item.domain,
         clientName: item.clientId ? clientMap.get(item.clientId) ?? "Client" : "Client",
+        href: item.domain ? `https://${item.domain}` : `/sites/${item.id}`,
       }));
 
     return items.length ? items : PORTFOLIO_SHOWCASE;

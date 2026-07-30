@@ -5,6 +5,7 @@
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   role text not null default 'client',
+  email text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -22,10 +23,11 @@ begin
   if desired_role not in ('admin', 'staff', 'client') then
     desired_role := 'client';
   end if;
-  insert into public.profiles (id, role)
-  values (new.id, desired_role)
+  insert into public.profiles (id, role, email)
+  values (new.id, desired_role, new.email)
   on conflict (id) do update
-    set role = coalesce(public.profiles.role, excluded.role);
+    set role = coalesce(public.profiles.role, excluded.role),
+        email = coalesce(excluded.email, public.profiles.email);
   return new;
 exception
   when others then
@@ -63,6 +65,7 @@ create table if not exists public.clients (
   id uuid primary key default gen_random_uuid(),
   business_name text not null,
   email text,
+  user_id uuid references auth.users(id) on delete set null,
   created_at timestamptz not null default now()
 );
 
@@ -210,3 +213,18 @@ select * from (values
   ('22222222-2222-2222-2222-222222222203'::uuid, 'Logistics Client Dashboard', '11111111-1111-1111-1111-111111111103'::uuid, 'published', null)
 ) as seed(id, name, client_id, status, domain)
 where not exists (select 1 from public.websites limit 1);
+
+-- Align clients ↔ auth users and store profile emails (idempotent upgrades)
+alter table public.clients
+  add column if not exists user_id uuid references auth.users(id) on delete set null;
+
+alter table public.clients
+  add column if not exists email text;
+
+create index if not exists clients_user_id_idx on public.clients(user_id);
+create index if not exists clients_email_idx on public.clients(email);
+
+alter table public.profiles
+  add column if not exists email text;
+
+create index if not exists profiles_email_idx on public.profiles(email);

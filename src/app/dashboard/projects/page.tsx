@@ -30,14 +30,13 @@ function statusVariant(status: string): "default" | "success" | "warning" | "neu
 
 export default async function ProjectsPage() {
   const supabase = createSupabaseServerClient();
-  const [{ data: clients }, { data: projects, error: projectsError }] = await Promise.all([
-    supabase.from("clients").select("*").order("created_at", { ascending: false }),
-    supabase.from("projects").select("*").order("created_at", { ascending: false }),
-  ]);
+  const [{ data: clients, error: clientsError }, { data: projects, error: projectsError }] =
+    await Promise.all([
+      supabase.from("clients").select("*").order("created_at", { ascending: false }),
+      supabase.from("projects").select("*").order("created_at", { ascending: false }),
+    ]);
 
-  if (projectsError) {
-    throw new Error(`Failed to load projects: ${projectsError.message}`);
-  }
+  const loadError = projectsError?.message ?? clientsError?.message ?? null;
 
   const safeClients = ((clients ?? []) as DbRow[]).map((client) => ({
     id: String(client.id ?? ""),
@@ -54,6 +53,12 @@ export default async function ProjectsPage() {
           Submit project requests and move work through delivery stages.
         </p>
       </div>
+
+      {loadError ? (
+        <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+          Projects unavailable: {loadError}
+        </p>
+      ) : null}
 
       <CreateProjectForm clients={safeClients} />
 

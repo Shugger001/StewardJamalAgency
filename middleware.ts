@@ -82,20 +82,26 @@ async function resolveRole(request: NextRequest): Promise<AppRole | null> {
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!supabaseUrl || !serviceRole) return null;
+  if (!supabaseUrl || !serviceRole) {
+    return tokenRole ?? cookieRole;
+  }
 
-  const supabase = createClient(supabaseUrl, serviceRole, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-    },
-  });
+  try {
+    const supabase = createClient(supabaseUrl, serviceRole, {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+      },
+    });
 
-  const profile = await supabase.from("profiles").select("role").eq("id", userId).maybeSingle();
-  if (profile.error || !profile.data) return tokenRole ?? cookieRole;
+    const profile = await supabase.from("profiles").select("role").eq("id", userId).maybeSingle();
+    if (profile.error || !profile.data) return tokenRole ?? cookieRole;
 
-  const role = profile.data.role;
-  return (role === "admin" || role === "staff" || role === "client" ? role : null) ?? tokenRole ?? cookieRole;
+    const role = profile.data.role;
+    return (role === "admin" || role === "staff" || role === "client" ? role : null) ?? tokenRole ?? cookieRole;
+  } catch {
+    return tokenRole ?? cookieRole;
+  }
 }
 
 export async function middleware(request: NextRequest) {

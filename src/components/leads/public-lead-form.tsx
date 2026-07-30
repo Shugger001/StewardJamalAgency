@@ -8,6 +8,9 @@ type FormState = {
   success: string | null;
 };
 
+const fieldClass =
+  "h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#0693e3]/50 focus:outline-none focus:ring-2 focus:ring-[#0693e3]/20";
+
 export function PublicLeadForm() {
   const [state, setState] = useState<FormState>({
     loading: false,
@@ -62,85 +65,98 @@ export function PublicLeadForm() {
   }
 
   return (
-    <form className="space-y-3" onSubmit={onSubmit}>
+    <form className="space-y-3" onSubmit={onSubmit} noValidate>
       <div className="grid gap-3 sm:grid-cols-2">
-        <input
-          name="name"
-          required
-          placeholder="Your full name"
-          className="h-10 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
-        />
-        <input
-          name="email"
-          type="email"
-          required
-          placeholder="Email address"
-          className="h-10 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
-        />
+        <div>
+          <label htmlFor="lead-name" className="mb-1 block text-xs font-medium text-zinc-600">
+            Full name
+          </label>
+          <input id="lead-name" name="name" required autoComplete="name" className={fieldClass} />
+        </div>
+        <div>
+          <label htmlFor="lead-email" className="mb-1 block text-xs font-medium text-zinc-600">
+            Email
+          </label>
+          <input
+            id="lead-email"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            className={fieldClass}
+          />
+        </div>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
-        <input
-          name="company"
-          placeholder="Company (optional)"
-          className="h-10 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
-        />
-        <select
-          name="service"
-          required
-          className="h-10 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
-        >
-          <option value="">Select a service</option>
-          <option value="Website Design">Website design</option>
-          <option value="Website Development">Website development</option>
-          <option value="E-commerce Build">E-commerce build</option>
-          <option value="SEO & Marketing">SEO & marketing</option>
-          <option value="Maintenance & Support">Maintenance & support</option>
-        </select>
+        <div>
+          <label htmlFor="lead-company" className="mb-1 block text-xs font-medium text-zinc-600">
+            Company <span className="font-normal text-zinc-400">(optional)</span>
+          </label>
+          <input id="lead-company" name="company" autoComplete="organization" className={fieldClass} />
+        </div>
+        <div>
+          <label htmlFor="lead-service" className="mb-1 block text-xs font-medium text-zinc-600">
+            Service
+          </label>
+          <select id="lead-service" name="service" required className={fieldClass} defaultValue="">
+            <option value="" disabled>
+              Select a service
+            </option>
+            <option value="Website Design">Website design</option>
+            <option value="Website Development">Website development</option>
+            <option value="E-commerce Build">E-commerce build</option>
+            <option value="SEO & Marketing">SEO & marketing</option>
+            <option value="Maintenance & Support">Maintenance & support</option>
+          </select>
+        </div>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
-        <select
-          name="budget"
-          className="h-10 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
-        >
-          <option value="">Budget range</option>
-          <option value="GH₵5k - GH₵20k">GH₵5k - GH₵20k</option>
-          <option value="GH₵20k - GH₵60k">GH₵20k - GH₵60k</option>
-          <option value="GH₵60k - GH₵120k">GH₵60k - GH₵120k</option>
-          <option value="GH₵120k+">GH₵120k+</option>
-        </select>
-        <select
-          name="timeline"
-          className="h-10 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
-        >
-          <option value="">Preferred timeline</option>
-          <option value="ASAP">ASAP</option>
-          <option value="2-4 weeks">2-4 weeks</option>
-          <option value="1-2 months">1-2 months</option>
-          <option value="Flexible">Flexible</option>
-        </select>
+        <div>
+          <label htmlFor="lead-budget" className="mb-1 block text-xs font-medium text-zinc-600">
+            Budget range
+          </label>
+          <select id="lead-budget" name="budget" className={fieldClass} defaultValue="">
+            <option value="">Not specified</option>
+            <option value="GH₵5k - GH₵20k">GH₵5k - GH₵20k</option>
+            <option value="GH₵20k - GH₵60k">GH₵20k - GH₵60k</option>
+            <option value="GH₵60k - GH₵120k">GH₵60k - GH₵120k</option>
+            <option value="GH₵120k+">GH₵120k+</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="lead-timeline" className="mb-1 block text-xs font-medium text-zinc-600">
+            Timeline
+          </label>
+          <select id="lead-timeline" name="timeline" className={fieldClass} defaultValue="">
+            <option value="">Flexible</option>
+            <option value="ASAP">ASAP</option>
+            <option value="2-4 weeks">2–4 weeks</option>
+            <option value="1-2 months">1–2 months</option>
+          </select>
+        </div>
       </div>
-      <textarea
-        name="message"
-        required
-        rows={4}
-        placeholder="Describe your goals, timeline, and anything we should know."
-        className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
-      />
-      <input
-        name="website"
-        tabIndex={-1}
-        autoComplete="off"
-        className="hidden"
-        aria-hidden="true"
-      />
+      <div>
+        <label htmlFor="lead-message" className="mb-1 block text-xs font-medium text-zinc-600">
+          Project details
+        </label>
+        <textarea
+          id="lead-message"
+          name="message"
+          required
+          rows={4}
+          className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#0693e3]/50 focus:outline-none focus:ring-2 focus:ring-[#0693e3]/20"
+          placeholder="Goals, audience, and anything we should know."
+        />
+      </div>
+      <input name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
       {state.error && (
-        <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
+        <p role="alert" className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
           {state.error}
         </p>
       )}
       {state.success && (
-        <p className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
+        <p role="status" className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
           {state.success}
         </p>
       )}
@@ -148,7 +164,7 @@ export function PublicLeadForm() {
       <button
         type="submit"
         disabled={state.loading}
-        className="inline-flex h-10 items-center rounded-lg bg-[#0A66FF] px-5 text-sm font-medium text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex h-11 items-center rounded-lg bg-[#051B2E] px-5 text-sm font-semibold text-white transition hover:bg-[#09243C] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {state.loading ? "Sending..." : "Send enquiry"}
       </button>

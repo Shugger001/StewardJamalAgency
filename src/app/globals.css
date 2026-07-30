@@ -3,9 +3,16 @@
 :root {
   --background: #ffffff;
   --foreground: #0a0a0a;
-  --accent: #0a66ff;
+  --accent: #0693e3;
   --border: #e4e4e7;
   --muted: #71717a;
+  --agency-navy: #051b2e;
+  --agency-navy-mid: #09243c;
+  --agency-sky: #ddedf5;
+  --agency-sky-light: #f1f2f2;
+  --agency-gold: #ffcc53;
+  --agency-orange: #ff6900;
+  --agency-teal: #0693e3;
 }
 
 @theme inline {

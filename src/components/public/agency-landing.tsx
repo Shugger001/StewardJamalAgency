@@ -261,6 +261,10 @@ export type LandingPortfolioItem = {
   status: string;
   domain: string | null;
   clientName: string;
+  summary?: string;
+  outcome?: string;
+  href?: string | null;
+  image?: string | null;
 };
 
 type AgencyLandingProps = {
@@ -270,13 +274,13 @@ type AgencyLandingProps = {
   previewTargets?: string[];
 };
 
-const brandLogos = [
-  "Northwind Collective",
-  "Cedar & Co.",
-  "Harborline Realty",
-  "Studio Lumen",
-  "UrbanHomes",
-  "Prime Retail",
+const serviceFocus = [
+  "Web design",
+  "Web development",
+  "E-commerce",
+  "SEO",
+  "Digital marketing",
+  "Custom apps",
 ];
 
 const SERVICE_LINKS: Record<string, string> = {
@@ -746,10 +750,12 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       {(view === "home" || view === "all") && (
       <section className="border-y border-zinc-200 bg-white py-8">
         <div className={LANDING_GUTTER}>
-          <p className="text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">Brands we&apos;ve supported</p>
+          <p className="text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">
+            Capabilities we ship
+          </p>
           <div className="agency-marquee-wrap mt-4 overflow-hidden">
             <div className="agency-marquee-track flex w-max gap-3 text-sm font-medium text-zinc-600">
-              {[...brandLogos, ...brandLogos].map((name, idx) => (
+              {[...serviceFocus, ...serviceFocus].map((name, idx) => (
                 <div
                   key={`${name}-${idx}`}
                   className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-center"
@@ -1290,25 +1296,48 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {(portfolioItems.length ? portfolioItems : []).map((item) => {
-              const target = item.domain || item.id;
+              const href = item.href || (item.domain ? `https://${item.domain}` : null);
+              const isExternal = Boolean(href?.startsWith("http"));
               return (
                 <article
                   key={item.id}
-                  className="agency-reveal-up rounded-xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:shadow-md"
+                  className="agency-reveal-up overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition hover:shadow-md"
                 >
-                  <p className="text-xs uppercase tracking-wide text-zinc-500">
-                    {item.status === "published" ? "Published work" : "In development"}
-                  </p>
-                  <h3 className="mt-2 text-lg font-bold" style={{ color: DB.navy }}>
-                    {item.name}
-                  </h3>
-                  <p className="mt-1 text-sm text-zinc-600">{item.clientName}</p>
-                  <Link
-                    href={`/sites/${target}`}
-                    className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3] hover:underline"
-                  >
-                    Open preview <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
+                  {item.image ? (
+                    <div className="relative aspect-[16/10] w-full">
+                      <Image
+                        src={item.image}
+                        alt=""
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="p-5">
+                    <p className="text-xs uppercase tracking-wide text-zinc-500">
+                      {item.status === "published" ? "Case study" : "In development"}
+                    </p>
+                    <h3 className="mt-2 text-lg font-bold" style={{ color: DB.navy }}>
+                      {item.name}
+                    </h3>
+                    <p className="mt-1 text-sm text-zinc-600">{item.clientName}</p>
+                    {item.summary ? (
+                      <p className="mt-2 text-sm leading-relaxed text-zinc-600">{item.summary}</p>
+                    ) : null}
+                    {item.outcome ? (
+                      <p className="mt-2 text-xs font-medium text-[#0693e3]">{item.outcome}</p>
+                    ) : null}
+                    {href ? (
+                      <Link
+                        href={href}
+                        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3] hover:underline"
+                      >
+                        {isExternal ? "Visit site" : "Learn more"} <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    ) : null}
+                  </div>
                 </article>
               );
             })}
@@ -1343,7 +1372,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
         </section>
       )}
 
-      {(view === "contact" || view === "all") && (
+      {(view === "all") && (
       <section id="faq" className={`${LANDING_GUTTER} scroll-mt-20 pb-14`}>
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
@@ -1642,6 +1671,46 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
           </div>
         </div>
       </section>
+
+      <section id="faq" className={`${LANDING_GUTTER} scroll-mt-20 py-14`}>
+        <div className="mx-auto max-w-3xl">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
+              Common questions
+            </h2>
+            <p className="mt-2 text-sm text-zinc-600">
+              Answers about scope, timelines, payments, and support for new projects.
+            </p>
+          </div>
+          <div className="mt-8 space-y-3">
+            {faqItems.map((item, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <article key={item.q} className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                  >
+                    <span className="text-sm font-semibold" style={{ color: DB.navy }}>
+                      {item.q}
+                    </span>
+                    <ChevronDown
+                      className={`h-4 w-4 shrink-0 text-zinc-500 transition ${isOpen ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  {isOpen ? (
+                    <div className="border-t border-zinc-100 px-5 pb-4 pt-2 text-sm leading-relaxed text-zinc-600">
+                      {item.a}
+                    </div>
+                  ) : null}
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
       </>
       )}
 
@@ -1698,9 +1767,26 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               </p>
               <form
                 className="mt-4 flex gap-2"
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  if (newsletterEmail.trim()) setNewsletterStatus("done");
+                  const email = newsletterEmail.trim();
+                  if (!email) return;
+                  try {
+                    await fetch("/api/public/leads", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        name: "Newsletter",
+                        email,
+                        service: "Newsletter",
+                        message: "Please add me to occasional email updates.",
+                      }),
+                    });
+                  } catch {
+                    // Keep UX simple — confirm intent either way.
+                  }
+                  setNewsletterStatus("done");
+                  setNewsletterEmail("");
                 }}
               >
                 <input

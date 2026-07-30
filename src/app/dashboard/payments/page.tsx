@@ -43,9 +43,7 @@ export default async function PaymentsPage() {
     supabase.from("payments").select("*").order("created_at", { ascending: false }),
   ]);
 
-  if (paymentsError) {
-    throw new Error(`Failed to load payments: ${paymentsError.message}`);
-  }
+  const loadError = paymentsError?.message ?? null;
 
   const safeClients = ((clients ?? []) as DbRow[]).map((client) => ({
     id: String(client.id ?? ""),
@@ -85,6 +83,12 @@ export default async function PaymentsPage() {
           to environment variables.
         </div>
       )}
+
+      {loadError ? (
+        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          Payments unavailable: {loadError}
+        </div>
+      ) : null}
 
       {!(process.env.MOOLRE_API_USER && process.env.MOOLRE_API_KEY && process.env.MOOLRE_ACCOUNT_NUMBER) && (
         <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">

@@ -116,7 +116,14 @@ export async function POST(request: Request) {
     try {
       await serverClient
         .from("profiles")
-        .upsert({ id: userId, role: bootstrapRole }, { onConflict: "id" });
+        .upsert(
+          {
+            id: userId,
+            role: bootstrapRole,
+            email: data.user.email ?? null,
+          },
+          { onConflict: "id" },
+        );
     } catch {
       // Keep login resilient when profile schema differs from expected role model.
     }
