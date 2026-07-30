@@ -68,10 +68,10 @@ export function RevenueChart() {
           <Line
             type="monotone"
             dataKey="revenue"
-            stroke="#0A66FF"
+            stroke="#1860F0"
             strokeWidth={2}
             dot={false}
-            activeDot={{ r: 4, fill: "#0A66FF", stroke: "#fff", strokeWidth: 2 }}
+            activeDot={{ r: 4, fill: "#1860F0", stroke: "#fff", strokeWidth: 2 }}
           />
         </LineChart>
       </ResponsiveContainer>

@@ -89,7 +89,7 @@ export default async function SettingsPage() {
             href={dbSetup.sqlEditorUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 inline-flex text-sm font-semibold text-[#0693e3] hover:underline"
+            className="mt-3 inline-flex text-sm font-semibold text-[#1860F0] hover:underline"
           >
             Open Supabase SQL editor →
           </Link>

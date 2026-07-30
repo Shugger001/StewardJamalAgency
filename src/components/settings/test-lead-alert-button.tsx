@@ -55,7 +55,7 @@ export function TestLeadAlertButton() {
         type="button"
         onClick={onSend}
         disabled={state.loading}
-        className="inline-flex h-9 items-center rounded-lg bg-[#0A66FF] px-4 text-sm font-medium text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex h-9 items-center rounded-lg bg-[#1860F0] px-4 text-sm font-medium text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-60"
       >
         {state.loading ? "Sending..." : "Send test lead-alert email"}
       </button>

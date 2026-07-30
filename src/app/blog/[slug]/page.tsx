@@ -33,11 +33,11 @@ export default async function BlogPostPage({ params }: PageProps) {
   return (
     <PublicChrome>
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:py-16">
-        <Link href="/blog" className="text-sm font-medium text-[#0693e3] hover:underline">
+        <Link href="/blog" className="text-sm font-medium text-[#1860F0] hover:underline">
           ← All posts
         </Link>
-        <p className="mt-6 text-xs font-semibold uppercase tracking-wider text-[#0693e3]">{post.category}</p>
-        <h1 className="mt-3 text-2xl font-bold leading-tight text-[#051B2E] sm:text-3xl lg:text-4xl">
+        <p className="mt-6 text-xs font-semibold uppercase tracking-wider text-[#1860F0]">{post.category}</p>
+        <h1 className="mt-3 text-2xl font-bold leading-tight text-[#182635] sm:text-3xl lg:text-4xl">
           {post.title}
         </h1>
         <p className="mt-3 text-sm text-zinc-500">{post.dateIso}</p>
@@ -55,7 +55,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
 
         <div className="mt-10 rounded-lg border border-[#DDEDF5] bg-[#DDEDF5]/40 p-6">
-          <p className="text-sm font-bold text-[#051B2E]">Planning a new site or refresh?</p>
+          <p className="text-sm font-bold text-[#182635]">Planning a new site or refresh?</p>
           <p className="mt-2 text-sm text-zinc-600">
             Share your goals and we will reply with scope options and a realistic timeline.
           </p>
@@ -71,11 +71,11 @@ export default async function BlogPostPage({ params }: PageProps) {
       {related.length > 0 ? (
         <section className="border-t border-zinc-200 bg-[#F1F2F2] py-12">
           <div className="mx-auto max-w-3xl px-4 sm:px-6">
-            <h2 className="text-lg font-bold text-[#051B2E]">More to read</h2>
+            <h2 className="text-lg font-bold text-[#182635]">More to read</h2>
             <ul className="mt-4 space-y-3">
               {related.map((item) => (
                 <li key={item.slug}>
-                  <Link href={`/blog/${item.slug}`} className="text-sm font-medium text-[#0693e3] hover:underline">
+                  <Link href={`/blog/${item.slug}`} className="text-sm font-medium text-[#1860F0] hover:underline">
                     {item.title}
                   </Link>
                 </li>

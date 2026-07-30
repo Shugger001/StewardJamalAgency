@@ -52,7 +52,7 @@ export function DevRoleSwitcher({ role }: DevRoleSwitcherProps) {
             className={cn(
               "rounded-md border px-2.5 py-1 text-xs font-medium transition-colors",
               currentRole === candidate
-                ? "border-[#0A66FF]/40 bg-[#0A66FF]/10 text-[#0A66FF]"
+                ? "border-[#1860F0]/40 bg-[#1860F0]/10 text-[#1860F0]"
                 : "border-zinc-200 bg-white text-zinc-600 hover:bg-zinc-100",
             )}
           >

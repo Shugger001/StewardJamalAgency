@@ -70,7 +70,7 @@ export function AdminMessageForm({ clients }: AdminMessageFormProps) {
           <select
             value={targetId}
             onChange={(event) => setTargetId(event.target.value)}
-            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
           >
             <option value="">Select client</option>
             {clients.map((client) => (
@@ -86,7 +86,7 @@ export function AdminMessageForm({ clients }: AdminMessageFormProps) {
           <input
             value={title}
             onChange={(event) => setTitle(event.target.value)}
-            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
             placeholder="Project kickoff update"
           />
         </label>
@@ -98,7 +98,7 @@ export function AdminMessageForm({ clients }: AdminMessageFormProps) {
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           rows={5}
-          className="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+          className="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
           placeholder="Your project review session is scheduled for tomorrow at 11:00 AM."
         />
       </label>

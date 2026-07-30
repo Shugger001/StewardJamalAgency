@@ -26,28 +26,16 @@ import {
 import type { LucideIcon } from "lucide-react";
 import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { PublicLeadForm } from "@/components/leads/public-lead-form";
 import { MobileMenuButton } from "@/components/public/mobile-menu-button";
 import { PageHero } from "@/components/public/page-hero";
 import { WhatsAppBubble } from "@/components/public/whatsapp-bubble";
 import { blogPosts } from "@/content/blog-posts";
-import { PUBLIC_NAV, type PublicPageView } from "@/lib/public-site-config";
+import { DB, LANDING_GUTTER, PUBLIC_NAV, type PublicPageView } from "@/lib/public-site-config";
 
 /** Hero visual — `public/hero-landing.png` */
 const HERO_IMAGE_SRC = "/hero-landing.png";
-
-const LANDING_GUTTER = "w-full px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-20";
-
-/** Doctor Barns–inspired palette */
-const DB = {
-  navy: "#051B2E",
-  navyMid: "#09243C",
-  sky: "#DDEDF5",
-  skyLight: "#F1F2F2",
-  gold: "#FFCC53",
-  orange: "#ff6900",
-  teal: "#0693e3",
-} as const;
 
 const IMG = {
   bannerGlass:
@@ -449,15 +437,15 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       <div className="hidden border-b border-zinc-200 lg:block" style={{ backgroundColor: DB.skyLight }}>
         <div className={`${LANDING_GUTTER} flex h-10 items-center justify-between text-xs text-zinc-600`}>
           <div className="flex items-center gap-5">
-            <span className="font-semibold uppercase tracking-wider text-[#0693e3]">Contact</span>
+            <span className="font-semibold uppercase tracking-wider text-[#1860F0]">Contact</span>
             {FOOTER_CONTACT_PHONE ? (
-              <a href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`} className="inline-flex items-center gap-1.5 hover:text-[#051B2E]">
+              <a href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`} className="inline-flex items-center gap-1.5 hover:text-[#182635]">
                 <Phone className="h-3.5 w-3.5" />
                 Call Us: {FOOTER_CONTACT_PHONE}
               </a>
             ) : null}
             {FOOTER_CONTACT_EMAIL ? (
-              <a href={`mailto:${FOOTER_CONTACT_EMAIL}`} className="inline-flex items-center gap-1.5 hover:text-[#051B2E]">
+              <a href={`mailto:${FOOTER_CONTACT_EMAIL}`} className="inline-flex items-center gap-1.5 hover:text-[#182635]">
                 <Mail className="h-3.5 w-3.5" />
                 {FOOTER_CONTACT_EMAIL}
               </a>
@@ -472,12 +460,10 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
 
       <header className="sticky top-0 z-30 border-b border-zinc-200 bg-white shadow-sm">
         <div className={`${LANDING_GUTTER} flex h-[4.5rem] items-center gap-3`}>
-          <Link href={basePath} className="min-w-0 shrink-0 truncate text-base font-bold tracking-tight" style={{ color: DB.navy }}>
-            The Steward Jamal Agency
-          </Link>
+          <BrandLogo href={basePath} variant="header" height={44} priority className="max-w-[min(100%,220px)] sm:max-w-none" />
           <nav className="hidden flex-1 justify-center gap-6 xl:flex" aria-label="Page sections">
             {navItems.map((item) =>
-              renderNavLink(item, "text-sm font-medium text-zinc-700 transition hover:text-[#0693e3]"),
+              renderNavLink(item, "text-sm font-medium text-zinc-700 transition hover:text-[#1860F0]"),
             )}
           </nav>
           <div className="ml-auto flex shrink-0 items-center gap-2">
@@ -488,7 +474,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                   ? handleInPageAnchorClick(e, contactHref)
                   : undefined
               }
-              className="inline-flex h-10 items-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-[#051B2E] shadow-sm transition hover:brightness-95 sm:px-5 sm:text-sm"
+              className="inline-flex h-10 items-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-[#182635] shadow-sm transition hover:brightness-95 sm:px-5 sm:text-sm"
               style={{ backgroundColor: DB.gold }}
             >
               Get a quote
@@ -527,7 +513,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                             handleInPageAnchorClick(e, contactHref);
                           }
                         }}
-                        className="mt-2 rounded-lg px-3 py-2.5 text-sm font-bold uppercase tracking-wide text-[#051B2E]"
+                        className="mt-2 rounded-lg px-3 py-2.5 text-sm font-bold uppercase tracking-wide text-[#182635]"
                         style={{ backgroundColor: DB.gold }}
                       >
                         Get a quote
@@ -559,8 +545,8 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                   sizes="100vw"
                 />
               </div>
-              <div className="absolute inset-0 bg-[#051B2E]/75" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#051B2E] via-[#051B2E]/92 to-[#051B2E]/45" />
+              <div className="absolute inset-0 bg-[#182635]/75" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#182635] via-[#182635]/92 to-[#182635]/45" />
             </div>
           ))}
         </div>
@@ -590,7 +576,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                     onClick={(e) =>
                       contactHref.includes("#") ? handleInPageAnchorClick(e, contactHref) : undefined
                     }
-                    className="inline-flex h-12 min-h-12 items-center gap-2 rounded-sm px-7 text-sm font-bold uppercase tracking-wide text-[#051B2E] transition hover:brightness-95"
+                    className="inline-flex h-12 min-h-12 items-center gap-2 rounded-sm px-7 text-sm font-bold uppercase tracking-wide text-[#182635] transition hover:brightness-95"
                     style={{ backgroundColor: DB.gold }}
                   >
                     Get a quote
@@ -630,19 +616,19 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       {(view === "home" || view === "all" || view === "contact") && (
       <section className="border-b border-zinc-200 bg-[#F1F2F2]">
         <div className={`${LANDING_GUTTER} flex flex-wrap items-center justify-between gap-3 py-3`}>
-          <p className="text-sm font-medium text-[#051B2E]">
+          <p className="text-sm font-medium text-[#182635]">
             Accra-based web design, development, SEO, and digital marketing
           </p>
           {FOOTER_CONTACT_PHONE ? (
             <a
               href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#0693e3] hover:underline"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#1860F0] hover:underline"
             >
               <Phone className="h-4 w-4" aria-hidden />
               {FOOTER_CONTACT_PHONE}
             </a>
           ) : (
-            <Link href={contactHref} className="text-sm font-semibold text-[#0693e3] hover:underline">
+            <Link href={contactHref} className="text-sm font-semibold text-[#1860F0] hover:underline">
               Get a quote →
             </Link>
           )}
@@ -654,7 +640,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       <section id="about" className="scroll-mt-24 py-14 lg:py-20" style={{ backgroundColor: DB.skyLight }}>
         <div className={`${LANDING_GUTTER} grid gap-12 lg:grid-cols-2 lg:items-center`}>
           <div className="agency-reveal-up">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">The Steward Jamal Agency</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1860F0]">The Steward Jamal Agency</p>
             <h2 className="mt-2 text-2xl font-bold leading-tight sm:text-3xl lg:text-4xl" style={{ color: DB.navy }}>
               Web development that supports real business goals
             </h2>
@@ -676,7 +662,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex h-11 items-center rounded-full border border-[#051B2E] px-6 text-sm font-semibold text-[#051B2E] transition hover:bg-[#051B2E] hover:text-white"
+                  className="inline-flex h-11 items-center rounded-full border border-[#182635] px-6 text-sm font-semibold text-[#182635] transition hover:bg-[#182635] hover:text-white"
                 >
                   Request a quote
                 </Link>
@@ -710,7 +696,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             </div>
           </figure>
           <div className="agency-reveal-up order-1 lg:order-2">
-            <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">
+            <p className="agency-section-eyebrow text-xs font-semibold text-[#1860F0]">
               Search visibility for Ghanaian brands
             </p>
             <h3 className="mt-2 text-xl font-bold sm:text-2xl" style={{ color: DB.navy }}>
@@ -722,7 +708,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             </p>
             <Link
               href="/services/seo"
-              className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3] hover:underline"
+              className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[#1860F0] hover:underline"
             >
               Explore our SEO work
               <ArrowRight className="h-4 w-4" />
@@ -734,7 +720,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       <section className="py-14 lg:py-20" style={{ backgroundColor: DB.sky }}>
         <div className={`${LANDING_GUTTER} grid gap-12 lg:grid-cols-2 lg:items-center`}>
           <div className="agency-reveal-up">
-            <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">
+            <p className="agency-section-eyebrow text-xs font-semibold text-[#1860F0]">
               Digital marketing for Ghana-based teams
             </p>
             <h3 className="mt-2 text-xl font-bold sm:text-2xl" style={{ color: DB.navy }}>
@@ -746,7 +732,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             </p>
             <Link
               href="/services/digital-marketing"
-              className="mt-6 inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-[#051B2E] transition hover:brightness-95"
+              className="mt-6 inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-[#182635] transition hover:brightness-95"
               style={{ backgroundColor: DB.gold }}
             >
               Explore marketing services
@@ -787,7 +773,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       {view === "home" && (
       <section className={`${LANDING_GUTTER} py-14 lg:py-16`}>
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">What we do</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1860F0]">What we do</p>
           <h2 className="mt-2 text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
             Services for every stage of growth
           </h2>
@@ -803,16 +789,16 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               <Link
                 key={item.num}
                 href={href}
-                className="group rounded-lg border border-zinc-200 bg-white p-5 shadow-sm transition hover:border-[#0693e3]/40 hover:shadow-md"
+                className="group rounded-lg border border-zinc-200 bg-white p-5 shadow-sm transition hover:border-[#1860F0]/40 hover:shadow-md"
               >
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#DDEDF5] text-[#0693e3]">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#DDEDF5] text-[#1860F0]">
                   <Icon className="h-5 w-5" strokeWidth={1.75} />
                 </span>
                 <h3 className="mt-4 text-sm font-bold" style={{ color: DB.navy }}>
                   {item.title}
                 </h3>
                 <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-zinc-600">{item.body}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#0693e3]">
+                <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#1860F0]">
                   Learn more <ArrowRight className="h-3 w-3" />
                 </span>
               </Link>
@@ -836,31 +822,31 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
         <div className="grid gap-10 lg:grid-cols-[280px_1fr] xl:grid-cols-[300px_1fr]">
           <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
-              <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Talk to us</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-[#1860F0]">Talk to us</p>
               <a
                 href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`}
-                className="mt-2 flex items-center gap-2 text-base font-bold text-[#051B2E] hover:text-[#0693e3]"
+                className="mt-2 flex items-center gap-2 text-base font-bold text-[#182635] hover:text-[#1860F0]"
               >
-                <Phone className="h-4 w-4 shrink-0 text-[#0693e3]" />
+                <Phone className="h-4 w-4 shrink-0 text-[#1860F0]" />
                 {FOOTER_CONTACT_PHONE}
               </a>
             </div>
             <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
-              <p className="text-sm font-bold text-[#051B2E]">Services</p>
+              <p className="text-sm font-bold text-[#182635]">Services</p>
               <nav className="mt-3 flex flex-col gap-1">
-                <Link href="/services/web-development" className="rounded bg-[#DDEDF5] px-2 py-2 text-sm font-semibold text-[#051B2E]">
+                <Link href="/services/web-development" className="rounded bg-[#DDEDF5] px-2 py-2 text-sm font-semibold text-[#182635]">
                   Web Development And Design
                 </Link>
-                <Link href="/services/ecommerce" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]">
+                <Link href="/services/ecommerce" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#1860F0]">
                   e-Commerce Development
                 </Link>
-                <Link href="/services/seo" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]">
+                <Link href="/services/seo" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#1860F0]">
                   Search Engine Optimization
                 </Link>
-                <Link href="/services/digital-marketing" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]">
+                <Link href="/services/digital-marketing" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#1860F0]">
                   Digital Marketing & PPC
                 </Link>
-                <Link href="/services/web-development#custom-design" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#0693e3]">
+                <Link href="/services/web-development#custom-design" className="rounded px-2 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-[#1860F0]">
                   Custom Web Applications
                 </Link>
               </nav>
@@ -876,7 +862,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
           </aside>
 
           <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1860F0]">
               Full-service digital under one roof
             </p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl lg:text-4xl" style={{ color: DB.navy }}>
@@ -909,14 +895,14 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                         <h3 className="text-lg font-bold" style={{ color: DB.navy }}>
                           {item.title}
                         </h3>
-                        <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#DDEDF5] text-[#0693e3]">
+                        <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#DDEDF5] text-[#1860F0]">
                           <Icon className="h-5 w-5" strokeWidth={1.75} />
                         </span>
                       </div>
                       <p className="mt-2 text-sm leading-relaxed text-zinc-600">{item.body}</p>
                       <Link
                         href={href}
-                        className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3] hover:underline"
+                        className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#1860F0] hover:underline"
                       >
                         Explore service <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
@@ -947,7 +933,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       <section className="py-14 lg:py-20" style={{ backgroundColor: DB.skyLight }}>
         <div className={LANDING_GUTTER}>
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">Why work with us?</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1860F0]">Why work with us?</p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
               Practical digital work focused on your bottom line
             </h2>
@@ -965,7 +951,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                   className="agency-reveal-up rounded-lg border border-zinc-200 bg-white p-5 text-center shadow-sm"
                   style={{ animationDelay: `${idx * 70}ms` }}
                 >
-                  <span className="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#DDEDF5] text-[#0693e3]">
+                  <span className="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#DDEDF5] text-[#1860F0]">
                     <Icon className="h-6 w-6" strokeWidth={1.75} />
                   </span>
                   <h3 className="mt-4 text-sm font-bold" style={{ color: DB.navy }}>
@@ -979,7 +965,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
           <div className="mt-8 text-center">
             <Link
               href="/contact"
-              className="inline-flex h-11 items-center rounded-sm border border-[#051B2E] px-6 text-sm font-bold uppercase tracking-wide text-[#051B2E] transition hover:bg-[#051B2E] hover:text-white"
+              className="inline-flex h-11 items-center rounded-sm border border-[#182635] px-6 text-sm font-bold uppercase tracking-wide text-[#182635] transition hover:bg-[#182635] hover:text-white"
             >
               Work with us
             </Link>
@@ -1001,7 +987,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             </p>
             <Link
               href={contactHref}
-              className="mt-6 inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-[#051B2E]"
+              className="mt-6 inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-[#182635]"
               style={{ backgroundColor: DB.gold }}
             >
               Start your project
@@ -1014,7 +1000,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       <section className="py-14 lg:py-16" style={{ backgroundColor: DB.sky }}>
         <div className={LANDING_GUTTER}>
           <div className="mx-auto max-w-2xl text-center">
-            <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">
+            <p className="agency-section-eyebrow text-xs font-semibold text-[#1860F0]">
               The people behind your project
             </p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
@@ -1040,8 +1026,8 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                   <h3 className="text-lg font-bold" style={{ color: DB.navy }}>
                     {member.name}
                   </h3>
-                  <p className="mt-1 text-sm text-[#0693e3]">{member.role}</p>
-                  <a href={`mailto:${member.email}`} className="mt-3 block text-xs text-zinc-500 hover:text-[#0693e3]">
+                  <p className="mt-1 text-sm text-[#1860F0]">{member.role}</p>
+                  <a href={`mailto:${member.email}`} className="mt-3 block text-xs text-zinc-500 hover:text-[#1860F0]">
                     {member.email}
                   </a>
                 </div>
@@ -1056,7 +1042,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
         <div className="agency-reveal-up relative overflow-hidden rounded-2xl shadow-lg">
           <div className="relative aspect-[5/2] min-h-[200px] w-full sm:min-h-[260px]">
             <Image src={IMG.bannerGlass} alt="Modern professional workspace" fill className="object-cover" sizes="100vw" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#051B2E]/90 via-[#051B2E]/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#182635]/90 via-[#182635]/60 to-transparent" />
             <div className="absolute inset-0 flex max-w-lg flex-col justify-center p-8">
               <p className="text-xs font-semibold uppercase tracking-wider text-[#FFCC53]">Our process</p>
               <h2 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
@@ -1080,7 +1066,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                 <Image src={item.img} alt={item.label} fill className="object-cover" sizes={LANDING_IMAGE_SIZES} />
               </div>
               <figcaption className="p-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-[#0693e3]">{item.label}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#1860F0]">{item.label}</p>
                 <p className="mt-1 text-sm text-zinc-600">{item.text}</p>
               </figcaption>
             </figure>
@@ -1111,7 +1097,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             className="rounded-2xl border border-[#FFCC53]/50 p-5 shadow-sm"
             style={{ backgroundColor: "#FCDA8A33" }}
           >
-            <p className="text-xs uppercase tracking-wide text-[#051B2E]">Limited availability</p>
+            <p className="text-xs uppercase tracking-wide text-[#182635]">Limited availability</p>
             <p className="mt-2 text-3xl font-bold" style={{ color: DB.navy }}>
               Priority kickoffs
             </p>
@@ -1138,7 +1124,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               const Icon = item.icon;
               return (
                 <article key={item.title} className="rounded-lg border border-zinc-200 bg-white p-6 text-center shadow-sm">
-                  <span className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FCDA8A] text-[#051B2E]">
+                  <span className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FCDA8A] text-[#182635]">
                     <Icon className="h-5 w-5" strokeWidth={1.75} />
                   </span>
                   <h3 className="mt-4 text-sm font-bold" style={{ color: DB.navy }}>
@@ -1169,7 +1155,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
         <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm lg:p-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#0693e3]">Packages & pricing</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-[#1860F0]">Packages & pricing</p>
               <h2 className="mt-1 text-xl font-bold sm:text-2xl" style={{ color: DB.navy }}>
                 Plans shaped around how you want to launch
               </h2>
@@ -1179,7 +1165,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                 type="button"
                 onClick={() => handleTierChange("standard")}
                 className={`rounded-full px-4 py-1.5 font-semibold transition ${
-                  pricingTier === "standard" ? "bg-[#051B2E] text-white" : "text-zinc-600 hover:bg-white"
+                  pricingTier === "standard" ? "bg-[#182635] text-white" : "text-zinc-600 hover:bg-white"
                 }`}
               >
                 Standard
@@ -1188,7 +1174,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                 type="button"
                 onClick={() => handleTierChange("priority")}
                 className={`rounded-full px-4 py-1.5 font-semibold transition ${
-                  pricingTier === "priority" ? "bg-[#051B2E] text-white" : "text-zinc-600 hover:bg-white"
+                  pricingTier === "priority" ? "bg-[#182635] text-white" : "text-zinc-600 hover:bg-white"
                 }`}
               >
                 Priority
@@ -1229,7 +1215,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                 key={pkg.name}
                 className={`rounded-xl border p-5 ${
                   pkg.featured
-                    ? "border-[#0693e3]/40 bg-[#DDEDF5]/60 shadow-md"
+                    ? "border-[#1860F0]/40 bg-[#DDEDF5]/60 shadow-md"
                     : "border-zinc-200 bg-zinc-50"
                 }`}
               >
@@ -1257,8 +1243,8 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               <h3 className="text-sm font-bold" style={{ color: DB.navy }}>
                 Payment options preview
               </h3>
-              <div className="mt-3 rounded-xl border border-[#0693e3]/25 bg-white p-4">
-                <p className="text-xs font-medium uppercase tracking-wide text-[#0693e3]">Order total</p>
+              <div className="mt-3 rounded-xl border border-[#1860F0]/25 bg-white p-4">
+                <p className="text-xs font-medium uppercase tracking-wide text-[#1860F0]">Order total</p>
                 <p className="mt-1 text-2xl font-bold" style={{ color: DB.navy }}>
                   GH₵150.00
                 </p>
@@ -1268,7 +1254,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                     onClick={() => setPaymentMethod("momo")}
                     className={`w-full rounded-lg border px-3 py-2 text-left transition ${
                       paymentMethod === "momo"
-                        ? "border-[#0693e3] bg-[#DDEDF5] text-[#051B2E]"
+                        ? "border-[#1860F0] bg-[#DDEDF5] text-[#182635]"
                         : "border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50"
                     }`}
                   >
@@ -1279,7 +1265,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                     onClick={() => setPaymentMethod("card")}
                     className={`w-full rounded-lg border px-3 py-2 text-left transition ${
                       paymentMethod === "card"
-                        ? "border-[#0693e3] bg-[#DDEDF5] text-[#051B2E]"
+                        ? "border-[#1860F0] bg-[#DDEDF5] text-[#182635]"
                         : "border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50"
                     }`}
                   >
@@ -1300,7 +1286,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
           <div className="agency-reveal-up relative mb-8 overflow-hidden rounded-2xl shadow-lg">
             <div className="relative aspect-[5/2] min-h-[180px] w-full">
               <Image src={IMG.portfolioMood} alt="Portfolio showcase" fill className="object-cover" sizes="100vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#051B2E]/90 via-[#051B2E]/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#182635]/90 via-[#182635]/40 to-transparent" />
               <div className="absolute bottom-0 p-6 sm:p-8">
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#FFCC53]">Portfolio</p>
                 <p className="mt-1 max-w-xl text-lg font-bold text-white sm:text-xl">
@@ -1341,13 +1327,13 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                       <p className="mt-2 text-sm leading-relaxed text-zinc-600">{item.summary}</p>
                     ) : null}
                     {item.outcome ? (
-                      <p className="mt-2 text-xs font-medium text-[#0693e3]">{item.outcome}</p>
+                      <p className="mt-2 text-xs font-medium text-[#1860F0]">{item.outcome}</p>
                     ) : null}
                     {href ? (
                       <Link
                         href={href}
                         {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                        className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3] hover:underline"
+                        className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#1860F0] hover:underline"
                       >
                         {isExternal ? "Visit site" : "Learn more"} <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
@@ -1429,7 +1415,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             <a
               href={`${basePath}#faq`}
               onClick={(e) => handleInPageAnchorClick(e, `${basePath}#faq`)}
-              className="inline-flex h-11 items-center rounded-sm border border-[#051B2E] px-6 text-sm font-bold uppercase tracking-wide text-[#051B2E] transition hover:bg-[#051B2E] hover:text-white"
+              className="inline-flex h-11 items-center rounded-sm border border-[#182635] px-6 text-sm font-bold uppercase tracking-wide text-[#182635] transition hover:bg-[#182635] hover:text-white"
             >
               See all FAQs
             </a>
@@ -1442,7 +1428,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       <section className="py-14 lg:py-16" style={{ backgroundColor: DB.skyLight }}>
         <div className={LANDING_GUTTER}>
           <div className="text-center">
-            <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">Client stories</p>
+            <p className="agency-section-eyebrow text-xs font-semibold text-[#1860F0]">Client stories</p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
               Feedback from recent projects
             </h2>
@@ -1497,7 +1483,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                     aria-current={idx === testimonialIndex}
                     onClick={() => setTestimonialIndex(idx)}
                     className={`h-2 rounded-full transition-all ${
-                      idx === testimonialIndex ? "w-8 bg-[#0693e3]" : "w-2 bg-zinc-300"
+                      idx === testimonialIndex ? "w-8 bg-[#1860F0]" : "w-2 bg-zinc-300"
                     }`}
                   />
                 ))}
@@ -1520,12 +1506,12 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       <section id="blog" className={`${LANDING_GUTTER} scroll-mt-20 pb-14`}>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="agency-section-eyebrow text-xs font-semibold text-[#0693e3]">From our blog</p>
+            <p className="agency-section-eyebrow text-xs font-semibold text-[#1860F0]">From our blog</p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
               Guides for growing online in Ghana
             </h2>
           </div>
-          <Link href="/blog" className="text-sm font-semibold text-[#0693e3] hover:underline">
+          <Link href="/blog" className="text-sm font-semibold text-[#1860F0] hover:underline">
             View all posts →
           </Link>
         </div>
@@ -1544,17 +1530,17 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                     className="object-cover transition duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  <div className="absolute left-4 top-4 rounded bg-white px-2 py-1 text-xs font-bold text-[#051B2E]">
+                  <div className="absolute left-4 top-4 rounded bg-white px-2 py-1 text-xs font-bold text-[#182635]">
                     {post.date}
                   </div>
                 </div>
                 <div className="p-5">
-                  <p className="text-xs text-[#0693e3]">{post.category}</p>
-                  <h3 className="mt-2 text-sm font-bold leading-snug group-hover:text-[#0693e3]" style={{ color: DB.navy }}>
+                  <p className="text-xs text-[#1860F0]">{post.category}</p>
+                  <h3 className="mt-2 text-sm font-bold leading-snug group-hover:text-[#1860F0]" style={{ color: DB.navy }}>
                     {post.title}
                   </h3>
                   <p className="mt-2 line-clamp-2 text-xs text-zinc-600">{post.excerpt}</p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#0693e3]">
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#1860F0]">
                     Read article <ArrowRight className="h-3.5 w-3.5" />
                   </span>
                 </div>
@@ -1580,7 +1566,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             onClick={(e) =>
               contactHref.includes("#") ? handleInPageAnchorClick(e, contactHref) : undefined
             }
-            className="inline-flex h-11 min-h-11 items-center rounded-sm px-6 text-sm font-semibold text-[#051B2E]"
+            className="inline-flex h-11 min-h-11 items-center rounded-sm px-6 text-sm font-semibold text-[#182635]"
             style={{ backgroundColor: DB.gold }}
           >
             Get a quote
@@ -1601,14 +1587,14 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-zinc-500">Address</p>
                 <p className="mt-1 inline-flex items-start gap-2">
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#0693e3]" />
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#1860F0]" />
                   {FOOTER_ADDRESS}
                 </p>
               </div>
               {FOOTER_CONTACT_EMAIL ? (
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-zinc-500">Email address</p>
-                  <a href={`mailto:${FOOTER_CONTACT_EMAIL}`} className="mt-1 inline-flex items-center gap-2 font-medium text-[#0693e3] hover:underline">
+                  <a href={`mailto:${FOOTER_CONTACT_EMAIL}`} className="mt-1 inline-flex items-center gap-2 font-medium text-[#1860F0] hover:underline">
                     <Mail className="h-4 w-4" />
                     {FOOTER_CONTACT_EMAIL}
                   </a>
@@ -1617,14 +1603,14 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-zinc-500">Working time</p>
                 <p className="mt-1 inline-flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-[#0693e3]" />
+                  <Clock className="h-4 w-4 text-[#1860F0]" />
                   Mon – Sat: 8:00am – 5:00pm
                 </p>
               </div>
               {FOOTER_CONTACT_PHONE ? (
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-zinc-500">Phone</p>
-                  <a href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`} className="mt-1 inline-flex items-center gap-2 font-semibold text-[#051B2E] hover:text-[#0693e3]">
+                  <a href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`} className="mt-1 inline-flex items-center gap-2 font-semibold text-[#182635] hover:text-[#1860F0]">
                     <Phone className="h-4 w-4" />
                     {FOOTER_CONTACT_PHONE}
                   </a>
@@ -1649,16 +1635,16 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       <section style={{ backgroundColor: DB.sky }} className="border-y border-zinc-200 py-10">
         <div className={`${LANDING_GUTTER} grid gap-8 md:grid-cols-2`}>
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Studio location</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-[#1860F0]">Studio location</p>
             <p className="mt-2 text-sm text-zinc-700">{FOOTER_ADDRESS}</p>
             <p className="mt-1 text-sm text-zinc-600">Hours: Mon–Sat, 8:00am – 5:00pm</p>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Reach us directly</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-[#1860F0]">Reach us directly</p>
             {FOOTER_CONTACT_EMAIL ? (
               <p className="mt-2 text-sm text-zinc-700">
                 Email:{" "}
-                <a href={`mailto:${FOOTER_CONTACT_EMAIL}`} className="font-medium text-[#0693e3] hover:underline">
+                <a href={`mailto:${FOOTER_CONTACT_EMAIL}`} className="font-medium text-[#1860F0] hover:underline">
                   {FOOTER_CONTACT_EMAIL}
                 </a>
               </p>
@@ -1666,7 +1652,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             {FOOTER_CONTACT_PHONE ? (
               <p className="mt-1 text-sm text-zinc-700">
                 Call us:{" "}
-                <a href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`} className="font-medium text-[#0693e3] hover:underline">
+                <a href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`} className="font-medium text-[#1860F0] hover:underline">
                   {FOOTER_CONTACT_PHONE}
                 </a>
               </p>
@@ -1721,7 +1707,9 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
         <div className={`${LANDING_GUTTER} py-10 lg:py-12`}>
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5 lg:gap-8">
             <div>
-              <p className="text-sm font-bold text-white">The Steward Jamal Agency</p>
+              <div className="inline-flex rounded-md bg-white px-3 py-2">
+                <BrandLogo href={basePath} variant="header" height={40} />
+              </div>
               <p className="mt-3 max-w-xs text-sm leading-relaxed text-zinc-400">
                 Web design, development, SEO, and marketing for Ghanaian businesses that want a stronger online presence.
               </p>
@@ -1797,11 +1785,11 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   placeholder="Your email"
-                  className="h-10 min-w-0 flex-1 rounded-sm border border-zinc-600 bg-[#051B2E] px-3 text-xs text-white placeholder:text-zinc-500 focus:border-[#0693e3] focus:outline-none"
+                  className="h-10 min-w-0 flex-1 rounded-sm border border-zinc-600 bg-[#182635] px-3 text-xs text-white placeholder:text-zinc-500 focus:border-[#1860F0] focus:outline-none"
                 />
                 <button
                   type="submit"
-                  className="h-10 shrink-0 rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-[#051B2E]"
+                  className="h-10 shrink-0 rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-[#182635]"
                   style={{ backgroundColor: DB.gold }}
                 >
                   Subscribe

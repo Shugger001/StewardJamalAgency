@@ -13,8 +13,8 @@ export default function BlogIndexPage() {
   return (
     <PublicChrome>
       <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:py-20">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#0693e3]">Insights & guides</p>
-        <h1 className="mt-2 text-3xl font-bold text-[#051B2E] sm:text-4xl">Articles for Ghanaian business owners</h1>
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1860F0]">Insights & guides</p>
+        <h1 className="mt-2 text-3xl font-bold text-[#182635] sm:text-4xl">Articles for Ghanaian business owners</h1>
         <p className="mt-3 max-w-2xl text-sm text-zinc-600">
           Practical notes on websites, e-commerce, SEO, and marketing—written for teams building or improving their online presence.
         </p>
@@ -34,17 +34,17 @@ export default function BlogIndexPage() {
                     className="object-cover transition duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  <div className="absolute left-4 top-4 rounded bg-white px-2 py-1 text-xs font-bold text-[#051B2E]">
+                  <div className="absolute left-4 top-4 rounded bg-white px-2 py-1 text-xs font-bold text-[#182635]">
                     {post.date}
                   </div>
                 </div>
                 <div className="p-5">
-                  <p className="text-xs text-[#0693e3]">{post.category}</p>
-                  <h2 className="mt-2 text-sm font-bold leading-snug text-[#051B2E] group-hover:text-[#0693e3]">
+                  <p className="text-xs text-[#1860F0]">{post.category}</p>
+                  <h2 className="mt-2 text-sm font-bold leading-snug text-[#182635] group-hover:text-[#1860F0]">
                     {post.title}
                   </h2>
                   <p className="mt-2 line-clamp-2 text-xs text-zinc-600">{post.excerpt}</p>
-                  <span className="mt-4 inline-block text-sm font-semibold text-[#0693e3]">Read article →</span>
+                  <span className="mt-4 inline-block text-sm font-semibold text-[#1860F0]">Read article →</span>
                 </div>
               </Link>
             </article>

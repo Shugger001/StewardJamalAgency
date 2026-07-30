@@ -39,8 +39,8 @@ export function FeaturesSection({
           onClick={() => title && onSelectBlock(title)}
           className={cn(
             "block w-full rounded-xl text-left transition-colors",
-            canEdit && "hover:bg-[#0A66FF]/5",
-            selectedBlockId === title?.id && "outline-2 outline-[#0A66FF]",
+            canEdit && "hover:bg-[#1860F0]/5",
+            selectedBlockId === title?.id && "outline-2 outline-[#1860F0]",
           )}
         >
           <h2 className="text-2xl font-semibold tracking-tight text-zinc-900 md:text-3xl">
@@ -59,8 +59,8 @@ export function FeaturesSection({
           onClick={() => description && onSelectBlock(description)}
           className={cn(
             "block w-full rounded-xl text-left transition-colors",
-            canEdit && "hover:bg-[#0A66FF]/5",
-            selectedBlockId === description?.id && "outline-2 outline-[#0A66FF]",
+            canEdit && "hover:bg-[#1860F0]/5",
+            selectedBlockId === description?.id && "outline-2 outline-[#1860F0]",
           )}
         >
           <p className="text-base text-zinc-600 md:text-lg">

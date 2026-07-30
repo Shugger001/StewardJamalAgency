@@ -65,7 +65,7 @@ export function Topbar({ title, onMenuClick }: TopbarProps) {
           <input
             type="search"
             placeholder="Search…"
-            className="h-9 w-full rounded-lg border border-zinc-200 bg-zinc-50/80 pl-9 pr-3 text-sm text-zinc-900 placeholder:text-zinc-400 transition-colors focus:border-[#0A66FF]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20 sm:max-w-md lg:max-w-lg"
+            className="h-9 w-full rounded-lg border border-zinc-200 bg-zinc-50/80 pl-9 pr-3 text-sm text-zinc-900 placeholder:text-zinc-400 transition-colors focus:border-[#1860F0]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20 sm:max-w-md lg:max-w-lg"
           />
         </label>
       </div>
@@ -91,7 +91,7 @@ export function Topbar({ title, onMenuClick }: TopbarProps) {
             aria-expanded={menuOpen}
             aria-haspopup="menu"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#0A66FF] to-[#3b8cff] text-xs font-semibold text-white">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#1860F0] to-[#3b8cff] text-xs font-semibold text-white">
               JA
             </span>
             <ChevronDown

@@ -115,7 +115,7 @@ export function PaymentsDashboard({ clients }: PaymentsDashboardProps) {
           <select
             value={clientId}
             onChange={(event) => setClientId(event.target.value)}
-            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
           >
             <option value="">Select client</option>
             {clients.map((client) => (
@@ -133,7 +133,7 @@ export function PaymentsDashboard({ clients }: PaymentsDashboardProps) {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             placeholder="payer@email.com"
-            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
           />
         </label>
 
@@ -146,7 +146,7 @@ export function PaymentsDashboard({ clients }: PaymentsDashboardProps) {
             value={amount}
             onChange={(event) => setAmount(event.target.value)}
             placeholder="50000"
-            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
           />
         </label>
 
@@ -182,7 +182,7 @@ export function PaymentsDashboard({ clients }: PaymentsDashboardProps) {
                 setTransferSuccess(null);
               }}
               placeholder="e.g. 0241234567"
-              className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+              className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
             />
           </label>
 
@@ -196,7 +196,7 @@ export function PaymentsDashboard({ clients }: PaymentsDashboardProps) {
                 setTransferError(null);
                 setTransferSuccess(null);
               }}
-              className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+              className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
             >
               <option value="1">MTN</option>
               <option value="6">Telecel</option>
@@ -216,7 +216,7 @@ export function PaymentsDashboard({ clients }: PaymentsDashboardProps) {
                 setTransferSuccess(null);
               }}
               placeholder="required for bank transfer"
-              className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+              className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
             />
           </label>
 
@@ -225,7 +225,7 @@ export function PaymentsDashboard({ clients }: PaymentsDashboardProps) {
               type="button"
               onClick={handleValidateName}
               disabled={isValidating || !receiver.trim()}
-              className="inline-flex h-10 w-full items-center justify-center rounded-lg bg-[#0A66FF] px-4 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex h-10 w-full items-center justify-center rounded-lg bg-[#1860F0] px-4 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isValidating ? "Validating..." : "Validate Name"}
             </button>

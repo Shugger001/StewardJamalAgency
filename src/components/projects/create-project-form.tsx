@@ -105,7 +105,7 @@ export function CreateProjectForm({ clients }: CreateProjectFormProps) {
             value={title}
             onChange={(event) => setTitle(event.target.value)}
             required
-            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
             placeholder="Landing page redesign"
           />
         </label>
@@ -116,7 +116,7 @@ export function CreateProjectForm({ clients }: CreateProjectFormProps) {
             value={description}
             onChange={(event) => setDescription(event.target.value)}
             required
-            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
             placeholder="Scope and outcomes..."
           />
         </label>
@@ -133,7 +133,7 @@ export function CreateProjectForm({ clients }: CreateProjectFormProps) {
             disabled={noClients}
             required={!noClients}
             className={cn(
-              "h-10 w-full rounded-lg border px-3 text-sm focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20",
+              "h-10 w-full rounded-lg border px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20",
               clientFieldHighlighted ? "border-amber-400 bg-amber-50/40" : "border-zinc-200",
             )}
           >

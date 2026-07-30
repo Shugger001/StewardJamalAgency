@@ -42,7 +42,7 @@ export function ProjectStatusSelect({ projectId, initialStatus }: ProjectStatusS
       value={status}
       disabled={isSaving}
       onChange={(event) => updateStatus(event.target.value as ProjectStatus)}
-      className="h-8 rounded-md border border-zinc-200 bg-white px-2 text-xs text-zinc-700 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20 disabled:opacity-60"
+      className="h-8 rounded-md border border-zinc-200 bg-white px-2 text-xs text-zinc-700 focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20 disabled:opacity-60"
     >
       {statuses.map((entry) => (
         <option key={entry} value={entry}>

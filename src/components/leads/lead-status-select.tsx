@@ -56,7 +56,7 @@ export function LeadStatusSelect({ leadId, status }: LeadStatusSelectProps) {
           value={value}
           disabled={loading}
           onChange={(e) => onChange(e.target.value)}
-          className="h-8 rounded-md border border-zinc-200 bg-white px-2 text-xs text-zinc-700 focus:border-[#0693e3]/40 focus:outline-none focus:ring-2 focus:ring-[#0693e3]/20"
+          className="h-8 rounded-md border border-zinc-200 bg-white px-2 text-xs text-zinc-700 focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
         >
           {STATUSES.map((item) => (
             <option key={item} value={item}>

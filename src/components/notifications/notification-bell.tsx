@@ -75,7 +75,7 @@ export function NotificationBell() {
       >
         <Bell className="h-5 w-5" />
         {unreadCount > 0 && (
-          <span className="absolute right-1 top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[#0A66FF] px-1 text-[10px] font-semibold text-white">
+          <span className="absolute right-1 top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[#1860F0] px-1 text-[10px] font-semibold text-white">
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}
@@ -105,7 +105,7 @@ export function NotificationBell() {
                       "mb-1 block w-full rounded-lg border px-3 py-2 text-left transition-colors",
                       item.read
                         ? "border-zinc-100 bg-white"
-                        : "border-[#0A66FF]/20 bg-[#0A66FF]/5 hover:bg-[#0A66FF]/10",
+                        : "border-[#1860F0]/20 bg-[#1860F0]/5 hover:bg-[#1860F0]/10",
                     )}
                   >
                     <p className="text-sm font-medium text-zinc-900">{item.title}</p>

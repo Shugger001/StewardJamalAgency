@@ -9,7 +9,7 @@ type FormState = {
 };
 
 const fieldClass =
-  "h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#0693e3]/50 focus:outline-none focus:ring-2 focus:ring-[#0693e3]/20";
+  "h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1860F0]/50 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20";
 
 export function PublicLeadForm() {
   const [state, setState] = useState<FormState>({
@@ -144,7 +144,7 @@ export function PublicLeadForm() {
           name="message"
           required
           rows={4}
-          className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#0693e3]/50 focus:outline-none focus:ring-2 focus:ring-[#0693e3]/20"
+          className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1860F0]/50 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
           placeholder="Goals, audience, and anything we should know."
         />
       </div>
@@ -164,7 +164,7 @@ export function PublicLeadForm() {
       <button
         type="submit"
         disabled={state.loading}
-        className="inline-flex h-11 items-center rounded-lg bg-[#051B2E] px-5 text-sm font-semibold text-white transition hover:bg-[#09243C] disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex h-11 items-center rounded-lg bg-[#182635] px-5 text-sm font-semibold text-white transition hover:bg-[#09243C] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {state.loading ? "Sending..." : "Send enquiry"}
       </button>

@@ -14,6 +14,7 @@ import {
   Settings,
   Users,
 } from "lucide-react";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@/lib/use-media-query";
 
@@ -60,9 +61,7 @@ export function Sidebar({
           )}
           onClick={onCloseMobile}
         >
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#0A66FF] text-xs font-semibold text-white">
-            SJ
-          </span>
+          <BrandLogo href={null} variant="mark" height={32} className="shrink-0" />
           {!rail && (
             <span className="truncate text-sm font-semibold tracking-tight text-zinc-900">
               Steward Jamal
@@ -109,7 +108,7 @@ export function Sidebar({
               className={cn(
                 "group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 active
-                  ? "bg-[#0A66FF]/8 text-[#0A66FF]"
+                  ? "bg-[#1860F0]/8 text-[#1860F0]"
                   : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900",
                 rail && "justify-center px-0",
               )}
@@ -117,7 +116,7 @@ export function Sidebar({
               <Icon
                 className={cn(
                   "h-[18px] w-[18px] shrink-0",
-                  active ? "text-[#0A66FF]" : "text-zinc-400 group-hover:text-zinc-600",
+                  active ? "text-[#1860F0]" : "text-zinc-400 group-hover:text-zinc-600",
                 )}
               />
               {!rail && (
@@ -126,7 +125,7 @@ export function Sidebar({
               {active && !rail && (
                 <motion.span
                   layoutId="nav-active"
-                  className="ml-auto h-1.5 w-1.5 rounded-full bg-[#0A66FF]"
+                  className="ml-auto h-1.5 w-1.5 rounded-full bg-[#1860F0]"
                   transition={{ type: "spring", stiffness: 500, damping: 35 }}
                 />
               )}

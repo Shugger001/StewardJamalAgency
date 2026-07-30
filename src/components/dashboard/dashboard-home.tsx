@@ -130,7 +130,7 @@ export function DashboardHome({
       >
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-sm font-semibold text-zinc-900">Recent projects</h2>
-          <Link href="/dashboard/projects" className="text-xs font-medium text-[#0693e3] hover:underline">
+          <Link href="/dashboard/projects" className="text-xs font-medium text-[#1860F0] hover:underline">
             View all
           </Link>
         </div>
@@ -175,7 +175,7 @@ export function DashboardHome({
       >
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-sm font-semibold text-zinc-900">Recent project requests</h2>
-          <Link href="/dashboard/settings#leads-inbox" className="text-xs font-medium text-[#0693e3] hover:underline">
+          <Link href="/dashboard/settings#leads-inbox" className="text-xs font-medium text-[#1860F0] hover:underline">
             Open inbox
           </Link>
         </div>

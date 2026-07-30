@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Bell, LogOut } from "lucide-react";
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 export function ClientShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -21,12 +22,10 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-30 border-b border-zinc-200/80 bg-white/95 backdrop-blur">
         <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-xs font-semibold text-white">
-              CP
-            </span>
+            <BrandLogo href="/client-dashboard" variant="mark" height={32} />
             <div>
               <p className="text-sm font-semibold tracking-tight text-zinc-900">Client Portal</p>
-              <p className="text-[11px] text-zinc-500">The Steward Jamal Agency</p>
+              <p className="text-[11px] text-zinc-500">Steward Jamal Agency</p>
             </div>
           </div>
 

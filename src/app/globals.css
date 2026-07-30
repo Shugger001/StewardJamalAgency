@@ -3,7 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #0a0a0a;
-  --accent: #0693e3;
+  --accent: #1860F0;
   --border: #e4e4e7;
   --muted: #71717a;
   --agency-navy: #051b2e;
@@ -12,7 +12,7 @@
   --agency-sky-light: #f1f2f2;
   --agency-gold: #ffcc53;
   --agency-orange: #ff6900;
-  --agency-teal: #0693e3;
+  --agency-teal: #1860F0;
 }
 
 @theme inline {

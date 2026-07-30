@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { LoginForm } from "@/components/auth/login-form";
 
 export const dynamic = "force-dynamic";
@@ -19,7 +20,10 @@ export default async function LoginPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-zinc-50 p-4">
       <div className="w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6">
-        <h1 className="text-xl font-semibold tracking-tight text-zinc-900">Sign in</h1>
+        <div className="flex justify-center">
+          <BrandLogo href="/" variant="header" height={48} priority />
+        </div>
+        <h1 className="mt-6 text-xl font-semibold tracking-tight text-zinc-900">Sign in</h1>
         <div className="mt-6">
           <LoginForm />
         </div>

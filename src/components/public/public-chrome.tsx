@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useEffect, useState } from "react";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { MobileMenuButton } from "@/components/public/mobile-menu-button";
 import { WhatsAppBubble } from "@/components/public/whatsapp-bubble";
 import {
@@ -33,17 +34,17 @@ export function PublicChrome({ children }: PublicChromeProps) {
       <div className="hidden border-b border-zinc-200 lg:block" style={{ backgroundColor: DB.skyLight }}>
         <div className={`${LANDING_GUTTER} flex h-10 items-center justify-between text-xs text-zinc-600`}>
           <div className="flex items-center gap-5">
-            <span className="font-semibold uppercase tracking-wider text-[#0693e3]">Contact</span>
+            <span className="font-semibold uppercase tracking-wider text-[#1860F0]">Contact</span>
             <a
               href={`tel:${SITE_CONTACT.phone.replace(/\s/g, "")}`}
-              className="inline-flex items-center gap-1.5 hover:text-[#051B2E]"
+              className="inline-flex items-center gap-1.5 hover:text-[#182635]"
             >
               <Phone className="h-3.5 w-3.5" />
               Call Us: {SITE_CONTACT.phone}
             </a>
             <a
               href={`mailto:${SITE_CONTACT.email}`}
-              className="inline-flex items-center gap-1.5 hover:text-[#051B2E]"
+              className="inline-flex items-center gap-1.5 hover:text-[#182635]"
             >
               <Mail className="h-3.5 w-3.5" />
               {SITE_CONTACT.email}
@@ -58,15 +59,13 @@ export function PublicChrome({ children }: PublicChromeProps) {
 
       <header className="sticky top-0 z-30 border-b border-zinc-200 bg-white shadow-sm">
         <div className={`${LANDING_GUTTER} flex h-[4.5rem] items-center gap-3`}>
-          <Link href="/" className="min-w-0 shrink-0 truncate text-base font-bold tracking-tight" style={{ color: DB.navy }}>
-            The Steward Jamal Agency
-          </Link>
+          <BrandLogo href="/" variant="header" height={44} priority className="max-w-[min(100%,220px)] sm:max-w-none" />
           <nav className="hidden flex-1 justify-center gap-6 xl:flex" aria-label="Main navigation">
             {PUBLIC_NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-zinc-700 transition hover:text-[#0693e3]"
+                className="text-sm font-medium text-zinc-700 transition hover:text-[#1860F0]"
               >
                 {item.label}
               </Link>
@@ -75,7 +74,7 @@ export function PublicChrome({ children }: PublicChromeProps) {
           <div className="ml-auto flex shrink-0 items-center gap-2">
             <Link
               href="/contact"
-              className="inline-flex h-10 items-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-[#051B2E] shadow-sm transition hover:brightness-95 sm:px-5 sm:text-sm"
+              className="inline-flex h-10 items-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-[#182635] shadow-sm transition hover:brightness-95 sm:px-5 sm:text-sm"
               style={{ backgroundColor: DB.gold }}
             >
               Get a quote
@@ -104,7 +103,7 @@ export function PublicChrome({ children }: PublicChromeProps) {
                       ))}
                       <Link
                         href="/contact"
-                        className="mt-2 rounded-lg px-3 py-2.5 text-center text-sm font-bold uppercase tracking-wide text-[#051B2E]"
+                        className="mt-2 rounded-lg px-3 py-2.5 text-center text-sm font-bold uppercase tracking-wide text-[#182635]"
                         style={{ backgroundColor: DB.gold }}
                         onClick={() => setNavOpen(false)}
                       >
@@ -125,7 +124,9 @@ export function PublicChrome({ children }: PublicChromeProps) {
         <div className={`${LANDING_GUTTER} py-10 lg:py-12`}>
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             <div>
-              <p className="text-sm font-bold text-white">The Steward Jamal Agency</p>
+              <div className="inline-flex rounded-md bg-white px-3 py-2">
+                <BrandLogo href="/" variant="header" height={40} />
+              </div>
               <p className="mt-3 max-w-xs text-sm leading-relaxed text-zinc-400">
                 Custom websites, SEO, and digital marketing for Ghanaian businesses that want a stronger online presence.
               </p>

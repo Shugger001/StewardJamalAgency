@@ -65,7 +65,7 @@ export function CreateBookingForm() {
           id="service"
           name="service"
           required
-          className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+          className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
         >
           <option value="">Select service</option>
           <option value="Website Consultation">Website Consultation</option>
@@ -87,7 +87,7 @@ export function CreateBookingForm() {
           name="scheduledFor"
           type="datetime-local"
           required
-          className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+          className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
         />
       </div>
 
@@ -103,7 +103,7 @@ export function CreateBookingForm() {
           name="notes"
           rows={3}
           placeholder="Tell us what you want to discuss."
-          className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#0A66FF]/40 focus:outline-none focus:ring-2 focus:ring-[#0A66FF]/20"
+          className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
         />
       </div>
 
@@ -121,7 +121,7 @@ export function CreateBookingForm() {
       <button
         type="submit"
         disabled={state.loading}
-        className="inline-flex h-10 w-full items-center justify-center rounded-lg bg-[#0A66FF] px-4 text-sm font-medium text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex h-10 w-full items-center justify-center rounded-lg bg-[#1860F0] px-4 text-sm font-medium text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-60"
       >
         {state.loading ? "Submitting..." : "Book session"}
       </button>

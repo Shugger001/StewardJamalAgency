@@ -1,11 +1,13 @@
+/** Brand palette aligned to the official SJ logo (navy + cobalt accent). */
 export const DB = {
-  navy: "#051B2E",
-  navyMid: "#09243C",
+  navy: "#182635",
+  navyMid: "#0F1C28",
   sky: "#DDEDF5",
   skyLight: "#F1F2F2",
   gold: "#FFCC53",
   orange: "#ff6900",
-  teal: "#0693e3",
+  /** Logo cobalt — primary interactive accent */
+  teal: "#1860F0",
 } as const;
 
 export const LANDING_GUTTER = "w-full px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-20";

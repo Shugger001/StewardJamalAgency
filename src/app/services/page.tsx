@@ -19,7 +19,7 @@ export default function ServicesIndexPage() {
     <PublicChrome>
       <section style={{ backgroundColor: DB.sky }} className="border-b border-zinc-200">
         <div className={`${LANDING_GUTTER} py-10 lg:py-12`}>
-          <h1 className="text-3xl font-bold text-[#051B2E] sm:text-4xl">What we offer</h1>
+          <h1 className="text-3xl font-bold text-[#182635] sm:text-4xl">What we offer</h1>
           <p className="mt-3 max-w-2xl text-sm text-zinc-600 sm:text-base">
             Website design, online stores, search optimization, and paid campaigns—scoped for teams across Ghana.
           </p>
@@ -31,11 +31,11 @@ export default function ServicesIndexPage() {
             <Link
               key={service.href}
               href={service.href}
-              className="group rounded-lg border border-zinc-200 bg-white p-6 shadow-sm transition hover:border-[#0693e3]/40 hover:shadow-md"
+              className="group rounded-lg border border-zinc-200 bg-white p-6 shadow-sm transition hover:border-[#1860F0]/40 hover:shadow-md"
             >
-              <h2 className="text-lg font-bold text-[#051B2E] group-hover:text-[#0693e3]">{service.title}</h2>
+              <h2 className="text-lg font-bold text-[#182635] group-hover:text-[#1860F0]">{service.title}</h2>
               <p className="mt-2 text-sm leading-relaxed text-zinc-600">{service.subtitle}</p>
-              <span className="mt-4 inline-block text-sm font-semibold text-[#0693e3]">View details →</span>
+              <span className="mt-4 inline-block text-sm font-semibold text-[#1860F0]">View details →</span>
             </Link>
           ))}
         </div>
