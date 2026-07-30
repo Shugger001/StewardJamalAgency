@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -27,6 +27,13 @@ export function PayButton({ clientId, amount, email, onVerified }: PayButtonProp
   const [toast, setToast] = useState<{ kind: "success" | "error"; message: string } | null>(
     null,
   );
+  const [scriptNonce, setScriptNonce] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const meta = document.querySelector('meta[name="csp-nonce"]');
+    const value = meta?.getAttribute("content");
+    if (value) setScriptNonce(value);
+  }, []);
 
   const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
   const amountInKobo = useMemo(() => Math.round(amount * 100), [amount]);
@@ -99,7 +106,11 @@ export function PayButton({ clientId, amount, email, onVerified }: PayButtonProp
 
   return (
     <div className="flex items-center gap-2">
-      <Script src="https://js.paystack.co/v1/inline.js" strategy="afterInteractive" />
+      <Script
+        src="https://js.paystack.co/v1/inline.js"
+        strategy="afterInteractive"
+        nonce={scriptNonce}
+      />
       <Button type="button" onClick={startPayment} disabled={isVerifying}>
         {isVerifying ? "Verifying..." : "Pay now"}
       </Button>

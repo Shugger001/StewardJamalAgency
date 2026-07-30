@@ -1,8 +1,20 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { buildContentSecurityPolicy } from "@/lib/security/csp";
 
 type AppRole = "admin" | "staff" | "client";
+
+const STATIC_SECURITY_HEADERS: { key: string; value: string }[] = [
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
+  },
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+];
 
 function normalizeRole(value: string | null | undefined): AppRole | null {
   if (!value) return null;
@@ -104,28 +116,60 @@ async function resolveRole(request: NextRequest): Promise<AppRole | null> {
   }
 }
 
+function applySecurityHeaders(response: NextResponse, csp: string) {
+  response.headers.set("Content-Security-Policy", csp);
+  for (const header of STATIC_SECURITY_HEADERS) {
+    response.headers.set(header.key, header.value);
+  }
+  return response;
+}
+
+function nextWithCsp(request: NextRequest, nonce: string, csp: string) {
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-nonce", nonce);
+  // Next.js reads this request header during render to stamp nonces on its scripts.
+  requestHeaders.set("Content-Security-Policy", csp);
+
+  const response = NextResponse.next({
+    request: { headers: requestHeaders },
+  });
+  return applySecurityHeaders(response, csp);
+}
+
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+  const csp = buildContentSecurityPolicy(nonce);
 
   // Protect dashboard areas.
   if (pathname.startsWith("/dashboard") || pathname.startsWith("/client-dashboard")) {
     const role = await resolveRole(request);
     if (!role) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return applySecurityHeaders(NextResponse.redirect(new URL("/login", request.url)), csp);
     }
 
     if ((role === "admin" || role === "staff") && pathname.startsWith("/client-dashboard")) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
+      return applySecurityHeaders(NextResponse.redirect(new URL("/dashboard", request.url)), csp);
     }
 
     if (role === "client" && pathname.startsWith("/dashboard")) {
-      return NextResponse.redirect(new URL("/client-dashboard", request.url));
+      return applySecurityHeaders(
+        NextResponse.redirect(new URL("/client-dashboard", request.url)),
+        csp,
+      );
     }
   }
 
-  return NextResponse.next();
+  return nextWithCsp(request, nonce, csp);
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/client-dashboard/:path*"],
+  matcher: [
+    /*
+     * Apply CSP + auth to all app routes; skip Next internals and static assets.
+     */
+    {
+      source: "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml)$).*)",
+    },
+  ],
 };

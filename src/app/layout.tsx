@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Geist, Geist_Mono, Roboto, Roboto_Slab } from "next/font/google";
 import "./globals.css";
 
@@ -70,19 +71,26 @@ const localBusinessJsonLd = {
   areaServed: "GH",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Reading headers opts the tree into dynamic rendering so Next can stamp script nonces.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} ${robotoSlab.variable} h-full antialiased`}
     >
+      <head>
+        {nonce ? <meta name="csp-nonce" content={nonce} /> : null}
+      </head>
       <body className="min-h-full bg-white text-zinc-950">
         <script
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
         {children}
