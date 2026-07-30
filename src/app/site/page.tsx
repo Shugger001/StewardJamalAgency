@@ -19,10 +19,11 @@ function firstString(row: DbRow, keys: string[]) {
 
 function pickWebsiteTarget(rows: DbRow[]): string | null {
   if (!rows.length) return null;
-  const published = rows.find((row) =>
-    firstString(row, ["status"]).toLowerCase() === "published",
+  const published = rows.filter(
+    (row) => firstString(row, ["status"]).toLowerCase() === "published",
   );
-  const target = published ?? rows[0];
+  const target = published[0];
+  if (!target) return null;
   const domain = firstString(target, ["domain"]);
   if (domain) return domain;
   const id = firstString(target, ["id"]);

@@ -27,6 +27,9 @@ async function loadWebsiteData(id: string) {
   if (!websiteData) return null;
 
   const website = websiteData as DbRow;
+  const status = asString(website.status, "draft").toLowerCase();
+  if (status !== "published") return null;
+
   const websiteName = asString(website.name, "Website");
   const websiteId = String(website.id);
 

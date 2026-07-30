@@ -5,6 +5,7 @@ import { LeadStatusSelect } from "@/components/leads/lead-status-select";
 import { TestLeadAlertButton } from "@/components/settings/test-lead-alert-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { checkDbSetup } from "@/lib/check-db-setup";
+import { getResendFromEmail, isResendConfigured } from "@/lib/email";
 import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -60,6 +61,13 @@ export default async function SettingsPage() {
       }));
   const leads = (leadsQuery.data ?? []) as DbRow[];
   const leadsLoadError = resolveLeadsLoadError(leadsQuery.error?.message ?? null);
+  const resendReady = isResendConfigured();
+  const paystackReady = Boolean(
+    process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY && process.env.PAYSTACK_SECRET_KEY,
+  );
+  const paystackMode = (process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY ?? "").startsWith("pk_live_")
+    ? "live"
+    : "test";
 
   return (
     <div className="mx-auto max-w-7xl space-y-6">
@@ -93,6 +101,33 @@ export default async function SettingsPage() {
           Clients unavailable until database setup is complete.
         </p>
       ) : null}
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-zinc-900">Integrations</CardTitle>
+          <p className="text-sm text-zinc-500">
+            Email and payment providers used by leads, notifications, and billing.
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-3 text-sm">
+          <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2">
+            <p className="font-medium text-zinc-900">Resend</p>
+            <p className="mt-1 text-zinc-600">
+              {resendReady
+                ? `Configured. From address: ${getResendFromEmail()}`
+                : "Not configured. Add RESEND_API_KEY and a verified RESEND_FROM_EMAIL in Vercel, then redeploy."}
+            </p>
+          </div>
+          <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2">
+            <p className="font-medium text-zinc-900">Paystack</p>
+            <p className="mt-1 text-zinc-600">
+              {paystackReady
+                ? `Configured (${paystackMode} keys). Switch to live keys in Vercel when ready to charge real customers.`
+                : "Not configured. Add NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY and PAYSTACK_SECRET_KEY in Vercel."}
+            </p>
+          </div>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>

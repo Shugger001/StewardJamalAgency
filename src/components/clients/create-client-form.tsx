@@ -45,6 +45,8 @@ export function CreateClientForm() {
       const data = (await response.json().catch(() => ({}))) as {
         error?: string;
         warning?: string;
+        notice?: string;
+        linked?: boolean;
       };
 
       if (!response.ok) {
@@ -58,7 +60,10 @@ export function CreateClientForm() {
       }
 
       formEl.reset();
-      setMessage({ kind: "success", text: "Client added successfully." });
+      setMessage({
+        kind: "success",
+        text: data.notice ?? (data.linked ? "Client added and linked." : "Client added successfully."),
+      });
       setNotice(data.warning ?? null);
       router.refresh();
     } catch (error) {

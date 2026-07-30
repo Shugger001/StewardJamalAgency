@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ClientLinkActions } from "@/components/clients/client-link-actions";
 import { CreateClientForm } from "@/components/clients/create-client-form";
 import {
   Table,
@@ -56,7 +57,9 @@ export default async function ClientsPage() {
     <div className="mx-auto max-w-7xl space-y-6">
       <div>
         <h1 className="text-lg font-semibold tracking-tight text-zinc-900">Clients</h1>
-        <p className="mt-1 text-sm text-zinc-500">Manage clients from one place.</p>
+        <p className="mt-1 text-sm text-zinc-500">
+          Manage clients and link them to portal accounts by email.
+        </p>
       </div>
 
       {loadError && (
@@ -75,13 +78,14 @@ export default async function ClientsPage() {
               <TableRow>
                 <TableHead>Business</TableHead>
                 <TableHead>Email</TableHead>
+                <TableHead className="text-right">Portal</TableHead>
                 <TableHead className="text-right">Created</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {clients.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={3} className="py-10 text-center text-zinc-500">
+                  <TableCell colSpan={4} className="py-10 text-center text-zinc-500">
                     No clients yet. Add your first client above.
                   </TableCell>
                 </TableRow>
@@ -91,13 +95,18 @@ export default async function ClientsPage() {
                   const businessName =
                     firstString(client, ["business_name", "name", "client_name", "company_name"]) ||
                     "Unnamed client";
-                  const email = firstString(client, ["email"]) || "—";
+                  const email = firstString(client, ["email"]) || null;
+                  const userId =
+                    typeof client.user_id === "string" && client.user_id ? client.user_id : null;
                   const createdAt = typeof client.created_at === "string" ? client.created_at : null;
 
                   return (
                     <TableRow key={id}>
                       <TableCell className="font-medium">{businessName}</TableCell>
-                      <TableCell className="text-zinc-600">{email}</TableCell>
+                      <TableCell className="text-zinc-600">{email ?? "—"}</TableCell>
+                      <TableCell className="text-right">
+                        <ClientLinkActions clientId={id} email={email} userId={userId} />
+                      </TableCell>
                       <TableCell className="text-right text-zinc-500">
                         {createdAt ? new Date(createdAt).toLocaleDateString() : "—"}
                       </TableCell>

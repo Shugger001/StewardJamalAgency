@@ -99,6 +99,7 @@ create table if not exists public.content_blocks (
   id uuid primary key default gen_random_uuid(),
   section_id uuid not null references public.sections(id) on delete cascade,
   type text not null default 'text',
+  key text,
   value text not null default '',
   created_at timestamptz not null default now()
 );
@@ -228,3 +229,11 @@ alter table public.profiles
   add column if not exists email text;
 
 create index if not exists profiles_email_idx on public.profiles(email);
+
+-- CMS block keys for hero/features templates
+alter table public.content_blocks
+  add column if not exists key text;
+
+create unique index if not exists content_blocks_section_id_key_uidx
+  on public.content_blocks(section_id, key)
+  where key is not null;

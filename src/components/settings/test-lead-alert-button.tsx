@@ -21,14 +21,24 @@ export function TestLeadAlertButton() {
       const response = await fetch("/api/admin/test-lead-alert", {
         method: "POST",
       });
-      const payload = (await response.json().catch(() => ({}))) as { error?: string };
+      const payload = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        code?: string;
+        to?: string;
+      };
       if (!response.ok) {
+        if (payload.code === "missing_resend_api_key") {
+          throw new Error(
+            payload.error ||
+              "Resend is not configured. Add RESEND_API_KEY in Vercel, then redeploy.",
+          );
+        }
         throw new Error(payload.error || "Failed to send test email.");
       }
       setState({
         loading: false,
         error: null,
-        message: "Test lead-alert email sent. Check your inbox.",
+        message: `Test lead-alert email sent${payload.to ? ` to ${payload.to}` : ""}. Check your inbox.`,
       });
     } catch (error) {
       setState({

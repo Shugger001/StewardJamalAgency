@@ -45,16 +45,8 @@ async function resolveAuthUserIdFromClientId(clientId: string): Promise<string |
   const byProfile = await supabase.from("profiles").select("id").ilike("email", email).maybeSingle();
   if (!byProfile.error && byProfile.data?.id) return String(byProfile.data.id);
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!supabaseUrl || !serviceRole) return null;
-
-  const admin = createClient(supabaseUrl, serviceRole, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-  const listed = await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
-  const match = listed.data?.users?.find((user) => user.email?.toLowerCase() === email);
-  return match?.id ?? null;
+  const { resolveAuthUserIdByEmail } = await import("@/lib/clients/link");
+  return resolveAuthUserIdByEmail(email);
 }
 
 async function resolveRecipientEmail(userId: string) {

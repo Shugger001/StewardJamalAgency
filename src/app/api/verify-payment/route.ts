@@ -1,6 +1,7 @@
 import { cookies, headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { getRequestAuthContext } from "@/lib/auth/request-user";
+import { clientOwnsClientId } from "@/lib/clients/link";
 import { notifyUser } from "@/lib/notifications/service";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -28,8 +29,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid payload." }, { status: 400 });
   }
 
-  // Client can only verify against their own billing identity.
-  if (role === "client" && clientId !== userId) {
+  // Client can only verify against linked client rows (user_id / email / legacy id).
+  if (role === "client" && !(await clientOwnsClientId(userId, clientId))) {
     return NextResponse.json({ error: "Forbidden client scope." }, { status: 403 });
   }
 
@@ -97,9 +98,14 @@ export async function POST(request: Request) {
       userId: clientId,
       title: "Payment successful",
       message: "Your payment has been received and recorded successfully.",
-      emailSubject: "Payment received",
-      emailHtml:
-        "<p>Your payment has been received successfully.</p><p>Thank you for choosing Steward Jamal Agency.</p>",
+      emailSubject: "Payment received · Steward Jamal Agency",
+      emailHtml: `
+        <p>Your payment has been received successfully.</p>
+        <p>Reference: <strong>${reference}</strong></p>
+        <p>Next step: check your client dashboard for the updated payment record.</p>
+        <p>Questions? Email <a href="mailto:stewardjamalagency@gmail.com">stewardjamalagency@gmail.com</a>.</p>
+        <p>Thank you for choosing Steward Jamal Agency.</p>
+      `,
     }).catch(() => {
       // Keep payment success path stable even if notification/email fails.
     });

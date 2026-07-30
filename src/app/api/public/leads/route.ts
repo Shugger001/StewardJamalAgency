@@ -95,10 +95,11 @@ export async function POST(request: Request) {
   const dbError = result.error?.message ?? null;
 
   const adminLeadEmail = process.env.LEADS_ALERT_EMAIL ?? "stewardjamalagency@gmail.com";
+  const supportEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "stewardjamalagency@gmail.com";
   const safe = (value: string) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   const submittedAt = new Date().toLocaleString("en-GH", { timeZone: "Africa/Accra" });
   const html = `
-    <h2>New Project Request</h2>
+    <h2>New project request</h2>
     <p>A new lead was submitted from the public website.</p>
     <ul>
       <li><strong>Name:</strong> ${safe(name)}</li>
@@ -111,13 +112,21 @@ export async function POST(request: Request) {
     </ul>
     <p><strong>Message:</strong></p>
     <p>${safe(message)}</p>
+    <p><strong>Next step:</strong> Open the admin dashboard → Settings → Leads inbox, then reply to ${safe(email)}.</p>
+    <p>Support path: <a href="mailto:${safe(supportEmail)}">${safe(supportEmail)}</a></p>
   `;
 
   const emailResult = await sendEmail({
     to: adminLeadEmail,
     subject: `New project request from ${name}`,
     html,
-  }).catch(() => ({ skipped: true as const, reason: "Email send failed." }));
+  }).catch((error) => {
+    console.error("[leads] alert_email_failed", {
+      to: adminLeadEmail,
+      message: error instanceof Error ? error.message : String(error),
+    });
+    return { skipped: true as const, reason: "Email send failed." };
+  });
 
   if (dbError) {
     const missingLeadsTable =

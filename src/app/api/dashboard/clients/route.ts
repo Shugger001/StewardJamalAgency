@@ -2,6 +2,7 @@ import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { getRequestAuthContext } from "@/lib/auth/request-user";
+import { resolveAuthUserIdByEmail } from "@/lib/clients/link";
 import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase/server";
 
 type Body = {
@@ -18,7 +19,6 @@ function supabaseErrorMessage(error: unknown): string {
   return "Database request failed.";
 }
 
-/** Supabase/PostgREST when `clients.email` was never migrated. */
 function isMissingClientsEmailColumn(message: string): boolean {
   const lower = message.toLowerCase();
   if (!lower.includes("email")) return false;
@@ -30,6 +30,15 @@ function isMissingClientsEmailColumn(message: string): boolean {
     (lower.includes("could not find") && lower.includes("column")) ||
     (lower.includes("does not exist") && lower.includes("column"))
   );
+}
+
+function revalidateClientPaths() {
+  revalidatePath("/dashboard/clients");
+  revalidatePath("/dashboard/websites");
+  revalidatePath("/dashboard/projects");
+  revalidatePath("/dashboard/payments");
+  revalidatePath("/dashboard/settings");
+  revalidatePath("/client-dashboard");
 }
 
 export async function POST(request: Request) {
@@ -52,7 +61,7 @@ export async function POST(request: Request) {
   const businessName = body?.business_name?.trim() ?? "";
   const emailRaw = body?.email;
   const email =
-    typeof emailRaw === "string" && emailRaw.trim() ? emailRaw.trim() : null;
+    typeof emailRaw === "string" && emailRaw.trim() ? emailRaw.trim().toLowerCase() : null;
 
   if (!businessName) {
     return NextResponse.json({ error: "Business name is required." }, { status: 400 });
@@ -60,45 +69,67 @@ export async function POST(request: Request) {
 
   try {
     const supabase = createSupabaseServerClient();
+    const linkedUserId = email ? await resolveAuthUserIdByEmail(email) : null;
 
     let warning: string | null = null;
-    let insert = await supabase.from("clients").insert({
-      business_name: businessName,
-      ...(email ? { email } : {}),
-    });
+    let insert = await supabase
+      .from("clients")
+      .insert({
+        business_name: businessName,
+        ...(email ? { email } : {}),
+        ...(linkedUserId ? { user_id: linkedUserId } : {}),
+      })
+      .select("id, business_name, email, user_id")
+      .single();
 
     if (insert.error && email) {
       const errMsg = supabaseErrorMessage(insert.error);
       if (isMissingClientsEmailColumn(errMsg)) {
-        insert = await supabase.from("clients").insert({
-          business_name: businessName,
-        });
+        insert = await supabase
+          .from("clients")
+          .insert({ business_name: businessName })
+          .select("id, business_name, email, user_id")
+          .single();
         warning =
-          "Client was saved without email: your `clients` table has no `email` column yet. In Supabase → SQL Editor, run: alter table public.clients add column if not exists email text;";
+          "Client was saved without email: your `clients` table has no `email` column yet. Run supabase/migrations/20260730_clients_user_link.sql.";
+      } else if (errMsg.toLowerCase().includes("user_id")) {
+        insert = await supabase
+          .from("clients")
+          .insert({
+            business_name: businessName,
+            ...(email ? { email } : {}),
+          })
+          .select("id, business_name, email, user_id")
+          .single();
+        warning =
+          "Client saved without portal link: run supabase/migrations/20260730_clients_user_link.sql then use Link on the clients list.";
       } else {
         return NextResponse.json({ error: errMsg }, { status: 400 });
       }
     } else if (insert.error) {
-      return NextResponse.json(
-        { error: supabaseErrorMessage(insert.error) },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: supabaseErrorMessage(insert.error) }, { status: 400 });
     }
 
-    revalidatePath("/dashboard/clients");
-    revalidatePath("/dashboard/websites");
-    revalidatePath("/dashboard/projects");
-    revalidatePath("/dashboard/payments");
-    revalidatePath("/dashboard/settings");
+    revalidateClientPaths();
+
+    const linked = Boolean(insert.data?.user_id);
+    const successNote = linked
+      ? "Client added and linked to an existing account."
+      : email
+        ? "Client added. No matching auth user yet — they can sign up with this email, then use Link."
+        : undefined;
 
     return NextResponse.json(
-      warning ? { ok: true as const, warning } : { ok: true as const },
+      {
+        ok: true as const,
+        linked,
+        ...(warning ? { warning } : {}),
+        ...(successNote ? { notice: successNote } : {}),
+        client: insert.data ?? null,
+      },
       { status: 201 },
     );
   } catch (error) {
-    return NextResponse.json(
-      { error: supabaseErrorMessage(error) },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: supabaseErrorMessage(error) }, { status: 500 });
   }
 }

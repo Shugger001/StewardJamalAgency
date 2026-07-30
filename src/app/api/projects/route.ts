@@ -2,6 +2,7 @@ import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { getRequestAuthContext } from "@/lib/auth/request-user";
+import { resolveLinkedClientIds } from "@/lib/clients/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 type CreateProjectBody = {
@@ -28,7 +29,17 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
   }
 
-  const targetClientId = role === "client" ? userId : clientId;
+  let targetClientId = clientId;
+  if (role === "client") {
+    const linked = await resolveLinkedClientIds(userId);
+    targetClientId = linked.find((id) => id !== userId) ?? linked[0] ?? undefined;
+    if (!targetClientId) {
+      return NextResponse.json(
+        { error: "No linked client record. Ask an admin to link your account." },
+        { status: 400 },
+      );
+    }
+  }
   if (!targetClientId) {
     return NextResponse.json({ error: "Missing client target." }, { status: 400 });
   }

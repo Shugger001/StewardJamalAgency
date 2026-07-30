@@ -21,7 +21,7 @@ export async function PATCH(request: Request, { params }: Params) {
 
   const role = resolveRoleFromRequest(await cookies(), await headers());
 
-  if (role !== "admin" && role !== "client") {
+  if (role !== "admin" && role !== "staff" && role !== "client") {
     return NextResponse.json({ error: "Forbidden." }, { status: 403 });
   }
 
