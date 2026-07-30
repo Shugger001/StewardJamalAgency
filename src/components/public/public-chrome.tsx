@@ -75,7 +75,7 @@ export function PublicChrome({ children }: PublicChromeProps) {
           <div className="ml-auto flex shrink-0 items-center gap-2">
             <Link
               href="/contact"
-              className="hidden h-10 items-center rounded-sm px-5 text-sm font-bold uppercase tracking-wide text-[#051B2E] shadow-sm transition hover:brightness-95 sm:inline-flex"
+              className="inline-flex h-10 items-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-[#051B2E] shadow-sm transition hover:brightness-95 sm:px-5 sm:text-sm"
               style={{ backgroundColor: DB.gold }}
             >
               Get a quote

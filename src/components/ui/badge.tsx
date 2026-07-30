@@ -14,7 +14,7 @@ export function Badge({
       className={cn(
         "inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium",
         variant === "default" &&
-          "border-[#0A66FF]/20 bg-[#0A66FF]/5 text-[#0A66FF]",
+          "border-[#0693e3]/20 bg-[#0693e3]/5 text-[#0693e3]",
         variant === "success" &&
           "border-emerald-200 bg-emerald-50 text-emerald-800",
         variant === "warning" &&

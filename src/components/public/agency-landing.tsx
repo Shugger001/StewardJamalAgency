@@ -488,7 +488,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                   ? handleInPageAnchorClick(e, contactHref)
                   : undefined
               }
-              className="hidden h-10 items-center rounded-sm px-5 text-sm font-bold uppercase tracking-wide text-[#051B2E] shadow-sm transition hover:brightness-95 sm:inline-flex"
+              className="inline-flex h-10 items-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-[#051B2E] shadow-sm transition hover:brightness-95 sm:px-5 sm:text-sm"
               style={{ backgroundColor: DB.gold }}
             >
               Get a quote
@@ -542,7 +542,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       </header>
 
       {(view === "home" || view === "all") ? (
-      <section className="relative min-h-[min(78vh,680px)] overflow-hidden" style={{ backgroundColor: DB.navy }}>
+      <section className="relative min-h-[min(82vh,720px)] overflow-hidden" style={{ backgroundColor: DB.navy }}>
         <div aria-hidden="true" className="absolute inset-0">
           {heroSlides.map((slide, idx) => (
             <div
@@ -559,11 +559,12 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                   sizes="100vw"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#051B2E]/96 via-[#09243C]/88 to-[#051B2E]/55" />
+              <div className="absolute inset-0 bg-[#051B2E]/75" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#051B2E] via-[#051B2E]/92 to-[#051B2E]/45" />
             </div>
           ))}
         </div>
-        <div className={`${LANDING_GUTTER} relative z-10 flex min-h-[min(78vh,680px)] flex-col justify-center py-16 lg:py-20`}>
+        <div className={`${LANDING_GUTTER} relative z-10 flex min-h-[min(82vh,720px)] flex-col justify-center py-16 lg:py-24`}>
           <div className="agency-hero-slides relative max-w-3xl pb-14">
             {heroSlides.map((slide, idx) => (
               <div
@@ -571,32 +572,49 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                 className={`agency-hero-slide ${idx === heroIndex ? "is-active" : ""}`}
                 aria-hidden={idx !== heroIndex}
               >
-                <p className="agency-section-eyebrow text-xs font-semibold text-[#FFCC53]">{slide.eyebrow}</p>
-                <h1 className="mt-4 max-w-2xl text-3xl font-bold leading-[1.15] text-white sm:text-4xl lg:text-[3.25rem]">
+                <p className="text-sm font-bold tracking-tight text-white sm:text-base">
+                  The Steward Jamal Agency
+                </p>
+                <p className="agency-section-eyebrow mt-4 text-xs font-semibold text-[#FFCC53]">
+                  {slide.eyebrow}
+                </p>
+                <h1 className="mt-3 max-w-2xl text-3xl font-bold leading-[1.12] text-white sm:text-4xl lg:text-[3.25rem]">
                   {slide.title}
                 </h1>
-                <p className="mt-5 max-w-xl text-sm leading-relaxed text-zinc-200 sm:text-base">{slide.body}</p>
+                <p className="mt-5 max-w-xl text-sm leading-relaxed text-zinc-200 sm:text-base">
+                  {slide.body}
+                </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
-                    href="/services/web-development"
-                    className="inline-flex h-12 items-center gap-2 rounded-sm px-7 text-sm font-bold uppercase tracking-wide text-[#051B2E] transition hover:brightness-95"
+                    href={contactHref}
+                    onClick={(e) =>
+                      contactHref.includes("#") ? handleInPageAnchorClick(e, contactHref) : undefined
+                    }
+                    className="inline-flex h-12 min-h-12 items-center gap-2 rounded-sm px-7 text-sm font-bold uppercase tracking-wide text-[#051B2E] transition hover:brightness-95"
                     style={{ backgroundColor: DB.gold }}
                   >
-                    View Our Services
-                    <ArrowRight className="h-4 w-4" />
+                    Get a quote
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                  <Link
+                    href="/services"
+                    className="inline-flex h-12 min-h-12 items-center rounded-sm border border-white/35 bg-white/5 px-6 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white/10"
+                  >
+                    View services
                   </Link>
                 </div>
               </div>
             ))}
-            <div className="absolute bottom-0 flex gap-2" aria-label="Hero slide indicators">
+            <div className="absolute bottom-0 flex gap-2" role="tablist" aria-label="Hero slides">
               {heroSlides.map((slide, idx) => (
                 <button
                   key={slide.title}
                   type="button"
+                  role="tab"
                   aria-label={`Show slide ${idx + 1}`}
-                  aria-current={idx === heroIndex}
+                  aria-selected={idx === heroIndex}
                   onClick={() => setHeroIndex(idx)}
-                  className={`h-1.5 rounded-full transition-all ${
+                  className={`h-2 rounded-full transition-all ${
                     idx === heroIndex ? "w-10 bg-[#FFCC53]" : "w-6 bg-white/35 hover:bg-white/55"
                   }`}
                 />
@@ -604,50 +622,29 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             </div>
           </div>
         </div>
-        {/* Floating quick-call card */}
-        <aside
-          className="absolute bottom-6 right-4 z-20 hidden max-w-xs rounded-lg border border-white/20 bg-white/95 p-4 shadow-xl backdrop-blur sm:block lg:right-10"
-          aria-label="Quick contact"
-        >
-          <p className="text-xs font-bold uppercase tracking-wider text-[#0693e3]">Ready to grow online?</p>
-          {FOOTER_CONTACT_PHONE ? (
-            <p className="mt-2 text-sm font-semibold text-[#051B2E]">
-              Call us:{" "}
-              <a href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`} className="text-[#0693e3] hover:underline">
-                {FOOTER_CONTACT_PHONE}
-              </a>
-            </p>
-          ) : (
-            <a
-              href={contactHref}
-              onClick={(e) => !contactHref.includes("#") ? undefined : handleInPageAnchorClick(e, contactHref)}
-              className="mt-2 inline-block text-sm font-semibold text-[#0693e3] hover:underline"
-            >
-              Send us a brief →
-            </a>
-          )}
-        </aside>
       </section>
       ) : (
         <PageHero {...PAGE_HEADERS[view as keyof typeof PAGE_HEADERS]} />
       )}
 
       {(view === "home" || view === "all" || view === "contact") && (
-      <section style={{ backgroundColor: DB.teal }} className="text-white">
-        <div className={`${LANDING_GUTTER} flex flex-wrap items-center justify-between gap-3 py-3.5`}>
-          <p className="text-sm font-semibold sm:text-base">Ready to grow your business online?</p>
+      <section className="border-b border-zinc-200 bg-[#F1F2F2]">
+        <div className={`${LANDING_GUTTER} flex flex-wrap items-center justify-between gap-3 py-3`}>
+          <p className="text-sm font-medium text-[#051B2E]">
+            Accra-based web design, development, SEO, and digital marketing
+          </p>
           {FOOTER_CONTACT_PHONE ? (
-            <a href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`} className="inline-flex items-center gap-2 text-sm font-medium">
-              <Phone className="h-4 w-4" />
-              Call us: {FOOTER_CONTACT_PHONE}
+            <a
+              href={`tel:${FOOTER_CONTACT_PHONE.replace(/\s/g, "")}`}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#0693e3] hover:underline"
+            >
+              <Phone className="h-4 w-4" aria-hidden />
+              {FOOTER_CONTACT_PHONE}
             </a>
           ) : (
-            <a
-              href={contactHref}
-              className="text-sm font-medium underline-offset-2 hover:underline"
-            >
-              Send us a brief →
-            </a>
+            <Link href={contactHref} className="text-sm font-semibold text-[#0693e3] hover:underline">
+              Get a quote →
+            </Link>
           )}
         </div>
       </section>
@@ -1569,39 +1566,24 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
       )}
 
       {(view === "home" || view === "all") && (
-      <section style={{ backgroundColor: "#FCDA8A" }} className="py-10">
-        <div className={`${LANDING_GUTTER} flex flex-wrap items-center justify-between gap-4`}>
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-[#051B2E]">New project incentive</p>
-            <h2 className="mt-1 text-xl font-bold sm:text-2xl" style={{ color: DB.navy }}>
-              10% off new projects booked this month
-            </h2>
-          </div>
-          <Link
-            href={contactHref}
-            className="inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-white"
-            style={{ backgroundColor: DB.orange }}
-          >
-            Claim 10% off
-          </Link>
-        </div>
-      </section>
-      )}
-
-      {(view === "home" || view === "all") && (
       <section style={{ backgroundColor: DB.navy }} className="py-12 text-white">
         <div className={`${LANDING_GUTTER} flex flex-wrap items-center justify-between gap-4`}>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-[#FFCC53]">Start your project</p>
             <h2 className="mt-2 text-xl font-bold sm:text-2xl">Work with The Steward Jamal Agency</h2>
-            <p className="mt-2 text-sm text-zinc-300">Tell us what you need—we will map the right scope and timeline.</p>
+            <p className="mt-2 max-w-xl text-sm text-zinc-300">
+              Tell us what you need—no account required. We will map the right scope and timeline.
+            </p>
           </div>
           <Link
             href={contactHref}
-            className="inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-[#051B2E]"
+            onClick={(e) =>
+              contactHref.includes("#") ? handleInPageAnchorClick(e, contactHref) : undefined
+            }
+            className="inline-flex h-11 min-h-11 items-center rounded-sm px-6 text-sm font-semibold text-[#051B2E]"
             style={{ backgroundColor: DB.gold }}
           >
-            Get started
+            Get a quote
           </Link>
         </div>
       </section>

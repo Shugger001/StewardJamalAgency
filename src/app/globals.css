@@ -161,7 +161,8 @@ html {
   .agency-marquee-track,
   .agency-reveal-up,
   .agency-hero-bg,
-  .agency-hero-bg-image {
+  .agency-hero-bg-image,
+  .agency-testimonial-track {
     animation: none !important;
     transform: none !important;
     transition: none !important;
