@@ -82,7 +82,7 @@ const heroSlides = [
   {
     eyebrow: "Accra · Kumasi · Nationwide",
     title: "Digital experiences your customers will trust",
-    body: "Clear messaging, polished visuals, and conversion paths that guide visitors from first click to booked call, purchase, or signup.",
+    body: "Clear messaging, polished visuals, and conversion paths that guide visitors from first click to booked call, enquiry, or purchase.",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2200&q=80",
   },
 ] as const;
@@ -130,7 +130,7 @@ const serviceItems: ServiceItem[] = [
 const whyChooseUs = [
   {
     title: "Design With Intent",
-    body: "Every layout choice supports a goal—credibility, enquiry, signup, or purchase—not decoration for its own sake.",
+    body: "Every layout choice supports a goal—credibility, enquiry, booking, or purchase—not decoration for its own sake.",
     icon: Zap,
   },
   {
@@ -869,7 +869,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               </nav>
             </div>
             <div className="flex flex-col gap-2">
-              <Link href={`${basePath}#proposal`} onClick={(e) => handleInPageAnchorClick(e, `${basePath}#proposal`)} className="inline-flex h-10 items-center justify-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-white" style={{ backgroundColor: DB.orange }}>
+              <Link href={contactHref} onClick={(e) => contactHref.includes("#") ? handleInPageAnchorClick(e, contactHref) : undefined} className="inline-flex h-10 items-center justify-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-white" style={{ backgroundColor: DB.orange }}>
                 Start a project
               </Link>
               <Link href="/services/web-development" className="inline-flex h-10 items-center justify-center rounded-sm px-4 text-xs font-bold uppercase tracking-wide text-white" style={{ backgroundColor: DB.navy }}>
@@ -899,7 +899,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                   "Web Development & Design": "/services/web-development",
                   "Custom Web Applications": "/services/web-development#custom-design",
                 };
-                const href = readMoreHref[item.title] ?? `${basePath}#proposal`;
+                const href = readMoreHref[item.title] ?? contactHref;
                 return (
                   <article
                     key={item.num}
@@ -1653,6 +1653,9 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
           <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-bold" style={{ color: DB.navy }}>
               Tell us about your project
+            </p>
+            <p className="mt-1 text-sm text-zinc-500">
+              No account needed—send the form and we will follow up by email or phone.
             </p>
             <div className="mt-4">
               <PublicLeadForm />

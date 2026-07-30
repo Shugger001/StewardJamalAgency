@@ -52,8 +52,8 @@ export function PublicLeadForm() {
         loading: false,
         error: null,
         success: data.warning
-          ? `${data.warning} We still received your details.`
-          : "Thank you—we received your message and will respond within one business day.",
+          ? `${data.warning} We still received your details—no account required.`
+          : "Thank you—we received your project request. No account needed. We will respond within one business day.",
       });
     } catch (error) {
       setState({

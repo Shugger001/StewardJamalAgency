@@ -4,7 +4,8 @@ import { loadPortfolioItems } from "@/lib/load-portfolio-items";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Request a quote or book a call with The Steward Jamal Agency in Accra, Ghana.",
+  description:
+    "Request a quote or start a project with The Steward Jamal Agency—no account required. We reply within one business day.",
 };
 
 export default async function ContactPage() {
