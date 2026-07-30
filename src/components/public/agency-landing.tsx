@@ -693,7 +693,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               src="/brand/steward-jamal-founder.jpg"
               alt="Jamal Steward, CEO and Founder of The Steward Jamal Agency"
               fill
-              className="object-cover object-[center_12%]"
+              className="object-cover object-top"
               sizes="(max-width: 1024px) 90vw, 420px"
               priority={view === "about"}
             />
@@ -1063,7 +1063,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                     src={member.photo}
                     alt={member.name}
                     fill
-                    className="object-cover object-[center_20%]"
+                    className="object-cover object-top"
                     sizes="112px"
                   />
                 </div>
