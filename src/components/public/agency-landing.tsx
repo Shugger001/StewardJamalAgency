@@ -482,11 +482,16 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
           </nav>
           <div className="ml-auto flex shrink-0 items-center gap-2">
             <Link
-              href={isSite ? "/dashboard" : "/signup"}
+              href={isSite ? contactHref : "/contact"}
+              onClick={(e) =>
+                isSite && contactHref.includes("#")
+                  ? handleInPageAnchorClick(e, contactHref)
+                  : undefined
+              }
               className="hidden h-10 items-center rounded-sm px-5 text-sm font-bold uppercase tracking-wide text-[#051B2E] shadow-sm transition hover:brightness-95 sm:inline-flex"
               style={{ backgroundColor: DB.gold }}
             >
-              {isSite ? "Dashboard" : "Start a project"}
+              Get a quote
             </Link>
             <div className="relative xl:hidden">
               <MobileMenuButton
@@ -514,6 +519,19 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                           () => setNavOpen(false),
                         ),
                       )}
+                      <Link
+                        href={isSite ? contactHref : "/contact"}
+                        onClick={(e) => {
+                          setNavOpen(false);
+                          if (isSite && contactHref.includes("#")) {
+                            handleInPageAnchorClick(e, contactHref);
+                          }
+                        }}
+                        className="mt-2 rounded-lg px-3 py-2.5 text-sm font-bold uppercase tracking-wide text-[#051B2E]"
+                        style={{ backgroundColor: DB.gold }}
+                      >
+                        Get a quote
+                      </Link>
                     </nav>
                   </div>
                 </>

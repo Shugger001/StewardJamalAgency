@@ -74,11 +74,11 @@ export function PublicChrome({ children }: PublicChromeProps) {
           </nav>
           <div className="ml-auto flex shrink-0 items-center gap-2">
             <Link
-              href="/signup"
+              href="/contact"
               className="hidden h-10 items-center rounded-sm px-5 text-sm font-bold uppercase tracking-wide text-[#051B2E] shadow-sm transition hover:brightness-95 sm:inline-flex"
               style={{ backgroundColor: DB.gold }}
             >
-              Start a project
+              Get a quote
             </Link>
             <div className="relative xl:hidden">
               <MobileMenuButton open={navOpen} onClick={() => setNavOpen((o) => !o)} />
@@ -102,6 +102,14 @@ export function PublicChrome({ children }: PublicChromeProps) {
                           {item.label}
                         </Link>
                       ))}
+                      <Link
+                        href="/contact"
+                        className="mt-2 rounded-lg px-3 py-2.5 text-center text-sm font-bold uppercase tracking-wide text-[#051B2E]"
+                        style={{ backgroundColor: DB.gold }}
+                        onClick={() => setNavOpen(false)}
+                      >
+                        Get a quote
+                      </Link>
                     </nav>
                   </div>
                 </>
