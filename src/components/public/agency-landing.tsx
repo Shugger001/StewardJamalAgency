@@ -184,6 +184,29 @@ const testimonials = [
   },
 ] as const;
 
+const teamMembers = [
+  {
+    name: "Jamal Steward",
+    role: "CEO / Founder",
+    email: "stewardjamalagency@gmail.com",
+    photo: "/brand/steward-jamal-founder-headshot.jpg",
+  },
+  {
+    name: "Ama Serwaa",
+    role: "Lead Developer",
+    email: null as string | null,
+    photo:
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&h=400&q=80",
+  },
+  {
+    name: "Kofi Mensah",
+    role: "Senior Designer",
+    email: null as string | null,
+    photo:
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&h=400&q=80",
+  },
+] as const;
+
 const pricingBenefits = [
   {
     title: "Momentum in the first quarter",
@@ -967,6 +990,53 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             >
               Start your project
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Team */}
+      <section className="py-14 lg:py-16" style={{ backgroundColor: DB.sky }}>
+        <div className={LANDING_GUTTER}>
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="agency-section-eyebrow text-xs font-semibold text-[#1860F0]">
+              The people behind your project
+            </p>
+            <h2 className="mt-2 text-2xl font-bold sm:text-3xl" style={{ color: DB.navy }}>
+              Meet the team building your next site
+            </h2>
+          </div>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {teamMembers.map((member) => (
+              <article
+                key={member.name}
+                className="agency-reveal-up overflow-hidden rounded-lg border border-zinc-200 bg-white text-center shadow-sm"
+              >
+                <div className="relative mx-auto mt-6 h-28 w-28 overflow-hidden rounded-full border-4 border-[#DDEDF5] shadow-md">
+                  <Image
+                    src={member.photo}
+                    alt={member.name}
+                    fill
+                    className="object-cover object-[center_20%]"
+                    sizes="112px"
+                  />
+                </div>
+                <div className="p-6 pt-4">
+                  <h3 className="text-lg font-bold" style={{ color: DB.navy }}>
+                    {member.name}
+                  </h3>
+                  <p className="mt-1 text-sm text-[#1860F0]">{member.role}</p>
+                  {member.email ? (
+                    <a href={`mailto:${member.email}`} className="mt-3 block text-xs text-zinc-500 hover:text-[#1860F0]">
+                      {member.email}
+                    </a>
+                  ) : (
+                    <Link href="/contact" className="mt-3 block text-xs font-medium text-[#1860F0] hover:underline">
+                      Contact the agency
+                    </Link>
+                  )}
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
