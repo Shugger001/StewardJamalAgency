@@ -70,6 +70,7 @@ This creates:
 
 ## Security Notes
 
+- HTTP security headers are set in `next.config.mjs` (`Content-Security-Policy`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`). Re-scan after deploy if you change third-party scripts.
 - Paystack verification is server-side in `src/app/api/verify-payment/route.ts`
 - Payment success is recorded only after Paystack verify returns success + amount match
 - Dashboard routes are protected by `middleware.ts`
