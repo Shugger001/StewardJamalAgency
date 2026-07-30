@@ -32,7 +32,7 @@ import { MobileMenuButton } from "@/components/public/mobile-menu-button";
 import { PageHero } from "@/components/public/page-hero";
 import { WhatsAppBubble } from "@/components/public/whatsapp-bubble";
 import { blogPosts } from "@/content/blog-posts";
-import { DB, LANDING_GUTTER, PUBLIC_NAV, SITE_CONTACT, type PublicPageView } from "@/lib/public-site-config";
+import { DB, LANDING_GUTTER, PUBLIC_NAV, type PublicPageView } from "@/lib/public-site-config";
 
 /** Hero visual — `public/hero-landing.png` */
 const HERO_IMAGE_SRC = "/hero-landing.png";
@@ -686,53 +686,6 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
 
       {(view === "about" || view === "all") && (
       <>
-      <section className="border-y border-zinc-200 bg-white py-14 lg:py-20">
-        <div className={`${LANDING_GUTTER} grid items-center gap-10 lg:grid-cols-2 lg:gap-14`}>
-          <div className="agency-reveal-up relative mx-auto aspect-[3/4] w-full max-w-md overflow-hidden rounded-2xl bg-zinc-100 shadow-lg lg:mx-0">
-            <Image
-              src="/brand/steward-jamal-founder.jpg"
-              alt="Jamal Steward, CEO and Founder of The Steward Jamal Agency"
-              fill
-              className="object-cover object-top"
-              sizes="(max-width: 1024px) 90vw, 420px"
-              priority={view === "about"}
-            />
-          </div>
-          <div className="agency-reveal-up">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1860F0]">Founder</p>
-            <h2 className="mt-2 text-2xl font-bold sm:text-3xl lg:text-4xl" style={{ color: DB.navy }}>
-              Jamal Steward
-            </h2>
-            <p className="mt-1 text-sm font-semibold text-zinc-500">CEO / Founder</p>
-            <p className="mt-5 text-sm leading-relaxed text-zinc-600 sm:text-base">
-              Jamal leads The Steward Jamal Agency with a simple brief: build websites that help Ghanaian businesses win
-              enquiries and sales—not just look good online. From discovery through launch, he keeps projects scoped,
-              mobile-first, and clear on what success looks like.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href={isSite ? contactHref : "/contact"}
-                onClick={(e) =>
-                  isSite && contactHref.includes("#")
-                    ? handleInPageAnchorClick(e, contactHref)
-                    : undefined
-                }
-                className="inline-flex h-11 items-center rounded-sm px-6 text-sm font-bold uppercase tracking-wide text-[#182635] transition hover:brightness-95"
-                style={{ backgroundColor: DB.gold }}
-              >
-                Get a quote
-              </Link>
-              <a
-                href={`mailto:${SITE_CONTACT.email}`}
-                className="inline-flex h-11 items-center rounded-sm border border-zinc-300 px-6 text-sm font-semibold text-[#182635] transition hover:bg-zinc-50"
-              >
-                Email Jamal
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="py-14 lg:py-20">
         <div className={`${LANDING_GUTTER} grid gap-12 lg:grid-cols-2 lg:items-center`}>
           <figure className="agency-reveal-up order-2 overflow-hidden rounded-2xl shadow-lg lg:order-1">
