@@ -2,11 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ClientCombobox, type ClientOption } from "@/components/clients/client-combobox";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-
-type ClientOption = { id: string; name: string };
 
 type CreateWebsiteFormProps = {
   clients: ClientOption[];
@@ -15,6 +14,7 @@ type CreateWebsiteFormProps = {
 export function CreateWebsiteForm({ clients }: CreateWebsiteFormProps) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
+  const [clientId, setClientId] = useState("");
   const [message, setMessage] = useState<{ kind: "success" | "error"; text: string } | null>(
     null,
   );
@@ -27,10 +27,9 @@ export function CreateWebsiteForm({ clients }: CreateWebsiteFormProps) {
 
     const form = new FormData(event.currentTarget);
     const name = String(form.get("name") ?? "").trim();
-    const client_id = String(form.get("clientId") ?? "").trim();
     const domain = String(form.get("domain") ?? "").trim();
 
-    if (!name || !client_id) {
+    if (!name || !clientId) {
       setMessage({ kind: "error", text: "Name and client are required." });
       return;
     }
@@ -43,7 +42,7 @@ export function CreateWebsiteForm({ clients }: CreateWebsiteFormProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name,
-          client_id,
+          client_id: clientId,
           domain: domain || null,
           status: "draft",
         }),
@@ -58,6 +57,7 @@ export function CreateWebsiteForm({ clients }: CreateWebsiteFormProps) {
       }
 
       event.currentTarget.reset();
+      setClientId("");
       setMessage({
         kind: "success",
         text: "Website created as draft with hero and features sections.",
@@ -86,71 +86,57 @@ export function CreateWebsiteForm({ clients }: CreateWebsiteFormProps) {
         </p>
       </CardHeader>
       <CardContent>
-        {clients.length === 0 ? (
-          <p className="text-sm text-zinc-500">
-            Add a client first, then create a website for them.
-          </p>
-        ) : (
-          <form onSubmit={onSubmit} className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-3">
-              <label className="space-y-1.5 md:col-span-1">
-                <span className="text-xs font-medium text-zinc-600">Website name</span>
-                <input
-                  name="name"
-                  required
-                  placeholder="e.g. Accra Retail Storefront"
-                  className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-200"
-                />
-              </label>
-              <label className="space-y-1.5">
-                <span className="text-xs font-medium text-zinc-600">Client</span>
-                <select
-                  name="clientId"
-                  required
-                  className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-200"
-                  defaultValue=""
-                >
-                  <option value="" disabled>
-                    Select client
-                  </option>
-                  {clients.map((client) => (
-                    <option key={client.id} value={client.id}>
-                      {client.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="space-y-1.5">
-                <span className="text-xs font-medium text-zinc-600">Domain slug (optional)</span>
-                <input
-                  name="domain"
-                  placeholder="e.g. accra-retail"
-                  className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-200"
-                />
-              </label>
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-3">
+            <label className="space-y-1.5 md:col-span-1">
+              <span className="text-xs font-medium text-zinc-600">Website name</span>
+              <input
+                name="name"
+                required
+                placeholder="e.g. Accra Retail Storefront"
+                className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-200"
+              />
+            </label>
+            <div className="space-y-1.5">
+              <span className="text-xs font-medium text-zinc-600">Client</span>
+              <ClientCombobox
+                clients={clients}
+                value={clientId}
+                allowCreate
+                required
+                onChange={setClientId}
+              />
             </div>
-            <Button type="submit" disabled={pending}>
-              {pending ? "Creating..." : "Create draft website"}
-            </Button>
-            {message ? (
-              <p
-                className={cn(
-                  "rounded-lg border px-3 py-2 text-sm",
-                  message.kind === "success"
-                    ? "border-emerald-200 bg-emerald-50 text-emerald-800"
-                    : "border-red-200 bg-red-50 text-red-700",
-                )}
-              >
-                {message.text}
-              </p>
-            ) : null}
-            {warning ? (
-              <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
-                {warning}
-              </p>
-            ) : null}
-          </form>
-        )}
+            <label className="space-y-1.5">
+              <span className="text-xs font-medium text-zinc-600">Domain slug (optional)</span>
+              <input
+                name="domain"
+                placeholder="e.g. accra-retail"
+                className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-200"
+              />
+            </label>
+          </div>
+          <Button type="submit" disabled={pending}>
+            {pending ? "Creating..." : "Create draft website"}
+          </Button>
+          {message ? (
+            <p
+              className={cn(
+                "rounded-lg border px-3 py-2 text-sm",
+                message.kind === "success"
+                  ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+                  : "border-red-200 bg-red-50 text-red-700",
+              )}
+            >
+              {message.text}
+            </p>
+          ) : null}
+          {warning ? (
+            <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+              {warning}
+            </p>
+          ) : null}
+        </form>
       </CardContent>
     </Card>
   );

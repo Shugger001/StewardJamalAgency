@@ -2,12 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ClientCombobox, type ClientOption } from "@/components/clients/client-combobox";
 import { PayButton } from "@/components/payments/pay-button";
-
-type ClientOption = {
-  id: string;
-  name: string;
-};
 
 type PaymentsDashboardProps = {
   clients: ClientOption[];
@@ -110,21 +106,15 @@ export function PaymentsDashboard({ clients }: PaymentsDashboardProps) {
       </p>
 
       <div className="mt-4 grid gap-3 md:grid-cols-4">
-        <label className="space-y-1.5">
+        <div className="space-y-1.5">
           <span className="text-xs font-medium text-zinc-600">Client</span>
-          <select
+          <ClientCombobox
+            clients={clients}
             value={clientId}
-            onChange={(event) => setClientId(event.target.value)}
-            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
-          >
-            <option value="">Select client</option>
-            {clients.map((client) => (
-              <option key={client.id} value={client.id}>
-                {client.name}
-              </option>
-            ))}
-          </select>
-        </label>
+            allowCreate
+            onChange={setClientId}
+          />
+        </div>
 
         <label className="space-y-1.5">
           <span className="text-xs font-medium text-zinc-600">Email</span>

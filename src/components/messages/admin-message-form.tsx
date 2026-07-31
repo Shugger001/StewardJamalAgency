@@ -1,13 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { ClientCombobox, type ClientOption } from "@/components/clients/client-combobox";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-
-type ClientOption = {
-  id: string;
-  name: string;
-};
 
 type AdminMessageFormProps = {
   clients: ClientOption[];
@@ -65,21 +61,15 @@ export function AdminMessageForm({ clients }: AdminMessageFormProps) {
   return (
     <form onSubmit={submit} className="space-y-4">
       <div className="grid gap-4 md:grid-cols-3">
-        <label className="space-y-1.5">
+        <div className="space-y-1.5">
           <span className="text-xs font-medium text-zinc-600">Recipient</span>
-          <select
+          <ClientCombobox
+            clients={clients}
             value={targetId}
-            onChange={(event) => setTargetId(event.target.value)}
-            className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
-          >
-            <option value="">Select client</option>
-            {clients.map((client) => (
-              <option key={client.id} value={client.id}>
-                {client.name}
-              </option>
-            ))}
-          </select>
-        </label>
+            onChange={setTargetId}
+            placeholder="Type or select a client…"
+          />
+        </div>
 
         <label className="space-y-1.5 md:col-span-2">
           <span className="text-xs font-medium text-zinc-600">Title</span>

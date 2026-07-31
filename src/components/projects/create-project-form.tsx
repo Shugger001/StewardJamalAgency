@@ -3,13 +3,10 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ClientCombobox, type ClientOption } from "@/components/clients/client-combobox";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-type ClientOption = {
-  id: string;
-  name: string;
-};
 
 type CreateProjectFormProps = {
   clients: ClientOption[];
@@ -45,8 +42,8 @@ export function CreateProjectForm({ clients }: CreateProjectFormProps) {
       return;
     }
 
-    if (!noClients && !clientId) {
-      const msg = "Choose a client from the dropdown before submitting.";
+    if (!clientId) {
+      const msg = "Type or select a client before submitting.";
       setInlineError(msg);
       setClientFieldHighlighted(true);
       pushToast("error", msg);
@@ -121,30 +118,21 @@ export function CreateProjectForm({ clients }: CreateProjectFormProps) {
           />
         </label>
 
-        <label className="space-y-1.5">
+        <div className="space-y-1.5">
           <span className="text-xs font-medium text-zinc-600">Client</span>
-          <select
+          <ClientCombobox
+            clients={clients}
             value={clientId}
-            onChange={(event) => {
-              setClientId(event.target.value);
+            allowCreate
+            required
+            highlighted={clientFieldHighlighted}
+            onChange={(nextId) => {
+              setClientId(nextId);
               setInlineError(null);
               setClientFieldHighlighted(false);
             }}
-            disabled={noClients}
-            required={!noClients}
-            className={cn(
-              "h-10 w-full rounded-lg border px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20",
-              clientFieldHighlighted ? "border-amber-400 bg-amber-50/40" : "border-zinc-200",
-            )}
-          >
-            <option value="">Select client</option>
-            {clients.map((client) => (
-              <option key={client.id} value={client.id}>
-                {client.name}
-              </option>
-            ))}
-          </select>
-        </label>
+          />
+        </div>
       </div>
 
       {inlineError && (
@@ -154,17 +142,17 @@ export function CreateProjectForm({ clients }: CreateProjectFormProps) {
       )}
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
-        <Button type="submit" disabled={isSubmitting || noClients}>
+        <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Submitting..." : "Submit project request"}
         </Button>
-        {noClients && (
+        {noClients ? (
           <Link
             href="/dashboard/clients"
             className="inline-flex h-9 items-center rounded-lg border border-zinc-200 bg-white px-3 text-xs font-medium text-zinc-700 transition-colors hover:bg-zinc-50"
           >
-            Add client first
+            Manage clients
           </Link>
-        )}
+        ) : null}
         {toast && (
           <span
             className={cn(
@@ -178,11 +166,6 @@ export function CreateProjectForm({ clients }: CreateProjectFormProps) {
           </span>
         )}
       </div>
-      {noClients && (
-        <p className="mt-2 text-xs text-amber-700">
-          No clients found yet. Add a client first, then return to submit the project request.
-        </p>
-      )}
     </form>
   );
 }
