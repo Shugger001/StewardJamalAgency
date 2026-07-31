@@ -91,15 +91,20 @@ export function parsePortfolioItemInput(
   if ("image_url" in raw) {
     const imageUrl = asOptionalString(raw.image_url);
     if (imageUrl) {
-      try {
-        const parsed = new URL(imageUrl);
-        if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
-          return { error: "Image URL must be a valid http(s) link." };
+      const isRelative = imageUrl.startsWith("/");
+      if (isRelative) {
+        if (imageUrl.length > 500) return { error: "Image URL is too long." };
+      } else {
+        try {
+          const parsed = new URL(imageUrl);
+          if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+            return { error: "Image URL must be a valid http(s) link or site path." };
+          }
+        } catch {
+          return { error: "Image URL must be a valid http(s) link or site path." };
         }
-      } catch {
-        return { error: "Image URL must be a valid http(s) link." };
+        if (imageUrl.length > 500) return { error: "Image URL is too long." };
       }
-      if (imageUrl.length > 500) return { error: "Image URL is too long." };
     }
     result.image_url = imageUrl;
   } else if (!partial) {

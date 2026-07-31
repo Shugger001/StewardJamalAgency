@@ -150,7 +150,7 @@ export function CreatePortfolioItemForm() {
             className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
           />
           <span className="block text-[11px] text-zinc-500">
-            Must be a direct image link (ends in .jpg, .png, .webp), not the website homepage. Leave blank to use a branded fallback.
+            Use a direct image link (.jpg/.png/.webp), or leave blank for a branded fallback. Do not paste the website homepage.
           </span>
         </label>
         <label className="space-y-1.5">

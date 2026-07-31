@@ -14,6 +14,7 @@ type PortfolioCardMediaProps = {
 export function PortfolioCardMedia({ image, title }: PortfolioCardMediaProps) {
   const [failed, setFailed] = useState(false);
   const showImage = Boolean(image) && !failed;
+  const isRemote = Boolean(image?.startsWith("http://") || image?.startsWith("https://"));
 
   if (!showImage) {
     return (
@@ -32,7 +33,7 @@ export function PortfolioCardMedia({ image, title }: PortfolioCardMediaProps) {
         src={image!}
         alt=""
         fill
-        unoptimized={!image!.includes("images.unsplash.com")}
+        unoptimized={isRemote && !image!.includes("images.unsplash.com")}
         className="object-cover"
         sizes="(max-width: 768px) 100vw, 33vw"
         onError={() => setFailed(true)}
