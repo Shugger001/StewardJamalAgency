@@ -28,6 +28,7 @@ import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/brand/brand-logo";
 import { PublicLeadForm } from "@/components/leads/public-lead-form";
+import { PortfolioCardMedia } from "@/components/public/portfolio-card-media";
 import { MobileMenuButton } from "@/components/public/mobile-menu-button";
 import { PageHero } from "@/components/public/page-hero";
 import { WhatsAppBubble } from "@/components/public/whatsapp-bubble";
@@ -1308,18 +1309,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                   key={item.id}
                   className="agency-reveal-up overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition hover:shadow-md"
                 >
-                  {item.image ? (
-                    <div className="relative aspect-[16/10] w-full">
-                      <Image
-                        src={item.image}
-                        alt=""
-                        fill
-                        unoptimized={!item.image.includes("images.unsplash.com")}
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
-                    </div>
-                  ) : null}
+                  <PortfolioCardMedia image={item.image} title={item.name} />
                   <div className="p-5">
                     <p className="text-xs uppercase tracking-wide text-zinc-500">
                       {item.clientName?.startsWith("Sample")

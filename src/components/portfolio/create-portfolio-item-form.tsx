@@ -146,9 +146,12 @@ export function CreatePortfolioItemForm() {
           <input
             value={form.image_url}
             onChange={(e) => update("image_url", e.target.value)}
-            placeholder="https://…"
+            placeholder="https://images.unsplash.com/…"
             className="h-10 w-full rounded-lg border border-zinc-200 px-3 text-sm focus:border-[#1860F0]/40 focus:outline-none focus:ring-2 focus:ring-[#1860F0]/20"
           />
+          <span className="block text-[11px] text-zinc-500">
+            Must be a direct image link (ends in .jpg, .png, .webp), not the website homepage. Leave blank to use a branded fallback.
+          </span>
         </label>
         <label className="space-y-1.5">
           <span className="text-xs font-medium text-zinc-600">Sort order</span>
