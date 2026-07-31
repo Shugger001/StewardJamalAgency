@@ -754,7 +754,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
           </p>
           <div className="agency-marquee-wrap mt-4 overflow-hidden">
             <div className="agency-marquee-track flex w-max gap-3 text-sm font-medium text-zinc-600">
-              {[...serviceFocus...serviceFocus].map((name, idx) => (
+              {[...serviceFocus, ...serviceFocus].map((name, idx) => (
                 <div
                   key={`${name}-${idx}`}
                   className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-center"

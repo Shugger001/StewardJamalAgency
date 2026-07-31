@@ -157,6 +157,63 @@ html {
   background: linear-gradient(135deg, #ddedf5 0%, #beddea 100%);
 }
 
+.brand-loader-ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.brand-loader-ring__track,
+.brand-loader-ring__accent {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 3px solid transparent;
+}
+
+.brand-loader-ring__track {
+  border-color: #dde5f5;
+}
+
+.brand-loader-ring__accent {
+  border-top-color: #1860f0;
+  border-right-color: #ffcc53;
+  animation: brand-loader-spin 0.85s linear infinite;
+}
+
+.brand-loader-ring__core {
+  position: relative;
+  z-index: 1;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #182635;
+}
+
+@keyframes brand-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes nav-progress-pulse {
+  0% {
+    width: 12%;
+  }
+  50% {
+    width: 72%;
+  }
+  100% {
+    width: 88%;
+  }
+}
+
+.nav-progress-active {
+  animation: nav-progress-pulse 1.1s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .agency-marquee-track,
   .agency-reveal-up,
@@ -166,6 +223,15 @@ html {
     animation: none !important;
     transform: none !important;
     transition: none !important;
+  }
+
+  .brand-loader-ring__accent,
+  .nav-progress-active {
+    animation: none !important;
+  }
+
+  .brand-loader-ring__accent {
+    border-color: #1860f0;
   }
 
   .agency-hero-slide {

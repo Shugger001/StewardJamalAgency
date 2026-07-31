@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { Geist, Geist_Mono, Roboto, Roboto_Slab } from "next/font/google";
+import { AppLoadingChrome } from "@/components/ui/app-loading-chrome";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -93,6 +94,7 @@ export default async function RootLayout({
           nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
+        <AppLoadingChrome />
         {children}
       </body>
     </html>
