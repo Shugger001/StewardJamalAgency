@@ -52,8 +52,8 @@ export function PublicLeadForm() {
         loading: false,
         error: null,
         success: data.warning
-          ? `${data.warning} We still received your details—no account required.`
-          : "Thank you—we received your project request. No account needed. We will respond within one business day.",
+          ? `${data.warning} We still received your details, no account required.`
+          : "Thank you, we received your project request. No account needed. We will respond within one business day.",
       });
     } catch (error) {
       setState({
@@ -130,8 +130,8 @@ export function PublicLeadForm() {
           <select id="lead-timeline" name="timeline" className={fieldClass} defaultValue="">
             <option value="">Flexible</option>
             <option value="ASAP">ASAP</option>
-            <option value="2-4 weeks">2–4 weeks</option>
-            <option value="1-2 months">1–2 months</option>
+            <option value="2-4 weeks">2-4 weeks</option>
+            <option value="1-2 months">1-2 months</option>
           </select>
         </div>
       </div>

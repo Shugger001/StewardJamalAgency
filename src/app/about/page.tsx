@@ -4,7 +4,7 @@ import { loadPortfolioItems } from "@/lib/load-portfolio-items";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Meet The Steward Jamal Agency—web design, development, and digital growth for businesses across Ghana.",
+  description: "Meet The Steward Jamal Agency, web design, development, and digital growth for businesses across Ghana.",
 };
 
 export default async function AboutPage() {

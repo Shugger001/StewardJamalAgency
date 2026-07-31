@@ -180,7 +180,7 @@ export default async function SettingsPage() {
                   />
                 </div>
                 <p className="mt-1 text-xs text-zinc-500">
-                  {String(lead.email ?? "—")}
+                  {String(lead.email ?? "-")}
                   {lead.company ? ` • ${String(lead.company)}` : ""}
                   {lead.service ? ` • ${String(lead.service)}` : ""}
                 </p>

@@ -56,8 +56,8 @@ export default async function DashboardPage() {
   const normalizedLeads = leads.map((lead) => ({
     id: String(lead.id ?? ""),
     name: String(lead.name ?? "Lead"),
-    email: String(lead.email ?? "—"),
-    service: String(lead.service ?? "—"),
+    email: String(lead.email ?? "-"),
+    service: String(lead.service ?? "-"),
     budget: String(lead.budget ?? "Not specified"),
     timeline: String(lead.timeline ?? "Not specified"),
     status: String(lead.status ?? "new"),
@@ -70,7 +70,7 @@ export default async function DashboardPage() {
     return status !== "completed" && status !== "cancelled";
   }).length;
 
-  // Recount active from full query if we only have 8 recent — use count query instead
+  // Recount active from full query if we only have 8 recent - use count query instead
   const activeCountQuery = await supabase
     .from("projects")
     .select("id", { count: "exact", head: true })
@@ -90,7 +90,7 @@ export default async function DashboardPage() {
           month: "short",
           day: "numeric",
         })
-      : "—",
+      : "-",
   }));
 
   return (

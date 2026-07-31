@@ -32,7 +32,7 @@ export type ServicePageContent = {
 export const SERVICE_TESTIMONIALS = [
   {
     quote:
-      "They rebuilt our service pages and fixed tracking on our contact forms. Within weeks we could see which campaigns were producing real enquiries—not just traffic.",
+      "They rebuilt our service pages and fixed tracking on our contact forms. Within weeks we could see which campaigns were producing real enquiries, not just traffic.",
     name: "Ama Osei",
     role: "Founder",
   },

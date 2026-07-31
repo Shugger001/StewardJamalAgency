@@ -61,7 +61,7 @@ export function RevenueChart() {
                     currency: "GHS",
                     maximumFractionDigits: 0,
                   })
-                : "—";
+                : "-";
               return [formatted, "Revenue"];
             }}
           />

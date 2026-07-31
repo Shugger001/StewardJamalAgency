@@ -10,13 +10,13 @@ export const seoPage: ServicePageContent = {
   introBody:
     "SEO is how people discover you without paying for every click. We audit your site, fix technical blockers, improve page content, and strengthen local signals so your business appears for searches that lead to real enquiries.",
   highlightEyebrow: "Organic search for Accra, Kumasi, and nationwide brands",
-  highlightTitle: "Sustainable visibility—not quick tricks",
+  highlightTitle: "Sustainable visibility, not quick tricks",
   highlightBody:
     "Rankings shift, but a solid foundation lasts: fast pages, clear structure, relevant content, and trustworthy local listings. We build that foundation and help you improve month over month with reporting you can actually read.",
   whyChoose: [
     { title: "Technical Health First", body: "Crawl errors, speed issues, and mobile problems fixed before chasing keywords." },
     { title: "Local Search Focus", body: "Google Business Profile, location pages, and citations for Ghana-based service areas." },
-    { title: "Content Aligned to Intent", body: "Pages mapped to what prospects actually type—not generic filler text." },
+    { title: "Content Aligned to Intent", body: "Pages mapped to what prospects actually type, not generic filler text." },
     { title: "Honest Reporting", body: "Traffic, rankings, and conversion trends explained in plain language." },
   ],
   results: [
@@ -37,7 +37,7 @@ export const seoPage: ServicePageContent = {
     linkLabel: "View web development →",
   },
   faqs: [
-    { q: "When will I see SEO results?", a: "Some technical fixes show impact within weeks. Meaningful ranking movement usually takes 3–6 months depending on competition and content volume." },
+    { q: "When will I see SEO results?", a: "Some technical fixes show impact within weeks. Meaningful ranking movement usually takes 3-6 months depending on competition and content volume." },
     { q: "Can you optimize a site someone else built?", a: "Yes. We regularly audit and improve existing WordPress, custom, and e-commerce sites." },
     { q: "Is SEO part of every new website?", a: "Foundational SEO is included. Ongoing content, link building, and campaign-level SEO are separate retainers." },
     { q: "Do you work with businesses outside Accra?", a: "Yes. We support clients across Ghana and can target multiple cities or regions." },

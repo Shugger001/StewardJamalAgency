@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Web Development And Design | The Steward Jamal Agency",
     description:
-      "Web design and development in Accra and across Ghana—responsive builds, SEO basics, e-commerce, and conversion-focused pages.",
+      "Web design and development in Accra and across Ghana, responsive builds, SEO basics, e-commerce, and conversion-focused pages.",
     type: "website",
   },
 };

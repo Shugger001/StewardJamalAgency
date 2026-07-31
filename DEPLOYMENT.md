@@ -7,7 +7,7 @@ Set these in Vercel project settings:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
-- `ADMIN_EMAIL_ALLOWLIST` — set to `stewardjamalagency@gmail.com` (comma-separated for more admins)
+- `ADMIN_EMAIL_ALLOWLIST` - set to `stewardjamalagency@gmail.com` (comma-separated for more admins)
 - `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY`
 - `PAYSTACK_SECRET_KEY`
 - `RESEND_API_KEY`
@@ -17,8 +17,8 @@ Set these in Vercel project settings:
 - `NEXT_PUBLIC_CONTACT_ADDRESS` (optional; defaults to `Accra, Ghana`)
 - `NEXT_PUBLIC_APP_URL` (canonical site URL for auth redirects and OG tags)
 - `NEXT_PUBLIC_SOCIAL_INSTAGRAM_URL`, `NEXT_PUBLIC_SOCIAL_LINKEDIN_URL`, `NEXT_PUBLIC_SOCIAL_X_URL` (optional footer links)
-- `LEADS_ALERT_EMAIL` — inbox for new contact form submissions (use `stewardjamalagency@gmail.com`)
-- `SUPABASE_DB_URL` — Postgres URI for `npm run db:migrate` or `/api/admin/bootstrap-db`
+- `LEADS_ALERT_EMAIL` - inbox for new contact form submissions (use `stewardjamalagency@gmail.com`)
+- `SUPABASE_DB_URL` - Postgres URI for `npm run db:migrate` or `/api/admin/bootstrap-db`
 
 ## Auth Troubleshooting
 
@@ -28,9 +28,9 @@ If signup or login shows a connection error:
 2. Copy the project **URL**, **anon key**, and **service role key** from Project Settings → API.
 3. Update Vercel env vars (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`) and redeploy.
 4. Run the SQL migrations listed below in the Supabase SQL editor.
-5. Verify health at `/api/auth/health` — all checks should return `true`.
+5. Verify health at `/api/auth/health` - all checks should return `true`.
 
-If the project was paused or DNS fails, unpause/restore it in Supabase before redeploying — `/api/auth/health` must show `authReachable: true`.
+If the project was paused or DNS fails, unpause/restore it in Supabase before redeploying - `/api/auth/health` must show `authReachable: true`.
 
 Current production health endpoint: `https://steward-jamal-agency-eidc.vercel.app/api/auth/health`
 
@@ -76,7 +76,7 @@ This creates:
 
 ## Security Notes
 
-- HTTP security headers: static ones in `next.config.mjs`; `Content-Security-Policy` is issued per-request from `middleware.ts` with a script nonce (no production `unsafe-inline` / `unsafe-eval` in `script-src`). Re-scan after deploy if you add third-party scripts — load them with the page nonce.
+- HTTP security headers: static ones in `next.config.mjs`; `Content-Security-Policy` is issued per-request from `middleware.ts` with a script nonce (no production `unsafe-inline` / `unsafe-eval` in `script-src`). Re-scan after deploy if you add third-party scripts - load them with the page nonce.
 - Paystack verification is server-side in `src/app/api/verify-payment/route.ts`
 - Payment success is recorded only after Paystack verify returns success + amount match
 - Paystack webhooks are signature-checked and idempotent on `payments.reference`

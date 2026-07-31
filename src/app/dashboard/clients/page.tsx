@@ -107,12 +107,12 @@ export default async function ClientsPage() {
                   return (
                     <TableRow key={id}>
                       <TableCell className="font-medium">{businessName}</TableCell>
-                      <TableCell className="text-zinc-600">{email ?? "—"}</TableCell>
+                      <TableCell className="text-zinc-600">{email ?? "-"}</TableCell>
                       <TableCell className="text-right">
                         <ClientLinkActions clientId={id} email={email} userId={userId} />
                       </TableCell>
                       <TableCell className="text-right text-zinc-500">
-                        {createdAt ? new Date(createdAt).toLocaleDateString() : "—"}
+                        {createdAt ? new Date(createdAt).toLocaleDateString() : "-"}
                       </TableCell>
                     </TableRow>
                   );

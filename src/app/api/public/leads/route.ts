@@ -104,7 +104,7 @@ export async function POST(request: Request) {
     <ul>
       <li><strong>Name:</strong> ${safe(name)}</li>
       <li><strong>Email:</strong> ${safe(email)}</li>
-      <li><strong>Company:</strong> ${safe(company || "—")}</li>
+      <li><strong>Company:</strong> ${safe(company || "-")}</li>
       <li><strong>Service:</strong> ${safe(service)}</li>
       <li><strong>Budget:</strong> ${safe(budget || "Not specified")}</li>
       <li><strong>Timeline:</strong> ${safe(timeline || "Not specified")}</li>

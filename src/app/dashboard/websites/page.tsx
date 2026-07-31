@@ -146,7 +146,7 @@ export default async function WebsitesPage() {
                         <Badge variant={statusVariant(websiteStatus)}>{websiteStatus}</Badge>
                       </TableCell>
                       <TableCell className="text-right text-zinc-500">
-                        {createdAt ? new Date(createdAt).toLocaleDateString() : "—"}
+                        {createdAt ? new Date(createdAt).toLocaleDateString() : "-"}
                       </TableCell>
                       <TableCell className="text-right">
                         <WebsitePublishButton websiteId={websiteId} status={websiteStatus} />

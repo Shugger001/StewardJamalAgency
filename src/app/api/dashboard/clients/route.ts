@@ -116,7 +116,7 @@ export async function POST(request: Request) {
     const successNote = linked
       ? "Client added and linked to an existing account."
       : email
-        ? "Client added. No matching auth user yet — they can sign up with this email, then use Link."
+        ? "Client added. No matching auth user yet - they can sign up with this email, then use Link."
         : undefined;
 
     return NextResponse.json(

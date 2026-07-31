@@ -28,11 +28,11 @@ export default function ServicesIndexPage() {
         <div className={`${LANDING_GUTTER} relative py-14 lg:py-20`}>
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#FFCC53]">Services</p>
           <h1 className="mt-3 max-w-2xl text-3xl font-bold text-white sm:text-4xl lg:text-[2.75rem]">
-            Web, commerce, search, and campaigns—built for Ghanaian businesses
+            Web, commerce, search, and campaigns, built for Ghanaian businesses
           </h1>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-zinc-300 sm:text-base">
             Clear scope, mobile-first delivery, and a path to enquiries or sales. Pick a service to see what&apos;s
-            included—or get a quote if you already know what you need.
+            included, or get a quote if you already know what you need.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link

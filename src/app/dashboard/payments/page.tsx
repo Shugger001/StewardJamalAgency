@@ -158,10 +158,10 @@ export default async function PaymentsPage() {
                         <Badge variant={paymentVariant(status)}>{status}</Badge>
                       </TableCell>
                       <TableCell className="max-w-[240px] truncate text-zinc-600">
-                        {String(payment.reference ?? "—")}
+                        {String(payment.reference ?? "-")}
                       </TableCell>
                       <TableCell className="text-right text-zinc-500">
-                        {createdAt ? new Date(createdAt).toLocaleDateString() : "—"}
+                        {createdAt ? new Date(createdAt).toLocaleDateString() : "-"}
                       </TableCell>
                     </TableRow>
                   );

@@ -3,18 +3,18 @@ import type { ServicePageContent } from "./types";
 export const digitalMarketingPage: ServicePageContent = {
   href: "/services/digital-marketing",
   title: "Digital Marketing & PPC Ads",
-  subtitle: "Paid campaigns and growth strategy for Ghanaian businesses—measured against leads and revenue.",
+  subtitle: "Paid campaigns and growth strategy for Ghanaian businesses, measured against leads and revenue.",
   heroImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
   heroImageAlt: "Digital marketing analytics dashboard",
-  introTitle: "Spend ad budget where it produces enquiries—not just clicks",
+  introTitle: "Spend ad budget where it produces enquiries, not just clicks",
   introBody:
     "We plan and manage search and social campaigns for teams in Ghana that need predictable lead flow. Every setup includes tracking, landing page alignment, and reporting on cost per lead, booked calls, and return on ad spend.",
   highlightEyebrow: "Performance marketing for Accra and nationwide brands",
   highlightTitle: "Campaigns connected to your sales funnel",
   highlightBody:
-    "Ads work best when the destination page matches the promise. We coordinate targeting, creative, landing pages, and follow-up capture so budget moves people from impression to conversation—not into a dead end.",
+    "Ads work best when the destination page matches the promise. We coordinate targeting, creative, landing pages, and follow-up capture so budget moves people from impression to conversation, not into a dead end.",
   whyChoose: [
-    { title: "KPIs You Can Explain", body: "Reports focused on leads, sales, and acquisition cost—not vanity metrics alone." },
+    { title: "KPIs You Can Explain", body: "Reports focused on leads, sales, and acquisition cost, not vanity metrics alone." },
     { title: "Ghana-Aware Targeting", body: "Geo, language, and offer framing tuned for local buying behaviour." },
     { title: "Cross-Channel Planning", body: "Search, social, retargeting, and email nurture mapped to your funnel stages." },
     { title: "Tight Site Integration", body: "Tracking, forms, and landing pages built to support campaign performance." },
@@ -38,8 +38,8 @@ export const digitalMarketingPage: ServicePageContent = {
   },
   faqs: [
     { q: "What budget should we start with?", a: "It depends on industry and lead value. We will propose ad spend and management fees after a short discovery call." },
-    { q: "Do you run Google and Meta ads?", a: "Yes—search, display, and social campaigns with transparent spend reporting." },
-    { q: "How fast can PPC generate leads?", a: "Leads can arrive within days of launch. Optimization continues over the first 4–8 weeks." },
+    { q: "Do you run Google and Meta ads?", a: "Yes, search, display, and social campaigns with transparent spend reporting." },
+    { q: "How fast can PPC generate leads?", a: "Leads can arrive within days of launch. Optimization continues over the first 4-8 weeks." },
     { q: "Can you build landing pages for ads?", a: "Yes. We design and develop pages integrated with your tracking and CRM or form tools." },
     { q: "Do you create ad creative?", a: "We provide direction, copy, and basic assets. Full photo or video production can be scoped separately." },
   ],

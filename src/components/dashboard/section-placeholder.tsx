@@ -45,7 +45,7 @@ export function SectionPlaceholder({
         <Card className="border-dashed">
           <CardContent className="flex flex-col items-center justify-center py-16 text-center sm:py-20">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-zinc-200 bg-zinc-50 text-zinc-400">
-              <span className="text-lg font-semibold">—</span>
+              <span className="text-lg font-semibold">, </span>
             </div>
             <h2 className="mt-4 text-sm font-medium text-zinc-900">
               Nothing here yet

@@ -37,7 +37,7 @@ export const PORTFOLIO_SHOWCASE: LandingPortfolioItem[] = [
     domain: null,
     clientName: "Sample · Logistics ops",
     summary:
-      "Secure client-facing shipment updates with an admin ops view—so customers check progress without calling the desk.",
+      "Secure client-facing shipment updates with an admin ops view, so customers check progress without calling the desk.",
     outcome: "Sample outcome: fewer status calls; clearer trust for B2B clients.",
     href: "/services/web-development",
     image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",

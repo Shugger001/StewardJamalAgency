@@ -34,7 +34,7 @@ import { WhatsAppBubble } from "@/components/public/whatsapp-bubble";
 import { blogPosts } from "@/content/blog-posts";
 import { DB, LANDING_GUTTER, PUBLIC_NAV, type PublicPageView } from "@/lib/public-site-config";
 
-/** Hero visual — `public/hero-landing.png` */
+/** Hero visual - `public/hero-landing.png` */
 const HERO_IMAGE_SRC = "/hero-landing.png";
 
 const IMG = {
@@ -58,13 +58,13 @@ const heroSlides = [
   {
     eyebrow: "Web Design & Development · Ghana",
     title: "Websites that work as hard as you do",
-    body: "Purpose-built design, reliable engineering, and SEO-ready structure—so your site attracts qualified visitors and turns interest into revenue.",
+    body: "Purpose-built design, reliable engineering, and SEO-ready structure, so your site attracts qualified visitors and turns interest into revenue.",
     image: HERO_IMAGE_SRC,
   },
   {
     eyebrow: "The Steward Jamal Agency",
     title: "Show up in search. Win more business.",
-    body: "We build fast, mobile-first sites with search fundamentals baked in—helping Ghanaian brands capture more enquiries and close more sales online.",
+    body: "We build fast, mobile-first sites with search fundamentals baked in, helping Ghanaian brands capture more enquiries and close more sales online.",
     image: IMG.buildLaptop,
   },
   {
@@ -98,7 +98,7 @@ const serviceItems: ServiceItem[] = [
   {
     num: "03",
     title: "Custom Web Applications",
-    body: "Client portals, booking systems, and internal dashboards tailored to your workflow—not off-the-shelf templates.",
+    body: "Client portals, booking systems, and internal dashboards tailored to your workflow, not off-the-shelf templates.",
     icon: Globe,
   },
   {
@@ -110,7 +110,7 @@ const serviceItems: ServiceItem[] = [
   {
     num: "05",
     title: "Web Development & Design",
-    body: "Brand-aligned websites built for speed, clarity, and lead capture—from single-page launches to multi-section platforms.",
+    body: "Brand-aligned websites built for speed, clarity, and lead capture, from single-page launches to multi-section platforms.",
     icon: Sparkles,
   },
 ];
@@ -118,7 +118,7 @@ const serviceItems: ServiceItem[] = [
 const whyChooseUs = [
   {
     title: "Design With Intent",
-    body: "Every layout choice supports a goal—credibility, enquiry, booking, or purchase—not decoration for its own sake.",
+    body: "Every layout choice supports a goal: credibility, enquiry, booking, or purchase, not decoration for its own sake.",
     icon: Zap,
   },
   {
@@ -149,7 +149,7 @@ const faqItems = [
   },
   {
     q: "Which payment methods do you accept?",
-    a: "We accept MTN MoMo, Telecel Cash, AT Money, and card payments. Projects are usually billed in milestones—deposit, design approval, and launch.",
+    a: "We accept MTN MoMo, Telecel Cash, AT Money, and card payments. Projects are usually billed in milestones, deposit, design approval, and launch.",
   },
   {
     q: "Can you help after the site goes live?",
@@ -166,7 +166,7 @@ const testimonials = [
   },
   {
     quote:
-      "Our old website looked dated and loaded slowly on mobile. The rebuild was professional from kickoff to launch—clear milestones, fast turnaround, and a structure that makes it easy for our team to update content.",
+      "Our old website looked dated and loaded slowly on mobile. The rebuild was professional from kickoff to launch, clear milestones, fast turnaround, and a structure that makes it easy for our team to update content.",
     name: "Dr. Kwame Mensah",
     role: "Managing Director",
   },
@@ -178,7 +178,7 @@ const testimonials = [
   },
   {
     quote:
-      "From analytics setup to landing pages for our ad campaigns, everything was connected properly. We finally had visibility into which channels were actually producing leads—not just clicks.",
+      "From analytics setup to landing pages for our ad campaigns, everything was connected properly. We finally had visibility into which channels were actually producing leads, not just clicks.",
     name: "Samuel Upton",
     role: "Operations Lead",
   },
@@ -210,7 +210,7 @@ const teamMembers = [
 const pricingBenefits = [
   {
     title: "Momentum in the first quarter",
-    body: "Launch-ready sites and campaign landing pages designed to generate early traction—not months of waiting.",
+    body: "Launch-ready sites and campaign landing pages designed to generate early traction, not months of waiting.",
     icon: TrendingUp,
   },
   {
@@ -282,7 +282,7 @@ const PAGE_HEADERS: Record<Exclude<PublicPageView, "home" | "all">, { eyebrow: s
   about: {
     eyebrow: "About us",
     title: "The team behind your next website",
-    description: "We design and build digital products for Ghanaian businesses—from first launch to long-term growth.",
+    description: "We design and build digital products for Ghanaian businesses, from first launch to long-term growth.",
   },
   portfolio: {
     eyebrow: "Our work",
@@ -297,7 +297,7 @@ const PAGE_HEADERS: Record<Exclude<PublicPageView, "home" | "all">, { eyebrow: s
   contact: {
     eyebrow: "Contact",
     title: "Start a conversation",
-    description: "Tell us about your project—we will reply with scope options, timeline, and next steps.",
+    description: "Tell us about your project, we will reply with scope options, timeline, and next steps.",
   },
 };
 
@@ -431,7 +431,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
 
   return (
     <main className="agency-landing overflow-hidden bg-white text-zinc-900">
-      {/* Top contact bar — Doctor Barns style */}
+      {/* Top contact bar - Doctor Barns style */}
       <div className="hidden border-b border-zinc-200 lg:block" style={{ backgroundColor: DB.skyLight }}>
         <div className={`${LANDING_GUTTER} flex h-10 items-center justify-between text-xs text-zinc-600`}>
           <div className="flex items-center gap-5">
@@ -643,7 +643,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               Web development that supports real business goals
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-zinc-600 sm:text-base">
-              A website should do more than sit online—it should bring in enquiries, support sales, and strengthen your
+              A website should do more than sit online, it should bring in enquiries, support sales, and strengthen your
               reputation. We build{" "}
               <strong>custom websites for businesses across Ghana</strong>, with performance, mobile usability, and
               search fundamentals included from the start. From early-stage startups in Accra to established teams in
@@ -701,7 +701,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               Get found when customers are searching
             </h3>
             <p className="mt-4 text-sm leading-relaxed text-zinc-600 sm:text-base">
-              Ranking matters—but so does relevance. We improve site structure, page content, and technical health so your
+              Ranking matters, but so does relevance. We improve site structure, page content, and technical health so your
               business appears for the searches that lead to calls, bookings, and purchases.
             </p>
             <Link
@@ -725,8 +725,8 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               Advertising tied to outcomes you can track
             </h3>
             <p className="mt-4 text-sm leading-relaxed text-zinc-600 sm:text-base">
-              We plan and manage campaigns across search and social with clear targets—lead volume, cost per enquiry, and
-              return on ad spend—so marketing spend connects to business results.
+              We plan and manage campaigns across search and social with clear targets, lead volume, cost per enquiry, and
+              return on ad spend, so marketing spend connects to business results.
             </p>
             <Link
               href="/services/digital-marketing"
@@ -754,7 +754,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
           </p>
           <div className="agency-marquee-wrap mt-4 overflow-hidden">
             <div className="agency-marquee-track flex w-max gap-3 text-sm font-medium text-zinc-600">
-              {[...serviceFocus, ...serviceFocus].map((name, idx) => (
+              {[...serviceFocus...serviceFocus].map((name, idx) => (
                 <div
                   key={`${name}-${idx}`}
                   className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-center"
@@ -776,7 +776,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             Services for every stage of growth
           </h2>
           <p className="mt-3 text-sm text-zinc-600">
-            From your first company site to SEO, e-commerce, and paid campaigns—each service has its own page with full details.
+            From your first company site to SEO, e-commerce, and paid campaigns, each service has its own page with full details.
           </p>
         </div>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -868,7 +868,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-zinc-600 sm:text-base">
               Need a new company site, an online store, or a refresh of an outdated platform? We handle strategy, design,
-              build, and launch—with room to add SEO and paid campaigns when you are ready to scale.
+              build, and launch, with room to add SEO and paid campaigns when you are ready to scale.
             </p>
             <div className="mt-8 space-y-4">
               {serviceItems.map((item, idx) => {
@@ -936,7 +936,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               Practical digital work focused on your bottom line
             </h2>
             <p className="mt-3 text-sm text-zinc-600">
-              We combine design, development, and growth basics so your online presence supports lead generation—not just
+              We combine design, development, and growth basics so your online presence supports lead generation, not just
               aesthetics.
             </p>
           </div>
@@ -1093,7 +1093,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
           <article className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
             <p className="text-xs uppercase tracking-wide text-zinc-500">Typical go-live window</p>
             <p className="mt-2 text-3xl font-bold" style={{ color: DB.navy }}>
-              3–6 weeks
+              3-6 weeks
             </p>
             <p className="mt-1 text-sm text-zinc-600">Structured milestones keep delivery on track.</p>
           </article>
@@ -1120,7 +1120,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               Strong value without cutting corners
             </h2>
             <p className="mt-2 text-sm text-zinc-600">
-              Clear packages, honest timelines, and builds engineered to perform—not just look good in a screenshot.
+              Clear packages, honest timelines, and builds engineered to perform, not just look good in a screenshot.
             </p>
           </div>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -1264,7 +1264,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                 can pay by Mobile Money (MTN, Telecel, AT) or card through Paystack when enabled.
               </p>
               <p className="mt-3 text-sm text-zinc-600">
-                No account needed to request a quote—tell us about the project on the contact form.
+                No account needed to request a quote, tell us about the project on the contact form.
               </p>
               <Link
                 href={isSite ? contactHref : "/contact"}
@@ -1566,7 +1566,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             <p className="text-xs font-semibold uppercase tracking-wider text-[#FFCC53]">Start your project</p>
             <h2 className="mt-2 text-xl font-bold sm:text-2xl">Work with The Steward Jamal Agency</h2>
             <p className="mt-2 max-w-xl text-sm text-zinc-300">
-              Tell us what you need—no account required. We will map the right scope and timeline.
+              Tell us what you need, no account required. We will map the right scope and timeline.
             </p>
           </div>
           <Link
@@ -1612,7 +1612,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                 <p className="text-xs font-bold uppercase tracking-wider text-zinc-500">Working time</p>
                 <p className="mt-1 inline-flex items-center gap-2">
                   <Clock className="h-4 w-4 text-[#1860F0]" />
-                  Mon – Sat: 8:00am – 5:00pm
+                  Mon - Sat: 8:00am - 5:00pm
                 </p>
               </div>
               {FOOTER_CONTACT_PHONE ? (
@@ -1631,7 +1631,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
               Tell us about your project
             </p>
             <p className="mt-1 text-sm text-zinc-500">
-              No account needed—send the form and we will follow up by email or phone.
+              No account needed, send the form and we will follow up by email or phone.
             </p>
             <div className="mt-4">
               <PublicLeadForm />
@@ -1645,7 +1645,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-[#1860F0]">Studio location</p>
             <p className="mt-2 text-sm text-zinc-700">{FOOTER_ADDRESS}</p>
-            <p className="mt-1 text-sm text-zinc-600">Hours: Mon–Sat, 8:00am – 5:00pm</p>
+            <p className="mt-1 text-sm text-zinc-600">Hours: Mon-Sat, 8:00am - 5:00pm</p>
           </div>
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-[#1860F0]">Reach us directly</p>
@@ -1762,7 +1762,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500">Email updates</p>
               <p className="mt-3 text-xs leading-relaxed text-zinc-400">
-                Get occasional updates on web design, SEO, and digital growth. No spam—unsubscribe anytime.
+                Get occasional updates on web design, SEO, and digital growth. No spam, unsubscribe anytime.
               </p>
               <form
                 className="mt-4 flex gap-2"
@@ -1782,7 +1782,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                       }),
                     });
                   } catch {
-                    // Keep UX simple — confirm intent either way.
+                    // Keep UX simple - confirm intent either way.
                   }
                   setNewsletterStatus("done");
                   setNewsletterEmail("");

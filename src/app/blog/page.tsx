@@ -16,7 +16,7 @@ export default function BlogIndexPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1860F0]">Insights & guides</p>
         <h1 className="mt-2 text-3xl font-bold text-[#182635] sm:text-4xl">Articles for Ghanaian business owners</h1>
         <p className="mt-3 max-w-2xl text-sm text-zinc-600">
-          Practical notes on websites, e-commerce, SEO, and marketing—written for teams building or improving their online presence.
+          Practical notes on websites, e-commerce, SEO, and marketing, written for teams building or improving their online presence.
         </p>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
