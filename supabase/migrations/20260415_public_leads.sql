@@ -5,6 +5,7 @@ create table if not exists public.leads (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   email text not null,
+  phone text,
   company text,
   service text not null,
   budget text,

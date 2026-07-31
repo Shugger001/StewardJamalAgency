@@ -5,6 +5,7 @@ import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase
 type LeadPayload = {
   name?: string;
   email?: string;
+  phone?: string;
   company?: string;
   service?: string;
   budget?: string;
@@ -54,6 +55,7 @@ export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as LeadPayload;
   const name = sanitize(body.name);
   const email = sanitize(body.email).toLowerCase();
+  const phone = sanitize(body.phone);
   const company = sanitize(body.company);
   const service = sanitize(body.service);
   const budget = sanitize(body.budget);
@@ -65,14 +67,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true }, { status: 200 });
   }
 
-  if (!name || !email || !service || !message) {
+  if (!name || !email || !phone || !service || !message) {
     return NextResponse.json(
-      { error: "Name, email, service and message are required." },
+      { error: "Name, email, phone, service and message are required." },
       { status: 400 },
     );
   }
 
-  if (name.length > 120 || email.length > 200 || message.length > 5000) {
+  if (
+    name.length > 120 ||
+    email.length > 200 ||
+    phone.length > 40 ||
+    message.length > 5000
+  ) {
     return NextResponse.json({ error: "One or more fields are too long." }, { status: 400 });
   }
 
@@ -81,10 +88,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
   }
 
+  const phoneDigits = phone.replace(/\D/g, "");
+  if (phoneDigits.length < 9 || phoneDigits.length > 15) {
+    return NextResponse.json(
+      { error: "Enter a valid phone number (include country code if possible)." },
+      { status: 400 },
+    );
+  }
+
   const supabase = createSupabaseServerClient();
-  const result = await supabase.from("leads").insert({
+  let result = await supabase.from("leads").insert({
     name,
     email,
+    phone,
     company: company || null,
     service,
     budget: budget || null,
@@ -92,6 +108,23 @@ export async function POST(request: Request) {
     message,
     status: "new",
   });
+
+  // Older DBs without leads.phone: still capture the number in the message body.
+  if (
+    result.error?.message &&
+    (result.error.message.includes("phone") || result.error.message.includes("schema cache"))
+  ) {
+    result = await supabase.from("leads").insert({
+      name,
+      email,
+      company: company || null,
+      service,
+      budget: budget || null,
+      timeline: timeline || null,
+      message: `${message}\n\nPhone: ${phone}`,
+      status: "new",
+    });
+  }
   const dbError = result.error?.message ?? null;
 
   const adminLeadEmail = process.env.LEADS_ALERT_EMAIL ?? "stewardjamalagency@gmail.com";
@@ -104,6 +137,7 @@ export async function POST(request: Request) {
     <ul>
       <li><strong>Name:</strong> ${safe(name)}</li>
       <li><strong>Email:</strong> ${safe(email)}</li>
+      <li><strong>Phone:</strong> ${safe(phone)}</li>
       <li><strong>Company:</strong> ${safe(company || "-")}</li>
       <li><strong>Service:</strong> ${safe(service)}</li>
       <li><strong>Budget:</strong> ${safe(budget || "Not specified")}</li>
@@ -112,7 +146,7 @@ export async function POST(request: Request) {
     </ul>
     <p><strong>Message:</strong></p>
     <p>${safe(message)}</p>
-    <p><strong>Next step:</strong> Open the admin dashboard → Settings → Leads inbox, then reply to ${safe(email)}.</p>
+    <p><strong>Next step:</strong> Open the admin dashboard → Settings → Leads inbox, then reply to ${safe(email)} or call ${safe(phone)}.</p>
     <p>Support path: <a href="mailto:${safe(supportEmail)}">${safe(supportEmail)}</a></p>
   `;
 

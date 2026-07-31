@@ -27,6 +27,7 @@ export function PublicLeadForm() {
     const payload = {
       name: String(form.get("name") ?? ""),
       email: String(form.get("email") ?? ""),
+      phone: String(form.get("phone") ?? ""),
       company: String(form.get("company") ?? ""),
       service: String(form.get("service") ?? ""),
       budget: String(form.get("budget") ?? ""),
@@ -89,26 +90,41 @@ export function PublicLeadForm() {
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
         <div>
+          <label htmlFor="lead-phone" className="mb-1 block text-xs font-medium text-zinc-600">
+            Phone number
+          </label>
+          <input
+            id="lead-phone"
+            name="phone"
+            type="tel"
+            required
+            autoComplete="tel"
+            inputMode="tel"
+            placeholder="+233 54 000 0000"
+            className={fieldClass}
+          />
+        </div>
+        <div>
           <label htmlFor="lead-company" className="mb-1 block text-xs font-medium text-zinc-600">
             Company <span className="font-normal text-zinc-400">(optional)</span>
           </label>
           <input id="lead-company" name="company" autoComplete="organization" className={fieldClass} />
         </div>
-        <div>
-          <label htmlFor="lead-service" className="mb-1 block text-xs font-medium text-zinc-600">
-            Service
-          </label>
-          <select id="lead-service" name="service" required className={fieldClass} defaultValue="">
-            <option value="" disabled>
-              Select a service
-            </option>
-            <option value="Website Design">Website design</option>
-            <option value="Website Development">Website development</option>
-            <option value="E-commerce Build">E-commerce build</option>
-            <option value="SEO & Marketing">SEO & marketing</option>
-            <option value="Maintenance & Support">Maintenance & support</option>
-          </select>
-        </div>
+      </div>
+      <div>
+        <label htmlFor="lead-service" className="mb-1 block text-xs font-medium text-zinc-600">
+          Service
+        </label>
+        <select id="lead-service" name="service" required className={fieldClass} defaultValue="">
+          <option value="" disabled>
+            Select a service
+          </option>
+          <option value="Website Design">Website design</option>
+          <option value="Website Development">Website development</option>
+          <option value="E-commerce Build">E-commerce build</option>
+          <option value="SEO & Marketing">SEO & marketing</option>
+          <option value="Maintenance & Support">Maintenance & support</option>
+        </select>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
         <div>

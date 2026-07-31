@@ -59,6 +59,7 @@ Individual migration files (also included in `setup_all.sql`):
 - `supabase/migrations/20260415_public_leads.sql` (public proposal/lead capture)
 - `supabase/migrations/20260730_clients_user_link.sql` (client portal scoping + profile email for notifications)
 - `supabase/migrations/20260730_content_blocks_key.sql` (CMS block `key` for hero/features templates)
+- `supabase/migrations/20260731_leads_phone.sql` (phone on public lead form)
 
 This creates:
 
@@ -70,9 +71,10 @@ This creates:
 - `clients.user_id` + `profiles.email` for scoped client portal data and messaging
 - `content_blocks.key` for the website CMS editor template
 
-**Run once after deploy (if upgrading an existing project):** open Supabase → SQL Editor and run both:
+**Run once after deploy (if upgrading an existing project):** open Supabase → SQL Editor and run:
 1. `supabase/migrations/20260730_clients_user_link.sql`
 2. `supabase/migrations/20260730_content_blocks_key.sql`
+3. `supabase/migrations/20260731_leads_phone.sql`
 
 ## Security Notes
 

@@ -46,6 +46,7 @@ create table if not exists public.leads (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   email text not null,
+  phone text,
   company text,
   service text not null,
   budget text,
@@ -237,3 +238,7 @@ alter table public.content_blocks
 create unique index if not exists content_blocks_section_id_key_uidx
   on public.content_blocks(section_id, key)
   where key is not null;
+
+-- Lead phone for contact follow-up
+alter table public.leads
+  add column if not exists phone text;
