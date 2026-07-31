@@ -8,6 +8,7 @@ import {
   CreditCard,
   FolderKanban,
   Globe,
+  Images,
   LayoutDashboard,
   PanelLeftClose,
   PanelLeft,
@@ -21,6 +22,7 @@ import { useMediaQuery } from "@/lib/use-media-query";
 const nav = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/dashboard/clients", label: "Clients", icon: Users },
+  { href: "/dashboard/portfolio", label: "Portfolio", icon: Images },
   { href: "/dashboard/websites", label: "Websites", icon: Globe },
   { href: "/dashboard/projects", label: "Projects", icon: FolderKanban },
   { href: "/dashboard/payments", label: "Payments", icon: CreditCard },

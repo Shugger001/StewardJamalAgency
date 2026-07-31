@@ -1314,6 +1314,7 @@ export function AgencyLanding({ mode, view: viewProp, portfolioItems, previewTar
                         src={item.image}
                         alt=""
                         fill
+                        unoptimized={!item.image.includes("images.unsplash.com")}
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 33vw"
                       />

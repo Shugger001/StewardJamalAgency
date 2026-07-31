@@ -8,6 +8,7 @@ import { Topbar } from "@/components/ui/topbar";
 const titles: Record<string, string> = {
   "/dashboard": "Dashboard",
   "/dashboard/clients": "Clients",
+  "/dashboard/portfolio": "Portfolio",
   "/dashboard/websites": "Websites",
   "/dashboard/projects": "Projects",
   "/dashboard/payments": "Payments",

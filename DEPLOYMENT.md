@@ -60,6 +60,7 @@ Individual migration files (also included in `setup_all.sql`):
 - `supabase/migrations/20260730_clients_user_link.sql` (client portal scoping + profile email for notifications)
 - `supabase/migrations/20260730_content_blocks_key.sql` (CMS block `key` for hero/features templates)
 - `supabase/migrations/20260731_leads_phone.sql` (phone on public lead form)
+- `supabase/migrations/20260731_portfolio_items.sql` (curated marketing portfolio entries)
 
 This creates:
 
@@ -75,6 +76,7 @@ This creates:
 1. `supabase/migrations/20260730_clients_user_link.sql`
 2. `supabase/migrations/20260730_content_blocks_key.sql`
 3. `supabase/migrations/20260731_leads_phone.sql`
+4. `supabase/migrations/20260731_portfolio_items.sql`
 
 ## Security Notes
 
@@ -132,13 +134,14 @@ DNS cutover is blocked until you provide the domain string; the app already read
 | Brand colors / contact defaults | `src/lib/public-site-config.ts` |
 | Logo assets | `public/brand/*` |
 
-Live portfolio also comes from published `websites` + `clients` (Dashboard → Websites). Prefer real client domains there when ready.
+**Public portfolio (preferred):** Dashboard → Portfolio → add title, client/brand, live URL, optional summary/image → keep published checked.
 
-**To replace sample portfolio with real work:**
-1. Dashboard → Websites → create/edit the site.
-2. Set the live `domain` (e.g. `clientbrand.com`).
-3. Publish the website.
-4. Home and `/portfolio` prefer published sites that have a domain; otherwise any published site; otherwise the labeled samples in `portfolio-showcase.ts`.
+Live portfolio load order:
+1. Published rows in `portfolio_items`
+2. Else published CRM `websites` (+ clients)
+3. Else labeled samples in `portfolio-showcase.ts`
+
+Run once if the Portfolio page prompts for it: `supabase/migrations/20260731_portfolio_items.sql`
 
 ## Integrations status checklist
 

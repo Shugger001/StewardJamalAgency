@@ -301,24 +301,24 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
         <CardHeader>
           <CardTitle className="text-zinc-900">Public portfolio</CardTitle>
           <p className="text-sm text-zinc-500">
-            Live client sites replace sample case studies on the marketing pages.
+            Showcase live websites you have built or worked on.
           </p>
         </CardHeader>
         <CardContent className="space-y-2 text-sm text-zinc-700">
           <ol className="list-decimal space-y-1 pl-5">
             <li>
               Open{" "}
-              <Link href="/dashboard/websites" className="font-medium text-[#1860F0] hover:underline">
-                Dashboard → Websites
+              <Link href="/dashboard/portfolio" className="font-medium text-[#1860F0] hover:underline">
+                Dashboard → Portfolio
               </Link>
               .
             </li>
-            <li>Create or edit a site, set the live domain, and publish it.</li>
-            <li>The home and portfolio pages pull published websites automatically.</li>
+            <li>Add the project title, client/brand, and live URL.</li>
+            <li>Keep Show on public portfolio checked to publish immediately.</li>
           </ol>
           <p className="text-xs text-zinc-500">
-            Until at least one published website exists, the site shows labeled sample case studies from{" "}
-            <code className="rounded bg-zinc-100 px-1 py-0.5">src/content/portfolio-showcase.ts</code>.
+            Published portfolio items replace sample case studies on Home and /portfolio. Use Dashboard →
+            Websites only when you are building a site inside this CMS.
           </p>
         </CardContent>
       </Card>
