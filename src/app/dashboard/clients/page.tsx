@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { ClientLinkActions } from "@/components/clients/client-link-actions";
 import { CreateClientForm } from "@/components/clients/create-client-form";
+import { DashboardListToolbar, PaginationBar } from "@/components/dashboard/list-toolbar";
 import { EmptyState } from "@/components/ui/empty-state";
 import {
   Table,
@@ -11,6 +13,13 @@ import {
   TableRow,
   TableWrap,
 } from "@/components/ui/table";
+import {
+  DASHBOARD_PAGE_SIZE,
+  escapeIlike,
+  parseListPage,
+  parseListQuery,
+  parseListStatus,
+} from "@/lib/dashboard/list-params";
 import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -18,6 +27,8 @@ export const metadata: Metadata = {
 };
 
 type DbRow = Record<string, unknown>;
+
+const PORTAL_FILTERS = ["all", "linked", "unlinked"] as const;
 
 function firstString(row: DbRow, keys: string[]) {
   for (const key of keys) {
@@ -29,8 +40,20 @@ function firstString(row: DbRow, keys: string[]) {
 
 export const dynamic = "force-dynamic";
 
-export default async function ClientsPage() {
+type ClientsPageProps = {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default async function ClientsPage({ searchParams }: ClientsPageProps) {
+  const params = (await searchParams) ?? {};
+  const q = parseListQuery(params.q);
+  const portal = parseListStatus(params.status, [...PORTAL_FILTERS]);
+  const page = parseListPage(params.page);
+  const from = (page - 1) * DASHBOARD_PAGE_SIZE;
+  const to = from + DASHBOARD_PAGE_SIZE - 1;
+
   let clients: DbRow[] = [];
+  let total = 0;
   let loadError: string | null = null;
 
   if (!hasSupabaseServerEnv()) {
@@ -39,20 +62,36 @@ export default async function ClientsPage() {
   } else {
     try {
       const supabase = createSupabaseServerClient();
-      const clientsQuery = await supabase
+      let query = supabase
         .from("clients")
-        .select("*")
-        .order("created_at", { ascending: false });
+        .select("*", { count: "exact" })
+        .order("created_at", { ascending: false })
+        .range(from, to);
+
+      if (q) {
+        const term = `%${escapeIlike(q)}%`;
+        query = query.or(`business_name.ilike.${term},email.ilike.${term}`);
+      }
+      if (portal === "linked") {
+        query = query.not("user_id", "is", null);
+      } else if (portal === "unlinked") {
+        query = query.is("user_id", null);
+      }
+
+      const clientsQuery = await query;
 
       if (clientsQuery.error) {
         throw clientsQuery.error;
       }
 
       clients = (clientsQuery.data ?? []) as DbRow[];
+      total = clientsQuery.count ?? clients.length;
     } catch (error) {
       loadError = error instanceof Error ? error.message : "Failed to load clients.";
     }
   }
+
+  const hasFilters = Boolean(q || (portal && portal !== "all"));
 
   return (
     <div className="mx-auto max-w-7xl space-y-6">
@@ -72,7 +111,19 @@ export default async function ClientsPage() {
       <CreateClientForm />
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-zinc-900">All clients</h2>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <h2 className="text-sm font-semibold text-zinc-900">All clients</h2>
+          <Suspense fallback={<div className="h-10 w-full max-w-sm animate-pulse rounded-lg bg-zinc-100" />}>
+            <DashboardListToolbar
+              searchPlaceholder="Search business or email…"
+              statusOptions={[
+                { value: "all", label: "All portal states" },
+                { value: "linked", label: "Portal linked" },
+                { value: "unlinked", label: "Not linked" },
+              ]}
+            />
+          </Suspense>
+        </div>
         <TableWrap>
           <Table>
             <TableHeader>
@@ -88,8 +139,12 @@ export default async function ClientsPage() {
                 <TableRow>
                   <TableCell colSpan={4} className="p-0">
                     <EmptyState
-                      title="No clients yet"
-                      description="Add a business above, then link their portal account by email when they need access."
+                      title={hasFilters ? "No matching clients" : "No clients yet"}
+                      description={
+                        hasFilters
+                          ? "Try a different search or clear filters."
+                          : "Add a business above, then link their portal account by email when they need access."
+                      }
                     />
                   </TableCell>
                 </TableRow>
@@ -121,6 +176,9 @@ export default async function ClientsPage() {
             </TableBody>
           </Table>
         </TableWrap>
+        <Suspense fallback={null}>
+          <PaginationBar page={page} pageSize={DASHBOARD_PAGE_SIZE} total={total} />
+        </Suspense>
       </section>
     </div>
   );

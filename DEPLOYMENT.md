@@ -90,12 +90,15 @@ This creates:
 
 ## Email (Resend)
 
-1. Create a Resend account and verify your sending domain.
-2. Set `RESEND_API_KEY` and `RESEND_FROM_EMAIL` (must use the verified domain) in Vercel.
-3. Keep `LEADS_ALERT_EMAIL=stewardjamalagency@gmail.com`.
-4. Redeploy, then use **Settings → Send test lead-alert email**.
+1. Create a Resend account.
+2. **Verify your sending domain** in Resend → Domains (add the DNS records Resend shows: SPF, DKIM, and any others listed). Do not keep `onboarding@resend.dev` once you have production traffic.
+3. Set `RESEND_API_KEY` and `RESEND_FROM_EMAIL` (must use the verified domain, e.g. `no-reply@your-domain`) in Vercel.
+4. Keep `LEADS_ALERT_EMAIL=stewardjamalagency@gmail.com`.
+5. Redeploy, then use **Dashboard → Settings → Send test lead-alert email**.
 
 Until keys are set, lead inserts still succeed; email alerts are skipped and logged.
+
+Dashboard → Settings also shows whether you are still on a Resend onboarding from-address vs a custom domain.
 
 ## Paystack
 
@@ -130,6 +133,12 @@ DNS cutover is blocked until you provide the domain string; the app already read
 | Logo assets | `public/brand/*` |
 
 Live portfolio also comes from published `websites` + `clients` (Dashboard → Websites). Prefer real client domains there when ready.
+
+**To replace sample portfolio with real work:**
+1. Dashboard → Websites → create/edit the site.
+2. Set the live `domain` (e.g. `clientbrand.com`).
+3. Publish the website.
+4. Home and `/portfolio` prefer published sites that have a domain; otherwise any published site; otherwise the labeled samples in `portfolio-showcase.ts`.
 
 ## Integrations status checklist
 

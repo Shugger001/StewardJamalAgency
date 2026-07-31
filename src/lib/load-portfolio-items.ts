@@ -12,12 +12,16 @@ function firstString(row: DbRow, keys: string[]) {
   return "";
 }
 
+/**
+ * Prefer published CRM websites (especially those with a live domain).
+ * Fall back to labeled sample case studies when none are published yet.
+ */
 export async function loadPortfolioItems(): Promise<LandingPortfolioItem[]> {
   if (!hasSupabaseServerEnv()) return PORTFOLIO_SHOWCASE;
   try {
     const supabase = createSupabaseServerClient();
     const [{ data: websites }, { data: clients }] = await Promise.all([
-      supabase.from("websites").select("*").order("created_at", { ascending: false }).limit(24),
+      supabase.from("websites").select("*").order("created_at", { ascending: false }).limit(48),
       supabase.from("clients").select("*"),
     ]);
 
@@ -35,22 +39,31 @@ export async function loadPortfolioItems(): Promise<LandingPortfolioItem[]> {
       domain: firstString(row, ["domain"]) || null,
       clientId: firstString(row, ["client_id", "clientId"]) || null,
       createdAt: firstString(row, ["created_at"]) || null,
+      summary: firstString(row, ["summary", "description", "tagline"]) || undefined,
     }));
 
-    const items = normalized
-      .sort((a, b) => {
-        if (a.status === "published" && b.status !== "published") return -1;
-        if (a.status !== "published" && b.status === "published") return 1;
-        return 0;
-      })
-      .map((item) => ({
+    const published = normalized.filter((item) => item.status === "published");
+    const withDomain = published.filter((item) => Boolean(item.domain));
+    const source = withDomain.length ? withDomain : published;
+
+    const items = source.map((item) => {
+      const clientName = item.clientId ? clientMap.get(item.clientId) ?? "Client" : "Client";
+      const href = item.domain
+        ? item.domain.startsWith("http")
+          ? item.domain
+          : `https://${item.domain}`
+        : `/sites/${item.id}`;
+
+      return {
         id: item.id,
         name: item.name,
         status: item.status,
         domain: item.domain,
-        clientName: item.clientId ? clientMap.get(item.clientId) ?? "Client" : "Client",
-        href: item.domain ? `https://${item.domain}` : `/sites/${item.id}`,
-      }));
+        clientName,
+        summary: item.summary,
+        href,
+      } satisfies LandingPortfolioItem;
+    });
 
     return items.length ? items : PORTFOLIO_SHOWCASE;
   } catch {

@@ -1,10 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
+import { DashboardListToolbar, PaginationBar } from "@/components/dashboard/list-toolbar";
 import { AdminMessageForm } from "@/components/messages/admin-message-form";
 import { LeadStatusSelect } from "@/components/leads/lead-status-select";
 import { TestLeadAlertButton } from "@/components/settings/test-lead-alert-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { checkDbSetup } from "@/lib/check-db-setup";
+import {
+  DASHBOARD_PAGE_SIZE,
+  escapeIlike,
+  parseListPage,
+  parseListQuery,
+  parseListStatus,
+} from "@/lib/dashboard/list-params";
 import { getResendFromEmail, isResendConfigured } from "@/lib/email";
 import { createSupabaseServerClient, hasSupabaseServerEnv } from "@/lib/supabase/server";
 
@@ -15,6 +25,8 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 type DbRow = Record<string, unknown>;
+
+const LEAD_STATUSES = ["all", "new", "contacted", "closed"] as const;
 
 function resolveLeadsLoadError(message: string | null) {
   if (!message) return null;
@@ -29,7 +41,15 @@ function resolveLeadsLoadError(message: string | null) {
   return message;
 }
 
-export default async function SettingsPage() {
+function isOnboardingFromAddress(from: string) {
+  return from.includes("resend.dev") || from.includes("onboarding@");
+}
+
+type SettingsPageProps = {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default async function SettingsPage({ searchParams }: SettingsPageProps) {
   if (!hasSupabaseServerEnv()) {
     return (
       <div className="mx-auto max-w-7xl space-y-4">
@@ -45,11 +65,35 @@ export default async function SettingsPage() {
     );
   }
 
+  const params = (await searchParams) ?? {};
+  const q = parseListQuery(params.q);
+  const status = parseListStatus(params.status, [...LEAD_STATUSES]);
+  const page = parseListPage(params.page);
+  const from = (page - 1) * DASHBOARD_PAGE_SIZE;
+  const to = from + DASHBOARD_PAGE_SIZE - 1;
+
   const supabase = createSupabaseServerClient();
   const dbSetup = await checkDbSetup();
-  const [clientsQuery, leadsQuery] = await Promise.all([
+
+  let leadsQuery = supabase
+    .from("leads")
+    .select("*", { count: "exact" })
+    .order("created_at", { ascending: false })
+    .range(from, to);
+
+  if (q) {
+    const term = `%${escapeIlike(q)}%`;
+    const fields = ["name", "email", "company", "message", "service"];
+    if (dbSetup.leadsPhoneReady) fields.push("phone");
+    leadsQuery = leadsQuery.or(fields.map((field) => `${field}.ilike.${term}`).join(","));
+  }
+  if (status !== "all") {
+    leadsQuery = leadsQuery.eq("status", status);
+  }
+
+  const [clientsQuery, leadsResult] = await Promise.all([
     supabase.from("clients").select("*").order("created_at", { ascending: false }),
-    supabase.from("leads").select("*").order("created_at", { ascending: false }).limit(30),
+    leadsQuery,
   ]);
 
   const clientsLoadError = clientsQuery.error?.message ?? null;
@@ -59,9 +103,18 @@ export default async function SettingsPage() {
         id: String(client.id ?? ""),
         name: String(client.business_name ?? "Unnamed client"),
       }));
-  const leads = (leadsQuery.data ?? []) as DbRow[];
-  const leadsLoadError = resolveLeadsLoadError(leadsQuery.error?.message ?? null);
+  const leads = (leadsResult.data ?? []) as DbRow[];
+  const leadsTotal = leadsResult.count ?? leads.length;
+  const leadsLoadError = resolveLeadsLoadError(leadsResult.error?.message ?? null);
+  const hasLeadFilters = Boolean(q || (status && status !== "all"));
   const resendReady = isResendConfigured();
+  const fromEmail = getResendFromEmail();
+  const needsCustomSendingDomain = resendReady && isOnboardingFromAddress(fromEmail);
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "";
+  const isCustomAppHost =
+    Boolean(appUrl) &&
+    !appUrl.includes("vercel.app") &&
+    !appUrl.includes("localhost");
   const paystackReady = Boolean(
     process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY && process.env.PAYSTACK_SECRET_KEY,
   );
@@ -150,7 +203,7 @@ export default async function SettingsPage() {
           >
             {resendReady ? (
               <p>
-                Email alerts are ready. From: <strong>{getResendFromEmail()}</strong>. Use the test button below to
+                Email alerts are ready. From: <strong>{fromEmail}</strong>. Use the test button below to
                 confirm delivery.
               </p>
             ) : (
@@ -184,6 +237,94 @@ export default async function SettingsPage() {
 
       <Card>
         <CardHeader>
+          <CardTitle className="text-zinc-900">Custom domain and sending domain</CardTitle>
+          <p className="text-sm text-zinc-500">
+            Point your public site and lead emails at your own hostname.
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-3 text-sm text-zinc-700">
+          <div
+            className={`rounded-lg border px-3 py-2 ${
+              isCustomAppHost
+                ? "border-emerald-200 bg-emerald-50 text-emerald-900"
+                : "border-amber-200 bg-amber-50 text-amber-900"
+            }`}
+          >
+            <p className="font-medium text-inherit">Website domain</p>
+            <p className="mt-1">
+              {isCustomAppHost
+                ? `Canonical URL is set to ${appUrl}.`
+                : appUrl
+                  ? `Still on a preview host (${appUrl}). Add your domain in Vercel → Domains, then set NEXT_PUBLIC_APP_URL to https://your-domain.`
+                  : "NEXT_PUBLIC_APP_URL is not set. After DNS is live, set it to https://your-domain and redeploy."}
+            </p>
+            <p className="mt-2 text-xs opacity-90">
+              Reply in chat with the exact hostname (for example stewardjamal.agency) when you are ready for DNS cutover help.
+            </p>
+          </div>
+          <div
+            className={`rounded-lg border px-3 py-2 ${
+              resendReady && !needsCustomSendingDomain
+                ? "border-emerald-200 bg-emerald-50 text-emerald-900"
+                : "border-amber-200 bg-amber-50 text-amber-900"
+            }`}
+          >
+            <p className="font-medium text-inherit">Resend sending domain</p>
+            {needsCustomSendingDomain ? (
+              <ol className="mt-2 list-decimal space-y-1 pl-5">
+                <li>In Resend → Domains, add the same domain you use for the site.</li>
+                <li>Add the DNS records Resend shows (SPF, DKIM, and any MX if requested).</li>
+                <li>
+                  Set <code className="rounded bg-amber-100 px-1 py-0.5 text-xs">RESEND_FROM_EMAIL</code> to something
+                  like <code className="rounded bg-amber-100 px-1 py-0.5 text-xs">no-reply@your-domain</code>.
+                </li>
+                <li>Redeploy on Vercel, then use the lead alert test above.</li>
+              </ol>
+            ) : resendReady ? (
+              <p className="mt-1">
+                Using a custom from address: <strong>{fromEmail}</strong>.
+              </p>
+            ) : (
+              <p className="mt-1">
+                Configure Resend first, then verify your domain so mail is not limited to test recipients.
+              </p>
+            )}
+          </div>
+          <p className="text-xs text-zinc-500">
+            Full steps live in <code className="rounded bg-zinc-100 px-1 py-0.5">DEPLOYMENT.md</code> (Custom domain +
+            Email sections).
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-zinc-900">Public portfolio</CardTitle>
+          <p className="text-sm text-zinc-500">
+            Live client sites replace sample case studies on the marketing pages.
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-2 text-sm text-zinc-700">
+          <ol className="list-decimal space-y-1 pl-5">
+            <li>
+              Open{" "}
+              <Link href="/dashboard/websites" className="font-medium text-[#1860F0] hover:underline">
+                Dashboard → Websites
+              </Link>
+              .
+            </li>
+            <li>Create or edit a site, set the live domain, and publish it.</li>
+            <li>The home and portfolio pages pull published websites automatically.</li>
+          </ol>
+          <p className="text-xs text-zinc-500">
+            Until at least one published website exists, the site shows labeled sample case studies from{" "}
+            <code className="rounded bg-zinc-100 px-1 py-0.5">src/content/portfolio-showcase.ts</code>.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
           <CardTitle className="text-zinc-900">Integrations</CardTitle>
           <p className="text-sm text-zinc-500">
             Email and payment providers used by leads, notifications, and billing.
@@ -194,7 +335,7 @@ export default async function SettingsPage() {
             <p className="font-medium text-zinc-900">Resend</p>
             <p className="mt-1 text-zinc-600">
               {resendReady
-                ? `Configured. From address: ${getResendFromEmail()}`
+                ? `Configured. From address: ${fromEmail}`
                 : "Not configured. Add RESEND_API_KEY and a verified RESEND_FROM_EMAIL in Vercel, then redeploy."}
             </p>
           </div>
@@ -229,12 +370,32 @@ export default async function SettingsPage() {
           </p>
         </CardHeader>
         <CardContent className="space-y-3">
+          <Suspense fallback={<div className="h-10 w-full max-w-sm animate-pulse rounded-lg bg-zinc-100" />}>
+            <DashboardListToolbar
+              searchPlaceholder="Search name, email, phone, message…"
+              statusOptions={[
+                { value: "all", label: "All statuses" },
+                { value: "new", label: "New" },
+                { value: "contacted", label: "Contacted" },
+                { value: "closed", label: "Closed" },
+              ]}
+            />
+          </Suspense>
           {leadsLoadError ? (
             <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
               Leads unavailable: {leadsLoadError}
             </p>
           ) : leads.length === 0 ? (
-            <p className="text-sm text-zinc-500">No leads yet.</p>
+            <EmptyState
+              title={hasLeadFilters ? "No matching leads" : "No leads yet"}
+              description={
+                hasLeadFilters
+                  ? "Try a different search or clear filters."
+                  : "When someone submits the contact form, their request appears here."
+              }
+              actionHref={hasLeadFilters ? undefined : "/contact"}
+              actionLabel={hasLeadFilters ? undefined : "Open contact form"}
+            />
           ) : (
             leads.map((lead) => (
               <div
@@ -262,6 +423,9 @@ export default async function SettingsPage() {
               </div>
             ))
           )}
+          <Suspense fallback={null}>
+            <PaginationBar page={page} pageSize={DASHBOARD_PAGE_SIZE} total={leadsTotal} />
+          </Suspense>
         </CardContent>
       </Card>
     </div>
