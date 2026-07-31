@@ -4,6 +4,8 @@ export type DbSetupStatus = {
   ready: boolean;
   missing: string[];
   sqlEditorUrl: string;
+  /** True when public.leads exists but phone column is missing. */
+  leadsPhoneReady: boolean;
 };
 
 const CORE_TABLES = [
@@ -42,9 +44,21 @@ export async function checkDbSetup(): Promise<DbSetupStatus> {
     }),
   );
 
+  let leadsPhoneReady = missing.includes("leads") ? false : true;
+  if (!missing.includes("leads")) {
+    const phoneProbe = await supabase.from("leads").select("phone").limit(1);
+    if (phoneProbe.error) {
+      const msg = phoneProbe.error.message.toLowerCase();
+      if (msg.includes("phone") || msg.includes("schema cache") || msg.includes("column")) {
+        leadsPhoneReady = false;
+      }
+    }
+  }
+
   return {
     ready: missing.length === 0,
     missing,
     sqlEditorUrl,
+    leadsPhoneReady,
   };
 }
