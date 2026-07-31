@@ -104,6 +104,66 @@ export default async function SettingsPage() {
 
       <Card>
         <CardHeader>
+          <CardTitle className="text-zinc-900">How you receive project requests</CardTitle>
+          <p className="text-sm text-zinc-500">
+            When someone submits Tell us about your project on the website, you get it here and by email.
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-3 text-sm">
+          <ol className="list-decimal space-y-2 pl-5 text-zinc-700">
+            <li>
+              <span className="font-medium text-zinc-900">Leads inbox</span> (this page) stores every submission with
+              name, email, phone, service, and message.
+            </li>
+            <li>
+              <span className="font-medium text-zinc-900">Email alert</span> goes to{" "}
+              <code className="rounded bg-zinc-100 px-1 py-0.5 text-xs">
+                {process.env.LEADS_ALERT_EMAIL ?? "stewardjamalagency@gmail.com"}
+              </code>{" "}
+              when Resend is configured.
+            </li>
+          </ol>
+          <div
+            className={`rounded-lg border px-3 py-2 ${
+              resendReady ? "border-emerald-200 bg-emerald-50 text-emerald-900" : "border-amber-200 bg-amber-50 text-amber-900"
+            }`}
+          >
+            {resendReady ? (
+              <p>
+                Email alerts are ready. From: <strong>{getResendFromEmail()}</strong>. Use the test button below to
+                confirm delivery.
+              </p>
+            ) : (
+              <div className="space-y-2">
+                <p className="font-medium">Email alerts are not configured yet.</p>
+                <p>
+                  In Vercel → Project → Settings → Environment Variables, add{" "}
+                  <code className="rounded bg-amber-100 px-1 py-0.5 text-xs">RESEND_API_KEY</code> and{" "}
+                  <code className="rounded bg-amber-100 px-1 py-0.5 text-xs">RESEND_FROM_EMAIL</code> (must use a domain
+                  verified in Resend), set{" "}
+                  <code className="rounded bg-amber-100 px-1 py-0.5 text-xs">LEADS_ALERT_EMAIL</code> to your inbox, then
+                  redeploy.
+                </p>
+                <p>
+                  Until then, leads still appear in the inbox below. They will not email you automatically.
+                </p>
+              </div>
+            )}
+          </div>
+          <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3">
+            <p className="text-xs font-medium uppercase tracking-wide text-zinc-600">Lead alert test</p>
+            <p className="mt-1 text-xs text-zinc-500">
+              Send a test project-request email to confirm inbox delivery.
+            </p>
+            <div className="mt-3">
+              <TestLeadAlertButton />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
           <CardTitle className="text-zinc-900">Integrations</CardTitle>
           <p className="text-sm text-zinc-500">
             Email and payment providers used by leads, notifications, and billing.
@@ -138,17 +198,6 @@ export default async function SettingsPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <AdminMessageForm clients={clients} />
-          <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3">
-            <p className="text-xs font-medium uppercase tracking-wide text-zinc-600">
-              Lead Alert Test
-            </p>
-            <p className="mt-1 text-xs text-zinc-500">
-              Send a test project-request email to confirm inbox delivery.
-            </p>
-            <div className="mt-3">
-              <TestLeadAlertButton />
-            </div>
-          </div>
         </CardContent>
       </Card>
 
