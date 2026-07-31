@@ -96,6 +96,26 @@ export default async function SettingsPage() {
         </div>
       ) : null}
 
+      {dbSetup.ready && !dbSetup.leadsPhoneReady ? (
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          <p className="font-semibold">Add phone column for contact form</p>
+          <p className="mt-1 text-amber-800">
+            Run this once in the SQL editor so phone numbers save as their own field:
+          </p>
+          <pre className="mt-2 overflow-x-auto rounded-md bg-amber-100/80 px-3 py-2 text-xs text-amber-950">
+            {`alter table public.leads\n  add column if not exists phone text;`}
+          </pre>
+          <Link
+            href={dbSetup.sqlEditorUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex text-sm font-semibold text-[#1860F0] hover:underline"
+          >
+            Open Supabase SQL editor →
+          </Link>
+        </div>
+      ) : null}
+
       {clientsLoadError ? (
         <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
           Clients unavailable until database setup is complete.
